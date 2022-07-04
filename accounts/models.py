@@ -9,11 +9,19 @@ from django.core.validators import validate_email
 
 def validate_zip(value):
     if len(value) > 0 and len(value) != 5:
-        raise ValidationError('Zip code must be 5 digits') 
+        raise ValidationError('Zip code must be 5 digits.') 
+
+def validate_phone(value):
+    if len(value) == 0:
+        return
+    for char in value:
+        if not char in '0123456789-() +':
+            raise ValidationError(f'Invalid character: {char}. Accepted characters: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -, (, ), "space", "+".') 
+
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, validators=[validate_email])
-    phone_number = PhoneField(null=True)
+    phone_number = models.CharField(max_length=16, null=True, validators=[validate_phone])
     zip_code = models.CharField(max_length=5, null=True, validators=[validate_zip])

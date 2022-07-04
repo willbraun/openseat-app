@@ -12,7 +12,7 @@ class TokenSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(style={'input_type':'password'}, write_only=True)
+    password2 = serializers.CharField(write_only=True)
     
     class Meta:
         model = User
@@ -23,12 +23,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
             }
         }
 
-    def save(self):
+    def save(self, request):
         user = User(
             email=self.validated_data['email'],
             username=self.validated_data['username'],
             first_name=self.validated_data['first_name'],
             last_name=self.validated_data['last_name'],
+            phone_number=self.validated_data['phone_number'],
+            zip_code=self.validated_data['zip_code'],
         )
 
         password = self.validated_data['password']
@@ -38,3 +40,4 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password':'Passwords must match.'})
         user.set_password(password)
         user.save()
+        return user
