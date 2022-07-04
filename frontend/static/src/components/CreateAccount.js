@@ -8,6 +8,7 @@ import plus from './../images/plus-solid.svg';
 
 const CreateAccount = ({appState, setAppState}) => {
     const [preview, setPreview] = useState(null);
+    const requiredFields = ['username', 'password1', 'password2', 'email', 'firstName', 'lastName', 'profilePic'];
     const [state, setState] = useState({
         username: '',
         password1: '',
@@ -15,29 +16,33 @@ const CreateAccount = ({appState, setAppState}) => {
         email: '',
         firstName: '',
         lastName: '',
+        profilePic: null,
         phoneNumber: '',
         zipCode: '',
-        profilePic: null,
     });
+
+    const allowSubmit = requiredFields.every(field => !!state[field])
+    console.log(allowSubmit);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const payload = {...state, 
             password: state.password1,
             first_name: state.firstName, 
             last_name: state.lastName,
+            profile_pic: state.profilePic,
             phone_number: state.phoneNumber,
             zip_code: state.zipCode,
-            profile_pic: state.profilePic,
         }
         delete payload.password1;
         delete payload.firstName;
         delete payload.lastName;
+        delete payload.profilePic;
         delete payload.phoneNumber;
         delete payload.zipCode;
-        delete payload.profilePic;
 
         const formData = new FormData();
         Object.entries(payload).forEach(entry => formData.append(entry[0], entry[1]))
@@ -126,12 +131,12 @@ const CreateAccount = ({appState, setAppState}) => {
                         required 
                         onChange={(e) => handleInput(e, setState)} />
                 </Form.Group>
-                <Form.Text>Recommended</Form.Text>
-                <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                 <Form.Group className="mb-3" controlId="formBasicProfilePic">
+                    <Form.Label>Profile Picture <span className="required-asterisk">*</span></Form.Label>
                     <button 
                         type="button" 
                         className="create-account-image-button"
+                        required
                         onClick={() => document.querySelector('.create-account-input-image').click()}>
                         <Form.Control 
                             type="file"
@@ -147,13 +152,15 @@ const CreateAccount = ({appState, setAppState}) => {
                             }
                     </button>
                 </Form.Group>
+                <Form.Text>Recommended</Form.Text>
+                <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Text> - for notifications</Form.Text>
                     <Form.Control 
                         name="phoneNumber" 
                         value={state.phoneNumber}
                         type="text" 
-                        maxlength="16"
+                        maxLength="16"
                         placeholder="Enter phone Number"
                         onChange={(e) => handleInput(e, setState)} />
                 </Form.Group>
@@ -164,12 +171,12 @@ const CreateAccount = ({appState, setAppState}) => {
                         name="zipCode" 
                         value={state.zipCode}
                         type="text" 
-                        maxlength="5"
+                        maxLength="5"
                         placeholder="Enter zip code" 
                         onChange={(e) => handleInput(e, setState)} />
                 </Form.Group>
                 
-                <Button variant="primary" type="submit">Create Account</Button>
+                <Button variant="primary" disabled={!allowSubmit} type="submit">Create Account</Button>
             </Form>
             <Link className="back-to-login" to={'/login'}>Back to login</Link>
         </main>

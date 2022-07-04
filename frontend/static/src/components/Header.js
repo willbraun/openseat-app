@@ -9,7 +9,6 @@ const Header = ({appState, setAppState}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const showHeader = !(location.pathname.includes('login') || location.pathname.includes('create-account'));
-    console.log(location);
 
     const logOut = async () => {
         const options = {
