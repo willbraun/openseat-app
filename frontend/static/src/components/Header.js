@@ -31,18 +31,18 @@ const Header = ({appState, setAppState}) => {
         navigate('/');
     }
 
-
+    const headerItems = (
+        <Nav.Item>
+            {appState.auth ? 
+                <Button onClick={logOut}>Log out</Button> :
+                <Link to={"/login"}>Log in</Link>
+            }
+        </Nav.Item>
+    )
 
     return (
         <Navbar>
-            {showHeader && 
-                <Nav.Item>
-                    {appState.auth ? 
-                        <Button onClick={logOut}>Log out</Button> :
-                        <Link to={"/login"}>Log in</Link>
-                    }
-                </Nav.Item>
-            }
+            {showHeader && headerItems}
         </Navbar>
     )
 }
