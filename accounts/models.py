@@ -25,3 +25,4 @@ class User(AbstractUser):
     email = models.CharField(max_length=255, validators=[validate_email])
     phone_number = models.CharField(max_length=16, null=True, validators=[validate_phone])
     zip_code = models.CharField(max_length=5, null=True, validators=[validate_zip])
+    image = models.ImageField(upload_to='accounts/images/', null=True)
