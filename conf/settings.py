@@ -167,6 +167,10 @@ REST_AUTH_SERIALIZERS = {
     'TOKEN_SERIALIZER': 'accounts.serializers.TokenSerializer',
 }
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.RegistrationSerializer'
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
