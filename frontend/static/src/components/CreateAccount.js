@@ -9,6 +9,7 @@ import plus from './../images/plus-solid.svg';
 const CreateAccount = ({appState, setAppState}) => {
     const [preview, setPreview] = useState(null);
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const requiredFields = ['username', 'password1', 'password2', 'email', 'firstName', 'lastName', 'profilePic'];
     const [state, setState] = useState({
         username: '',
@@ -94,7 +95,7 @@ const CreateAccount = ({appState, setAppState}) => {
                     <Form.Control 
                         name="password1" 
                         value={state.password1}
-                        type="password" 
+                        type={showPassword ? "text" : "password"}
                         placeholder="Enter password" 
                         required 
                         onChange={(e) => handleInput(e, setState)} />
@@ -104,11 +105,12 @@ const CreateAccount = ({appState, setAppState}) => {
                     <Form.Control 
                         name="password2" 
                         value={state.password2}
-                        type="password" 
+                        type={showPassword ? "text" : "password"} 
                         placeholder="Enter password" 
                         required 
                         onChange={(e) => handleInput(e, setState)} />
                 </Form.Group>
+                <Button variant="outline-primary" onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</Button>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email <span className="required-asterisk">*</span></Form.Label>
                     <Form.Control 

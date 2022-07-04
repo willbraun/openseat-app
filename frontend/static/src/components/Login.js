@@ -7,10 +7,14 @@ import { handleError } from './../helpers';
 import './../styles/auth.css'
 
 const Login = ({appState, setAppState}) => {
+    const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [state, setState] = useState({
         username: '',
         password: '',
     })
+
+    const allowSubmit = Object.keys(state).every(field => !!state[field]);
 
     const navigate = useNavigate();
 
@@ -34,12 +38,13 @@ const Login = ({appState, setAppState}) => {
         }
 
         const response = await fetch("/dj-rest-auth/login/", options).catch(handleError);
+        const data = await response.json();
 
         if (!response.ok) {
+            setError(Object.values(data)[0])
             throw new Error('Network response not ok!');
         }
 
-        const data = await response.json();
         Cookies.set("Authorization", `Token ${data.key}`);
         navigate('/');
         setAppState({...appState, auth: true});
@@ -64,13 +69,15 @@ const Login = ({appState, setAppState}) => {
                     <Form.Control 
                         name="password" 
                         value={state.password}
-                        type="password" 
+                        type={showPassword ? "text" : "password"} 
                         placeholder="Enter password" 
                         required 
                         onChange={handleInput}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">Log in</Button>
-                <Form.Text>Don't have an account? Click <Link className="create-account-link" to={'/create-account'}>here</Link> to create one.</Form.Text>
+                <Button variant="outline-primary" onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</Button>
+                <Button variant="primary" disabled={!allowSubmit} type="submit">Log in</Button>
+                <p className="error-message">{error}</p>
+                <p>Don't have an account? Click <Link className="create-account-link" to={'/create-account'}>here</Link> to create one.</p>
             </Form>
         </main>
     )
