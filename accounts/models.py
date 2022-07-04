@@ -8,8 +8,13 @@ from django.core.validators import validate_email
 
 
 def validate_zip(value):
+    try:
+        int(value)
+    except:
+        raise ValidationError('Zip Code must be a number.')
     if len(value) > 0 and len(value) != 5:
         raise ValidationError('Zip code must be 5 digits.') 
+    
 
 def validate_phone(value):
     if len(value) == 0:

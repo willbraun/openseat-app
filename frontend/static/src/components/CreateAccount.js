@@ -8,6 +8,7 @@ import plus from './../images/plus-solid.svg';
 
 const CreateAccount = ({appState, setAppState}) => {
     const [preview, setPreview] = useState(null);
+    const [error, setError] = useState('');
     const requiredFields = ['username', 'password1', 'password2', 'email', 'firstName', 'lastName', 'profilePic'];
     const [state, setState] = useState({
         username: '',
@@ -21,8 +22,7 @@ const CreateAccount = ({appState, setAppState}) => {
         zipCode: '',
     });
 
-    const allowSubmit = requiredFields.every(field => !!state[field])
-    console.log(allowSubmit);
+    const allowSubmit = requiredFields.every(field => !!state[field]);
 
     const navigate = useNavigate();
 
@@ -56,12 +56,20 @@ const CreateAccount = ({appState, setAppState}) => {
         }
 
         const response = await fetch("/dj-rest-auth/registration/", options).catch(handleError);
+        const data = await response.json();
 
         if (!response.ok) {
+            const entry = Object.entries(data)[0];
+            if (Array.isArray(entry[1])) {
+                setError(entry[1][0]);
+            }
+            else {
+                setError(entry[1]);
+            }
+            console.log(data);
             throw new Error('Network response not ok!');
         }
 
-        const data = await response.json();
         Cookies.set("Authorization", `Token ${data.key}`);
         navigate('/');
         setAppState({...appState, auth: true});
@@ -170,14 +178,16 @@ const CreateAccount = ({appState, setAppState}) => {
                     <Form.Control 
                         name="zipCode" 
                         value={state.zipCode}
-                        type="text" 
-                        maxLength="5"
-                        placeholder="Enter zip code" 
+                        type="number" 
+                        min="0"
+                        max="99999"
+                        placeholder="Enter 5-digit zip code" 
                         onChange={(e) => handleInput(e, setState)} />
                 </Form.Group>
                 
                 <Button variant="primary" disabled={!allowSubmit} type="submit">Create Account</Button>
             </Form>
+            <p className="error-message">{error}</p>
             <Link className="back-to-login" to={'/login'}>Back to login</Link>
         </main>
     )
