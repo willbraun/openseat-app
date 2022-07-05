@@ -1,28 +1,18 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from rest_framework import generics
 from .models import Event
 from events.serializers import EventSerializer
-from rest_framework.response import Response
 
 
-@api_view(['GET'])
-def get_events(request):
-    events = EventSerializer(Event.objects.filter(creator=request.user), many=True).data
-    # for event in events:
-    #     event.creator_profile_pic = event.creator.profile_pic
+# Create your views here.
+class MyEventsListCreateApiView(generics.ListCreateAPIView):
+    serializer_class = EventSerializer
 
-    return Response(events)
+    def get_queryset(self):
+        return Event.objects.filter(creator=self.request.user)
 
-# # Create your views here.
-# class MyEventsListCreateApiView(generics.ListCreateAPIView):
-#     serializer_class = EventSerializer
+    def perform_create(self, serializer):    
+        serializer.save(creator=self.request.user, participants=[self.request.user])
+        
 
-#     def get_queryset(self):
-#         events = Event.objects.filter(creator=self.request.user)
-#         for event in events:
-#             event.test = event.creator.profile_pic
-#         return events
-
-#     def perform_create(self, serializer):
-#         serializer.save(creator=self.request.user)
+# class UpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView)
