@@ -10,9 +10,7 @@ function App() {
 	})
 	
 	return (
-		<>
-			<ReactRouter appState={state} setAppState={setState}/>
-		</>
+		<ReactRouter appState={state} setAppState={setState}/>
 	);
 }
 

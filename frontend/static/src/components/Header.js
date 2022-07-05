@@ -31,12 +31,18 @@ const Header = ({appState, setAppState}) => {
     }
 
     const headerItems = (
+        <>
+        <Link to={'/'}>Home</Link>
+        <Link to={'my-events'}>My Events</Link>
+        <Link to={'/'}>Settings</Link> 
+        {/* Edit settings routes */}
         <Nav.Item>
             {appState.auth ? 
                 <Button onClick={logOut}>Log out</Button> :
                 <Link to={"/login"}>Log in</Link>
             }
         </Nav.Item>
+        </>
     )
 
     return (
