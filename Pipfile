@@ -13,6 +13,7 @@ gunicorn = "*"
 whitenoise = "~=6.2.0"
 django-phone-field = "*"
 twilio = "*"
+django-localflavor = "*"
 
 [dev-packages]
 

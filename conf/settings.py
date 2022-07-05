@@ -52,10 +52,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'localflavor',
 
     # local
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
+    'events.apps.EventsConfig',
     'frontend.apps.FrontendConfig',
 ]
 
