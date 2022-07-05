@@ -19,5 +19,5 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, validators=[validate_email])
     phone_number = models.CharField(max_length=16, blank=True, validators=[validate_phone])
-    zip_code = USZipCodeField()
+    zip_code = USZipCodeField(blank=True)
     profile_pic = models.ImageField(upload_to='accounts/images/', null=True)

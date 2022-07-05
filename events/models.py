@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from localflavor.us.models import USStateField, USZipCodeField
+from django.conf import settings
 
 # Create your models here.
 class Event(models.Model):
@@ -15,7 +16,7 @@ class Event(models.Model):
     zip_code = USZipCodeField()
     date = models.DateField()
     time = models.TimeField()
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
     participants = models.ManyToManyField(User, related_name='events', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

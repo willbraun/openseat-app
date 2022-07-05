@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from events.views import MyEventsListCreateApiView
+# from events.views import MyEventsListCreateApiView
 
 app_name = 'api'
 
