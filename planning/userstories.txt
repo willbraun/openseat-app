@@ -1,0 +1,137 @@
+Create Account
+"As a user,
+I want to create an account,
+So that my preferences and history can be saved for me."
+
+
+Login
+"As a user,
+I want to be able to log in,
+So that I can use the site with my saved data."
+
+
+Logout
+"As a user,
+I want to be able to log out,
+So that my data stays secure."
+
+
+Create events
+"As a creator user,
+I want to create events,
+So that I can reach other people with similar interests."
+
+
+Edit event
+"As a creator user,
+I want to be able to edit my events,
+So that I can update it with new information."
+
+
+Set max seats on event
+"As a creator,
+I want to set a max number of seats on my events,
+So that I can control the size of the meeting."
+
+
+Upload picture for event
+"As a creator user,
+I want to upload a picture for my event,
+So that I can provide more information to participants."
+
+
+Delete event
+"As a creator user,
+I want to delete an event,
+So that I can cancel it if my plans change."
+
+
+Home page
+"As a participant user, 
+I want to see a display of events,
+So that I can browse through them and find ones that I like."
+
+
+Must be logged in to join event
+"As a creator,
+I want only users with accounts to join my events,
+So that I can see who is coming before we meet up."
+
+
+My Events page
+"As a participant and creator, 
+I want to see a page of my events,
+So that I can see all past and future events I am included on."
+
+
+Take seat
+"As a participant, 
+I want to sign up for an event,
+So that I can participate with the group."
+
+
+Yield seat
+"As a participant, 
+I want to deselect a seat on a event,
+So that I can drop out if my plans change."
+
+
+Edit profile
+"As a user, 
+I want to edit my account settings 
+So that my search results and notifications are accurate."
+
+
+Creator can see participants on edit page
+"As a creator,
+I want to see who has joined my event,
+So that I can plan the event accordingly."
+
+
+Participants can see who is attending while viewing event
+"As a participant,
+I want to see the creator and other participants attending an event,
+So that I can decide if I want to go."
+
+
+Filter events by distance from ZIP code
+"As a participant,
+I want to be able to filter the display of events on my home page,
+So that I can find events close to me."
+
+
+Text notifications to creators
+"As a creator,
+I want to be notified when a user joins my event,
+So that I can plan to include them."
+
+
+Blocked users page within Settings
+"As a user,
+I want to view users I have blocked
+So that I know if I need to take further action."
+
+
+Add user to blocked list
+"As a user,
+I want to block a user,
+So that they cannot see my events and I cannot see theirs."
+
+
+Remove user from blocked list
+"As a user,
+I want to unblock a user,
+So that we can resume seeing each other's events"
+
+
+
+
+
+
+
+
+
+
+
+
+
