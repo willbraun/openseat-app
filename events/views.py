@@ -1,3 +1,9 @@
+import os
+import pdb
+import requests
+import urllib.parse
+import json
+from twilio.rest import Client
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -8,10 +14,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
 from django.db.models import F, Count
 from datetime import date
-import os
-import requests
-import urllib.parse
-import json
+
 
 
 def filter_events_by_distance(events, origin_zip, distance_in_miles):
@@ -51,6 +54,20 @@ def get_filtered_events(request):
         .filter(date__gte=date.today()))
 
     return filter_events_by_distance(events, origin_zip, radius)
+
+
+def send_text(recipient_number, message_body):
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    api_key = os.environ['TWILIO_API_KEY']
+    api_secret = os.environ['TWILIO_API_SECRET']
+    twilio_phone_number = os.environ['TWILIO_PHONE_NUMBER']
+    client = Client(api_key, api_secret, account_sid)
+
+    message = client.messages.create(
+        to = recipient_number, 
+        from_ = twilio_phone_number,
+        body = message_body,
+    )
 
 # Create your views here.
 @api_view(['GET'])
@@ -96,7 +113,10 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
         new_list = list(event.participants.all())
         if not self.request.user in new_list:
             new_list.append(self.request.user)
+            message = f'✅ {self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has filled a seat on your event "{event.name}"! Seats filled: {len(new_list)}/{event.seats}.'
             serializer.save(participants=new_list)
+            send_text(event.creator.phone_number, message)
+
 
 
 class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
@@ -113,4 +133,6 @@ class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
         new_list = list(event.participants.all())
         if self.request.user in new_list and self.request.user != event.creator:
             new_list.remove(self.request.user)
+            message = f'{self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has given up their seat on your event "{event.name}". Seats filled: {len(new_list)}/{event.seats}.'
             serializer.save(participants=new_list)
+            send_text(event.creator.phone_number, message)
