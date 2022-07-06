@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from .models import Event
+from accounts.serializers import UserOnEventSerializer
+
 
 class EventSearchSerializer(serializers.ModelSerializer):
-    creator_first = serializers.ReadOnlyField(source='creator.first_name')
-    creator_last = serializers.ReadOnlyField(source='creator.last_name')
-    creator_profile_pic = serializers.SerializerMethodField()
+    creator = UserOnEventSerializer('creator')
+    participants = UserOnEventSerializer('participants', many=True)
     distance = serializers.SerializerMethodField()
     participant_count = serializers.SerializerMethodField()
 
@@ -46,6 +47,9 @@ class NoAuthEventSearchSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
+    creator = UserOnEventSerializer('creator')
+    participants = UserOnEventSerializer('participants', many=True)
+    
     class Meta:
         model = Event
         fields = '__all__'
