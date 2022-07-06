@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import generics
 from .models import Event
-from events.serializers import EventParticipantsSerializer, EventSerializer, NoAuthEventSerializer
+from events.serializers import EventParticipantsSerializer, EventSearchSerializer, NoAuthEventSearchSerializer, EventSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
 from django.db.models import F, Count
@@ -75,9 +75,9 @@ def send_text(recipient_number, message_body):
 def get_home_events(request):
     events = get_filtered_events(request)
     if request.user.is_authenticated:
-        results = EventSerializer(events, many=True).data
+        results = EventSearchSerializer(events, many=True).data
     else:
-        results = NoAuthEventSerializer(events, many=True).data
+        results = NoAuthEventSearchSerializer(events, many=True).data
     
     return Response(results)
         
