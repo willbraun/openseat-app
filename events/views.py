@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import generics
 from .models import Event
-from events.serializers import EventSerializer, NoAuthEventSerializer
-from rest_framework.permissions import AllowAny
+from events.serializers import EventParticipantsSerializer, EventSerializer, NoAuthEventSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
 from django.db.models import F, Count
 from datetime import date
@@ -80,3 +80,21 @@ class EventDetailApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = (IsCreator,)
+
+
+class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
+    serializer_class = EventParticipantsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        event_id = self.kwargs['pk']
+        return Event.objects.filter(id=event_id)
+
+    def perform_update(self, serializer):
+        event_id = self.kwargs['pk']
+        event = Event.objects.filter(id=event_id)[0]
+        new_list = list(event.participants.all())
+        new_list.append(self.request.user)
+        serializer.save(participants=new_list)
+
+

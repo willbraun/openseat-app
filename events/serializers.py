@@ -44,3 +44,7 @@ class NoAuthEventSerializer(serializers.ModelSerializer):
         return (obj.participant_count)
 
 
+class EventParticipantsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('participants',)
