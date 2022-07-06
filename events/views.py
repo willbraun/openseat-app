@@ -94,7 +94,8 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
         event_id = self.kwargs['pk']
         event = Event.objects.filter(id=event_id)[0]
         new_list = list(event.participants.all())
-        new_list.append(self.request.user)
-        serializer.save(participants=new_list)
+        if not self.request.user in new_list:
+            new_list.append(self.request.user)
+            serializer.save(participants=new_list)
 
 
