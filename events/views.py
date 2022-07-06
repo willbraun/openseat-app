@@ -1,3 +1,4 @@
+import pdb
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Event
@@ -12,17 +13,16 @@ import urllib.parse
 import json
 
 
-def filter_events_by_distance(events, distance_in_miles):
+def filter_events_by_distance(events, origin_zip, distance_in_miles):
     def event_to_address(event):
         return f'{event.address} {event.city}, {event.state} {event.zip_code}'
     
     addresses = list(map(event_to_address, events))
     destination_string = ('|').join(addresses)
     destination_string_encoded = urllib.parse.quote(destination_string)
-    origin = '29615'
     api_key = os.environ['GOOGLE_API_KEY']
 
-    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destination_string_encoded}&origins={origin}&key={api_key}"
+    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destination_string_encoded}&origins={origin_zip}&key={api_key}"
 
     response = requests.request("GET", url, headers={}, data={})
     response_dict = json.loads(response.text)
@@ -53,15 +53,14 @@ class AuthEventsListApiView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        
-        # add kwargs for getting origin zip code and radius into the call
-        # add origin zip code to the filter_events_by_distance function
+        origin_zip = self.request.GET.get('origin_zip')
+        radius = int(self.request.GET.get('radius'))
 
         events = (Event.objects
             .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
             .filter(date__gte=date.today()))
         
-        return filter_events_by_distance(events, 200)
+        return filter_events_by_distance(events, origin_zip, radius)
 
         
 
