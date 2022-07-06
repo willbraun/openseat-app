@@ -18,4 +18,25 @@ class EventSerializer(serializers.ModelSerializer):
         return (obj.distance)
 
 
-# Make read-only event serializer for non-logged in users, for View with AllowAny permissions
+class NoAuthEventSerializer(serializers.ModelSerializer):
+    distance = serializers.SerializerMethodField()
+    participant_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Event
+        fields = (
+            'name',
+            'description',
+            'seats',
+            'image',
+            'distance',
+            'participant_count',
+        )
+
+    def get_distance(self, obj):
+        return (obj.distance)
+
+    def get_participant_count(self, obj):
+        return (obj.participant_count)
+
+

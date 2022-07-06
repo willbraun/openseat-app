@@ -1,9 +1,11 @@
 import pdb
 from django.shortcuts import render
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 from rest_framework import generics
 from .models import Event
-from events.serializers import EventSerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from events.serializers import EventSerializer, NoAuthEventSerializer
+from rest_framework.permissions import AllowAny
 from events.permissions import IsCreator
 from django.db.models import F, Count
 from datetime import date
@@ -41,27 +43,27 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
         
     return results
 
+def get_filtered_events(request):
+    origin_zip = request.GET.get('origin_zip')
+    radius = int(request.GET.get('radius'))
+
+    events = (Event.objects
+        .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
+        .filter(date__gte=date.today()))
+
+    return filter_events_by_distance(events, origin_zip, radius)
 
 # Create your views here.
-class NoAuthEventsListView(generics.ListAPIView):
-    # serializer_class = EventSerializer - scaled back to logged out view. Potentially scaled back filtering also.
-    permission_classes = (AllowAny,)
-
-
-class AuthEventsListApiView(generics.ListAPIView):
-    serializer_class = EventSerializer
-    permission_classes = (IsAuthenticated,)
-
-    def get_queryset(self):
-        origin_zip = self.request.GET.get('origin_zip')
-        radius = int(self.request.GET.get('radius'))
-
-        events = (Event.objects
-            .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
-            .filter(date__gte=date.today()))
-        
-        return filter_events_by_distance(events, origin_zip, radius)
-
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_home_events(request):
+    events = get_filtered_events(request)
+    if request.user.is_authenticated:
+        results = EventSerializer(events, many=True).data
+    else:
+        results = NoAuthEventSerializer(events, many=True).data
+    
+    return Response(results)
         
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):
