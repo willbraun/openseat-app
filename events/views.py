@@ -4,8 +4,8 @@ from .models import Event
 from events.serializers import EventSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
-from django.db.models import F
-from django.db.models import Count
+from django.db.models import F, Count
+from datetime import date
 
 
 # Create your views here.
@@ -20,8 +20,13 @@ class AuthEventsListApiView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        events = Event.objects.annotate(participant_count=Count('participants'))
-        return events.filter(participant_count__lt=F('seats'))
+        test = Event.objects.all()
+
+        events = (Event.objects
+            .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
+            .filter(date__gte=date.today()))
+        return events
+        
 
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):
