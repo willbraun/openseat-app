@@ -1,6 +1,4 @@
 from django.db import models
-from django.forms import ValidationError
-from accounts.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from localflavor.us.models import USStateField, USZipCodeField
 from django.conf import settings
