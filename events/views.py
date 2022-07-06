@@ -6,6 +6,40 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
 from django.db.models import F, Count
 from datetime import date
+import os
+import requests
+import urllib.parse
+import json
+
+
+def filter_events_by_distance(events, distance_in_miles):
+    def event_to_address(event):
+        return f'{event.address} {event.city}, {event.state} {event.zip_code}'
+    
+    addresses = list(map(event_to_address, events))
+    destination_string = ('|').join(addresses)
+    destination_string_encoded = urllib.parse.quote(destination_string)
+    origin = '29615'
+    api_key = os.environ['GOOGLE_API_KEY']
+
+    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destination_string_encoded}&origins={origin}&key={api_key}"
+
+    response = requests.request("GET", url, headers={}, data={})
+    response_dict = json.loads(response.text)
+    elements = response_dict['rows'][0]['elements']
+
+    METERS_PER_MILE = 1609.34
+
+    results = []
+    for (index, el) in enumerate(elements):
+        try:
+            if el['distance']['value'] < distance_in_miles * METERS_PER_MILE:
+                events[index].distance = el['distance']['value'] / METERS_PER_MILE
+                results.append(events[index])
+        except:
+            pass
+        
+    return results
 
 
 # Create your views here.
@@ -15,19 +49,21 @@ class NoAuthEventsListView(generics.ListAPIView):
 
 
 class AuthEventsListApiView(generics.ListAPIView):
-    # queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        test = Event.objects.all()
+        
+        # add kwargs for getting origin zip code and radius into the call
+        # add origin zip code to the filter_events_by_distance function
 
         events = (Event.objects
             .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
             .filter(date__gte=date.today()))
-        return events
         
+        return filter_events_by_distance(events, 200)
 
+        
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):
     serializer_class = EventSerializer
