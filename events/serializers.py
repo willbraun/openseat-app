@@ -6,6 +6,7 @@ class EventSerializer(serializers.ModelSerializer):
     creator_last = serializers.ReadOnlyField(source='creator.last_name')
     creator_profile_pic = serializers.SerializerMethodField()
     distance = serializers.SerializerMethodField()
+    participant_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
@@ -16,6 +17,9 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_distance(self, obj):
         return (obj.distance)
+
+    def get_participant_count(self, obj):
+        return (obj.participant_count)
 
 
 class NoAuthEventSerializer(serializers.ModelSerializer):
