@@ -99,3 +99,18 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
             serializer.save(participants=new_list)
 
 
+class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
+    serializer_class = EventParticipantsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        event_id = self.kwargs['pk']
+        return Event.objects.filter(id=event_id)
+
+    def perform_update(self, serializer):
+        event_id = self.kwargs['pk']
+        event = Event.objects.filter(id=event_id)[0]
+        new_list = list(event.participants.all())
+        if self.request.user in new_list and self.request.user != event.creator:
+            new_list.remove(self.request.user)
+            serializer.save(participants=new_list)
