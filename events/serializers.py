@@ -6,7 +6,6 @@ class EventSerializer(serializers.ModelSerializer):
     creator_last = serializers.ReadOnlyField(source='creator.last_name')
     creator_profile_pic = serializers.SerializerMethodField()
     distance = serializers.SerializerMethodField()
-    # creator_profile_pic = serializers.ReadOnlyField(source='creator.profile_pic')
 
     class Meta:
         model = Event
