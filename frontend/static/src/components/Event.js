@@ -18,25 +18,30 @@ const Event = ({appState, id, creator, participants, distance, participant_count
     return (
         <article className="event">
             <p className="event-name">{name}</p>
-            <div className="event-info">
-                <div>
-                    <div className="creator-info">
-                        <div className="creator-profile-pic-box">
-                            <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
-                        </div>
-                        <p>{creator.first_name} {creator.last_name}</p>
-                    </div>
-                    <address>{address} {city}, {state} {zip_code}</address>
-                    <date>{date}</date> at <time>{time}</time>
-                </div>
+            <div className="event-content">
                 <div className="event-image-box">
                     <img className="event-image" src={image} alt={name} />
                 </div>
+                <div className="event-info">
+                    <div className="description">
+                        <p>{description}</p>
+                    </div>
+                    <div className="details">
+                        <div className="creator-info">
+                            <div className="creator-profile-pic-box">
+                                <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
+                            </div>
+                            <p>{creator.first_name} {creator.last_name}</p>
+                        </div>
+                        <address>{address} {city}, {state} {zip_code}</address>
+                        <date>{date}</date> at <time>{time}</time>
+                    </div>
+                </div>
+                <div className="event-bottom">
+                    <button className="view-participants" type="button">{participant_count !== undefined ? participant_count : participants.length} / {seats} seats filled</button>
+                    <button className="event-action" type="button">Fill Seat</button>
+                </div>
             </div>
-            <p>{description}</p>
-            <p>{participant_count !== undefined ? participant_count : participants.length} going</p>
-            <p>{seats} seats</p>
-            {/* list of participants */}
         </article>
     )
 }
