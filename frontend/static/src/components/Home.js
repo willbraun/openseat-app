@@ -37,8 +37,9 @@ const Home = ({appState}) => {
         return <div>Loading events...</div>
     }
 
+    console.log(state.events);
     const eventList = state.events.map((event, i) => 
-        <Col key={i} xs={6}>
+    <Col key={i} xs={6}>
             <Event key={i} {...event} appState={appState}/>
         </Col>
     )

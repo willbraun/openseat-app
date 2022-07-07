@@ -3,6 +3,7 @@ import requests
 import urllib.parse
 import json
 from twilio.rest import Client
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -44,13 +45,15 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
         
     return results
 
-def get_filtered_events(request):
+def filter_home_events(request):
     origin_zip = request.GET.get('origin_zip')
     radius = int(request.GET.get('radius'))
+    # test = settings.AUTH_USER_MODEL.objects.
+    # import pdb; pdb.set_trace()
     
-    import pdb; pdb.set_trace()
     events = (Event.objects
         .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
+        .exclude(participants__id=request.user.id)
         .filter(date__gte=date.today()))
 
     return filter_events_by_distance(events, origin_zip, radius)
@@ -73,7 +76,7 @@ def send_text(recipient_number, message_body):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_home_events(request):
-    events = get_filtered_events(request)
+    events = filter_home_events(request)
     if request.user.is_authenticated:
         results = EventSearchSerializer(events, many=True).data
     else:

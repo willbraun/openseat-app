@@ -38,6 +38,7 @@ const Header = ({appState, setAppState}) => {
                 </div>
                 {appState.auth && <Link className="header-nav" to={'my-events/create'}>Create Event</Link>}
                 <Link className="header-nav" to={'/'}>Home</Link>
+                <Link className="header-nav" to={'/'}>Attending</Link>
                 <Link className="header-nav" to={'my-events'}>My Events</Link>
                 <Link className="header-nav" to={'/'}>Settings</Link> 
                 {/* Edit settings routes */}
