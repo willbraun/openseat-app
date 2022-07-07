@@ -2,6 +2,8 @@ import './../styles/event.css'
 
 const Event = ({appState, id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at}) => {
     // state has the state of the fill/give up seat button
+    // state has current participants list
+    // state updates participants after button click
     
     // update fill seat button to show either fill or give up seat based on appstate.auth
     // details about event are passed down from home
