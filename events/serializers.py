@@ -8,6 +8,7 @@ class EventSearchSerializer(serializers.ModelSerializer):
     participants = UserOnEventSerializer('participants', read_only=True, many=True)
     distance = serializers.SerializerMethodField()
     participant_count = serializers.SerializerMethodField()
+    is_participant = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
@@ -23,10 +24,14 @@ class EventSearchSerializer(serializers.ModelSerializer):
     def get_participant_count(self, obj):
         return (obj.participant_count)
 
+    def get_is_participant(self, obj):
+        return (obj.is_participant)
+
 
 class NoAuthEventSearchSerializer(serializers.ModelSerializer):
     distance = serializers.SerializerMethodField()
     participant_count = serializers.SerializerMethodField()
+    is_participant = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
@@ -44,6 +49,9 @@ class NoAuthEventSearchSerializer(serializers.ModelSerializer):
 
     def get_participant_count(self, obj):
         return (obj.participant_count)
+
+    def get_is_participant(self, obj):
+        return (obj.is_participant)
 
 
 class EventSerializer(serializers.ModelSerializer):

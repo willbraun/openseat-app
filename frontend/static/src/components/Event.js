@@ -7,7 +7,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
     const [eventState, setEventState] = useState({
         participants: participants,
     });
-    console.log(eventState.participants);
+
     const attending = eventState.participants?.map(participant => participant.id).includes(appState.userId);
 
     // include view for seeing participants on the event

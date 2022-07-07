@@ -11,7 +11,7 @@ from .models import Event
 from events.serializers import EventParticipantsSerializer, EventSearchSerializer, NoAuthEventSearchSerializer, EventSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
-from django.db.models import F, Count
+from django.db.models import F, Count, Exists, Subquery, OuterRef
 from datetime import date
 
 
@@ -47,7 +47,8 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
 def get_filtered_events(request):
     origin_zip = request.GET.get('origin_zip')
     radius = int(request.GET.get('radius'))
-
+    
+    import pdb; pdb.set_trace()
     events = (Event.objects
         .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
         .filter(date__gte=date.today()))
@@ -110,7 +111,7 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
         event_id = self.kwargs['pk']
         event = Event.objects.filter(id=event_id)[0]
         new_list = list(event.participants.all())
-        if not self.request.user in new_list:
+        if not self.request.user in new_list and len(new_list) < event.seats:
             new_list.append(self.request.user)
             serializer.save(participants=new_list)
             if len(event.creator.phone_number) > 0:
