@@ -72,8 +72,8 @@ const CreateAccount = ({appState, setAppState}) => {
         }
 
         Cookies.set("Authorization", `Token ${data.key}`);
+        setAppState({...appState, auth: true, userId: data.id, userZip: data.zip});
         navigate('/');
-        setAppState({...appState, auth: true});
     }
     
     return (

@@ -1,0 +1,24 @@
+.event {
+    position: relative;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 3px 1px rgb(173, 173, 173);
+}
+
+.event-name {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.event img {
+    width: 5rem;
+}
+
+.event-info {
+    display: flex;
+
+}
+

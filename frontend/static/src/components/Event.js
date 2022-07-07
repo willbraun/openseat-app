@@ -1,4 +1,6 @@
-const Event = ({appState}) => {
+import './../styles/event.css'
+
+const Event = ({appState, id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at}) => {
     // state has the state of the fill/give up seat button
     
     // update fill seat button to show either fill or give up seat based on appstate.auth
@@ -11,8 +13,31 @@ const Event = ({appState}) => {
 
     // if not logged in, some properties like participants will be null. handle those if null and don't show
     
+
+
     return (
-        <div>Event</div>
+        <article className="event">
+            <p className="event-name">{name}</p>
+            <div className="event-info">
+                <div>
+                    <div className="creator-info">
+                        <div className="creator-profile-pic-box">
+                            <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
+                        </div>
+                        <p>{creator.first_name} {creator.last_name}</p>
+                    </div>
+                    <address>{address} {city}, {state} {zip_code}</address>
+                    <date>{date}</date> at <time>{time}</time>
+                </div>
+                <div className="event-image-box">
+                    <img className="event-image" src={image} alt={name} />
+                </div>
+            </div>
+            <p>{description}</p>
+            <p>{participant_count !== undefined ? participant_count : participants.length} going</p>
+            <p>{seats} seats</p>
+            {/* list of participants */}
+        </article>
     )
 }
 

@@ -5,10 +5,11 @@ from .models import User
 
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source='user.id')
+    zip = serializers.ReadOnlyField(source='user.zip_code')
 
     class Meta:
         model = TokenModel
-        fields = ('key','id',)
+        fields = ('key', 'id', 'zip',)
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

@@ -1,4 +1,5 @@
 .login, .create-account {
+    margin-top: 2rem;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

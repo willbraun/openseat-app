@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header * {
+    text-decoration: none;
+    color: #000;
+}
+
+.logo-link:hover,
+.header-nav:hover {
+    color: #FFA500; 
+}
+
+.header-nav {
+    margin-left: 1rem;
+    background-color: transparent;
+    border: none;
+}
+
+.logo-link {
+    flex-grow: 1;
+    font-size: 2rem;
+}

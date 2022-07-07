@@ -7,6 +7,7 @@ function App() {
 	const [state, setState] = useState({
 		auth: false,
 		userId: 0,
+		userZip: '',
 	})
 	
 	return (
