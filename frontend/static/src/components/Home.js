@@ -10,7 +10,7 @@ const Home = ({appState}) => {
     const [state, setState] = useState({
         searchZip: appState.userZip.length > 0 ? appState.userZip : '29601',
         radius: 20,
-        events: [],
+        events: null,
     })
 
     // dropdowns in UI for each state item
@@ -33,8 +33,11 @@ const Home = ({appState}) => {
         getHomeEvents();
     }, [])
 
-    if (state.events.length === 0) {
+    if (state.events === null) {
         return <div>Loading events...</div>
+    }
+    else if (state.events.length === 0) {
+        return <div>No new events found. Create one!</div>
     }
 
     console.log(state.events);

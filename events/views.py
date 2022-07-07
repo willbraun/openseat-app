@@ -18,6 +18,9 @@ from datetime import date
 
 
 def filter_events_by_distance(events, origin_zip, distance_in_miles):
+    if len(events) == 0:
+        return []
+    
     def event_to_address(event):
         return f'{event.address} {event.city}, {event.state} {event.zip_code}'
     
@@ -48,8 +51,6 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
 def filter_home_events(request):
     origin_zip = request.GET.get('origin_zip')
     radius = int(request.GET.get('radius'))
-    # test = settings.AUTH_USER_MODEL.objects.
-    # import pdb; pdb.set_trace()
     
     events = (Event.objects
         .annotate(participant_count=Count('participants')).filter(participant_count__lt=F('seats'))
@@ -119,7 +120,7 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
             serializer.save(participants=new_list)
             if len(event.creator.phone_number) > 0:
                 message = f'✅ {self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has filled a seat on your event "{event.name}"! Seats filled: {len(new_list)}/{event.seats}.'
-                send_text(event.creator.phone_number, message)
+                # send_text(event.creator.phone_number, message)
 
 
 
@@ -140,4 +141,4 @@ class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
             serializer.save(participants=new_list)
             if len(event.creator.phone_number) > 0:
                 message = f'{self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has given up their seat on your event "{event.name}". Seats filled: {len(new_list)}/{event.seats}.'
-                send_text(event.creator.phone_number, message)
+                # send_text(event.creator.phone_number, message)
