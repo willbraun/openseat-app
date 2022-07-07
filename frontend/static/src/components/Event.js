@@ -7,7 +7,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
     const [eventState, setEventState] = useState({
         participants: participants,
     });
-    
+    console.log(eventState.participants);
     const attending = eventState.participants.map(participant => participant.id).includes(appState.userId);
 
     // include view for seeing participants on the event
@@ -20,7 +20,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
             },
         }
 
-        const response = await fetch(`/api_v1/events/${id}/add-self`, options).catch(handleError);
+        const response = await fetch(`/api_v1/events/${id}/add-self/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error('Network request not ok!');
@@ -38,7 +38,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
             },
         }
 
-        const response = await fetch(`/api_v1/events/${id}/remove-self`, options).catch(handleError);
+        const response = await fetch(`/api_v1/events/${id}/remove-self/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error('Network request not ok!');

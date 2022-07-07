@@ -5,9 +5,9 @@ from events.views import EventDetailApiView, MyEventsListCreateApiView, EventAdd
 app_name = 'events'
 
 urlpatterns = [
-    path('<int:pk>/add-self', EventAddSelfApiView.as_view(), name='add-self'),
-    path('<int:pk>/remove-self', EventRemoveSelfApiView.as_view(), name='remove-self'),
-    path('<int:pk>', EventDetailApiView.as_view(), name='event-detail'),
-    path('mine', MyEventsListCreateApiView.as_view(), name='my-events'),
+    path('<int:pk>/add-self/', EventAddSelfApiView.as_view(), name='add-self'),
+    path('<int:pk>/remove-self/', EventRemoveSelfApiView.as_view(), name='remove-self'),
+    path('<int:pk>/', EventDetailApiView.as_view(), name='event-detail'),
+    path('mine/', MyEventsListCreateApiView.as_view(), name='my-events'),
     path('', get_home_events, name='events'),
 ]

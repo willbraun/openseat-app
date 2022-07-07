@@ -33,7 +33,6 @@ ALLOWED_HOSTS = [
     'openseat-app.herokuapp.com',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
