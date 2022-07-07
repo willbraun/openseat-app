@@ -112,9 +112,10 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
         new_list = list(event.participants.all())
         if not self.request.user in new_list:
             new_list.append(self.request.user)
-            message = f'✅ {self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has filled a seat on your event "{event.name}"! Seats filled: {len(new_list)}/{event.seats}.'
             serializer.save(participants=new_list)
-            send_text(event.creator.phone_number, message)
+            if len(event.creator.phone_number) > 0:
+                message = f'✅ {self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has filled a seat on your event "{event.name}"! Seats filled: {len(new_list)}/{event.seats}.'
+                send_text(event.creator.phone_number, message)
 
 
 
@@ -132,6 +133,7 @@ class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
         new_list = list(event.participants.all())
         if self.request.user in new_list and self.request.user != event.creator:
             new_list.remove(self.request.user)
-            message = f'{self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has given up their seat on your event "{event.name}". Seats filled: {len(new_list)}/{event.seats}.'
             serializer.save(participants=new_list)
-            send_text(event.creator.phone_number, message)
+            if len(event.creator.phone_number) > 0:
+                message = f'{self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has given up their seat on your event "{event.name}". Seats filled: {len(new_list)}/{event.seats}.'
+                send_text(event.creator.phone_number, message)

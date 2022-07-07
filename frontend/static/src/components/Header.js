@@ -31,19 +31,25 @@ const Header = ({appState, setAppState}) => {
     }
 
     return (
-        <Navbar className="header">
-            <Link className="logo-link" to={'/'}>OpenSeat</Link>
-            <Link className="header-nav" to={'/'}>Home</Link>
-            <Link className="header-nav" to={'my-events'}>My Events</Link>
-            <Link className="header-nav" to={'/'}>Settings</Link> 
-            {/* Edit settings routes */}
-            <Nav.Item >
-                {appState.auth ? 
-                    <button className="header-nav" onClick={logOut}>Log out</button> :
-                    <Link className="header-nav" to={"/login"}>Log in</Link>
-                }
-            </Nav.Item>
-        </Navbar>
+        <>
+            <div className="header">
+                <div className="logo-link-box">
+                    <Link className="logo-link" to={'/'}>OpenSeat</Link>
+                </div>
+                {appState.auth && <Link className="header-nav" to={'my-events/create'}>Create Event</Link>}
+                <Link className="header-nav" to={'/'}>Home</Link>
+                <Link className="header-nav" to={'my-events'}>My Events</Link>
+                <Link className="header-nav" to={'/'}>Settings</Link> 
+                {/* Edit settings routes */}
+                <div >
+                    {appState.auth ? 
+                        <button className="header-nav" onClick={logOut}>Log out</button> :
+                        <Link className="header-nav" to={"/login"}>Log in</Link>
+                    }
+                </div>
+            </div>
+            <div className="spacer"></div>
+        </>
     )
 }
 

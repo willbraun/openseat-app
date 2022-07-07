@@ -1,9 +1,19 @@
 .header {
+    position: fixed;
+    top: 0;
+    height: var(--header-height);
+    padding: 0 2rem;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
-    padding: 0.5rem 1rem;
     border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+    background-color: #fff;
+}
+
+.spacer {
+    height: var(--header-height)
 }
 
 .header * {
@@ -20,9 +30,14 @@
     margin-left: 1rem;
     background-color: transparent;
     border: none;
+    font-size: 1.2rem;
+}
+
+.logo-link-box {
+    flex-grow: 1;
 }
 
 .logo-link {
-    flex-grow: 1;
+    width: fit-content;
     font-size: 2rem;
 }

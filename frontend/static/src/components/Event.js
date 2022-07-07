@@ -1,24 +1,53 @@
-import './../styles/event.css'
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { handleError } from '../helpers';
+import './../styles/event.css';
 
 const Event = ({appState, id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at}) => {
-
+    const [eventState, setEventState] = useState({
+        participants: participants,
+    });
     
-    
-    // state has the state of the fill/give up seat button
-    // state has current participants list
-    // state updates participants after button click
-    
-    // update fill seat button to show either fill or give up seat based on appstate.auth
-    // details about event are passed down from home
-    // fill or give up seat function fires off the respective request based on if the current user is on the event
-    // after the request is made, update the state of the button based on the response
-    // show loading icon inside the button while the request is processing
+    const attending = eventState.participants.map(participant => participant.id).includes(appState.userId);
 
     // include view for seeing participants on the event
 
-    // if not logged in, some properties like participants will be null. handle those if null and don't show
-    
-    const attending = participants.map(part => part.id).includes(appState.userId);
+    const fillSeat = async () => {
+        const options = {
+            method: 'PUT',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+        }
+
+        const response = await fetch(`/api_v1/events/${id}/add-self`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error('Network request not ok!');
+        }
+
+        const data = await response.json();
+        setEventState({participants: data.participants});
+    }
+
+    const giveUpSeat = async () => {
+        const options = {
+            method: 'PUT',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+        }
+
+        const response = await fetch(`/api_v1/events/${id}/remove-self`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error('Network request not ok!');
+        }
+
+        const data = await response.json();
+        setEventState({participants: data.participants});
+    }
+
 
     const actionButton = () => {
         if (!appState.auth) {
@@ -31,15 +60,14 @@ const Event = ({appState, id, creator, participants, distance, participant_count
             return (
                 <div className="event-action youre-going-box">
                     <div className="youre-going">You're going!</div>
-                    <button className="give-up-seat" type="button">Cancel</button>
+                    <button className="give-up-seat" type="button" onClick={() => giveUpSeat()}>Cancel</button>
                 </div>
             )
         }
         else {
-            return <button className="event-action fill-seat" type="button">Fill Seat</button>
+            return <button className="event-action fill-seat" type="button" onClick={() => fillSeat()}>Fill Seat</button>
         }
     }
-
 
     return (
         <article className="event">
@@ -63,7 +91,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
                             </div>
                             <p className="distance">{distance.toFixed(1)} mi</p>
                             <address>{address} {city}, {state} {zip_code}</address>
-                            <date>{date}</date> at <time>{time}</time>
+                            <time>{date} at {time}</time>
                             </>
                             :
                             <p className="distance">{distance.toFixed(1)} mi</p>
@@ -71,9 +99,9 @@ const Event = ({appState, id, creator, participants, distance, participant_count
                     </div>
                 </div>
                 <div className="event-bottom">
-                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{participant_count !== undefined ? participant_count : participants.length} / {seats} seats filled</button>
+                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{appState.auth ? eventState.participants.length : participant_count} / {seats} seats filled</button>
                     {actionButton()}                
-                    </div>
+                </div>
             </div>
         </article>
     )

@@ -57,6 +57,9 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventParticipantsSerializer(serializers.ModelSerializer):
+    participants = UserOnEventSerializer('participants', read_only=True, many=True)
+    
     class Meta:
         model = Event
         fields = ('participants',)
+        depth = 1

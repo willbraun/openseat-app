@@ -17,6 +17,7 @@ const Home = ({appState}) => {
     // update state when dropdowns are changed
     // make filter button to get events from API with query params from state
 
+    
     useEffect(() => {
         const getHomeEvents = async () => {
             const response = await fetch(`/api_v1/events/?origin_zip=${state.searchZip}&radius=${state.radius}`).catch(handleError);
@@ -32,23 +33,21 @@ const Home = ({appState}) => {
         getHomeEvents();
     }, [])
 
-    // map over response and convert each to an Event component - pass down appState
+    if (state.events.length === 0) {
+        return <div>Loading events...</div>
+    }
+
     const eventList = state.events.map((event, i) => 
         <Col key={i} xs={6}>
             <Event key={i} {...event} appState={appState}/>
         </Col>
     )
-
-    // use react-bootstrap to fill the cards into a grid
-
     
     return (
         <main className="home-page">
-            <Row>
+            <Row className="gy-4">
                 {eventList}
             </Row>
-
-            {appState.auth && <Link to={'my-events/create'}>Create Event</Link>}
         </main>
     )
 }
