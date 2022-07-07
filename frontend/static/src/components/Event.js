@@ -1,6 +1,9 @@
 import './../styles/event.css'
 
 const Event = ({appState, id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at}) => {
+
+    
+    
     // state has the state of the fill/give up seat button
     // state has current participants list
     // state updates participants after button click
@@ -28,16 +31,25 @@ const Event = ({appState, id, creator, participants, distance, participant_count
                     <div className="description">
                         <p>{description}</p>
                     </div>
-                    <div className="details">
-                        <div className="creator-info">
-                            <div className="creator-profile-pic-box">
-                                <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
+                    <div className={`details${appState.auth ? " large" : ""}`}>
+                        {appState.auth ?
+                            <>
+                            <div className="creator-info">
+                                <div className="creator-profile-pic-box">
+                                    <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
+                                </div>
+                                <p>{creator.first_name} {creator.last_name}</p>
                             </div>
-                            <p>{creator.first_name} {creator.last_name}</p>
-                        </div>
-                        <address>{address} {city}, {state} {zip_code}</address>
-                        <date>{date}</date> at <time>{time}</time>
+                            <p className="distance">{distance.toFixed(1)} mi</p>
+                            <address>{address} {city}, {state} {zip_code}</address>
+                            <date>{date}</date> at <time>{time}</time>
+                            </>
+                            :
+                            <p className="distance">{distance.toFixed(1)} mi</p>
+                        }
                     </div>
+                        
+                
                 </div>
                 <div className="event-bottom">
                     <button className="view-participants" type="button">{participant_count !== undefined ? participant_count : participants.length} / {seats} seats filled</button>

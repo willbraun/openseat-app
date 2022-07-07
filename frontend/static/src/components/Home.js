@@ -34,10 +34,10 @@ const Home = ({appState}) => {
 
     // map over response and convert each to an Event component - pass down appState
     const eventList = state.events.map((event, i) => 
-        <Col xs={6}>
+        <Col key={i} xs={6}>
             <Event key={i} {...event} appState={appState}/>
         </Col>
-        )
+    )
 
     // use react-bootstrap to fill the cards into a grid
 
