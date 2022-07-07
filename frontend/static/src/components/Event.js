@@ -18,6 +18,27 @@ const Event = ({appState, id, creator, participants, distance, participant_count
 
     // if not logged in, some properties like participants will be null. handle those if null and don't show
     
+    const attending = participants.map(part => part.id).includes(appState.userId);
+
+    const actionButton = () => {
+        if (!appState.auth) {
+            return <div className="event-action disabled">Log in to join!</div>
+        }
+        else if (creator.id === appState.userId) {
+            return <div className="event-action disabled">Your Event</div>
+        }
+        else if (attending) {
+            return (
+                <div className="event-action youre-going-box">
+                    <div className="youre-going">You're going!</div>
+                    <button className="give-up-seat" type="button">Cancel</button>
+                </div>
+            )
+        }
+        else {
+            return <button className="event-action fill-seat" type="button">Fill Seat</button>
+        }
+    }
 
 
     return (
@@ -48,13 +69,11 @@ const Event = ({appState, id, creator, participants, distance, participant_count
                             <p className="distance">{distance.toFixed(1)} mi</p>
                         }
                     </div>
-                        
-                
                 </div>
                 <div className="event-bottom">
-                    <button className="view-participants" type="button">{participant_count !== undefined ? participant_count : participants.length} / {seats} seats filled</button>
-                    <button className="event-action" type="button">Fill Seat</button>
-                </div>
+                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{participant_count !== undefined ? participant_count : participants.length} / {seats} seats filled</button>
+                    {actionButton()}                
+                    </div>
             </div>
         </article>
     )
