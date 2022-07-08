@@ -42,7 +42,12 @@ const MyEvents = ({appState}) => {
     
     return (
         <main className="my-events-page">
-            {eventBeingEdited && <EditEvent eventBeingEdited={eventBeingEdited}/>}
+            {eventBeingEdited && <EditEvent 
+                eventBeingEdited={eventBeingEdited} 
+                setEventBeingEdited={setEventBeingEdited}
+                events={events} 
+                setEvents={setEvents}/>
+            }
             <Row className="gy-4">
                 {eventList}
             </Row>

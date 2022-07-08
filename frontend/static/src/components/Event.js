@@ -63,7 +63,7 @@ const Event = ({appState, setEventBeingEdited, event}) => {
         }
         else if (creator.id === appState.userId) {
             return (
-                <button className="event-action edit-event" type="button" onClick={() => setEventBeingEdited(event)}>Edit Event</button>
+                <button className="event-action edit-event-button" type="button" onClick={() => setEventBeingEdited(event)}>Edit Event</button>
                 // <>
                 //     <Routes>
                 //         <Route path={`edit/${id}`} element={<div>TEST</div>}/> 

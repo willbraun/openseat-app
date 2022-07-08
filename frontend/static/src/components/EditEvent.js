@@ -7,10 +7,8 @@ import './../styles/createevent.css';
 import { handleError } from '../helpers';
 import './../styles/editevent.css';
 
-const EditEvent = ({eventBeingEdited}) => {
+const EditEvent = ({eventBeingEdited, setEventBeingEdited, events, setEvents}) => {
     const [state, setState] = useState(eventBeingEdited);
-    
-    const navigate = useNavigate();
 
     const deleteEvent = async () => {
         const options = {
@@ -26,13 +24,16 @@ const EditEvent = ({eventBeingEdited}) => {
             throw new Error('Network response was not ok!');
         }
 
-        navigate('/my-events');
+        const index = events.findIndex(event => event.id === state.id);
+        const newList = events;
+        newList.splice(events[index], 1);
+        setEvents(newList);
+        setEventBeingEdited(null);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // editEvent();
-        navigate('/my-events/');
     }
     
     return (
@@ -42,7 +43,7 @@ const EditEvent = ({eventBeingEdited}) => {
                 <EventInput key={0} parentState={state} setParentState={setState}/>
                 <div className="edit-event-bottom">
                     <button type="button" onClick={() => deleteEvent()}>Delete</button>
-                    <button type="button" onClick={() => navigate(-1)}>Cancel</button> 
+                    <button type="button" onClick={() => setEventBeingEdited(null)}>Cancel</button> 
                     <button type="submit">Save</button>
                 </div> 
             </Form>

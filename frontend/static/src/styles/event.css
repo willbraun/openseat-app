@@ -132,7 +132,7 @@
 }
 
 .fill-seat,
-.edit-event {
+.edit-event-button {
     background-color: var(--dark-green);
     color: #fff;
     text-decoration: none;
@@ -165,7 +165,7 @@
 }
 
 .fill-seat:hover,
-.edit-event:hover {
+.edit-event-button:hover {
     filter: brightness(125%);
     color: #fff;
 }
