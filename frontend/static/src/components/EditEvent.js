@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 import './../styles/createevent.css';
 import { handleError } from '../helpers';
 
-const EditEvent = () => {
-    const [state, setState] = useState(null);
+const EditEvent = ({eventState, setEventState}) => {
+    const [state, setState] = useState(eventState);
     const { id } = useParams();
 
     useEffect(() => {
@@ -74,7 +74,7 @@ const EditEvent = () => {
         <main className="create-event">
             <Form className="event-input-form" onSubmit={handleSubmit}>
                 <h2>Edit Event</h2>
-                <EventInput parentState={state} setParentState={setState}/>
+                <EventInput key={0} parentState={state} setParentState={setState}/>
                 <div className="create-event-bottom">
                     <button type="button" onClick={() => deleteEvent()}>Delete</button>
                     <button type="button" onClick={() => navigate(-1)}>Cancel</button> 

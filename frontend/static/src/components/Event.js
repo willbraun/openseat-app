@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, Routes, Route } from 'react-router-dom';
+import EditEvent from './EditEvent';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
@@ -53,12 +54,24 @@ const Event = ({appState, id, creator, participants, distance, participant_count
     }
 
 
+
+
     const actionButton = () => {
         if (!appState.auth) {
             return <div className="event-action disabled">Log in to join!</div>
         }
         else if (creator.id === appState.userId) {
-            return <Link className="event-action edit-event" to={`${id}`}>Edit Event</Link>
+            return (
+                <>
+                    <Routes>
+                        <Route path={`edit/${id}`} element={<div>TEST</div>}/> 
+                        {/* <EditEvent key={id}/> */}
+                    </Routes>
+
+                    <Link key={id} className="event-action edit-event" to={`edit/${id}`}>Edit Event</Link>
+                </>
+                
+            )
         }
         else if (attending) {
             return (

@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form'; 
 import { handleInput, handleImage, states } from "../helpers";
 import plus from './../images/plus-solid.svg'; 
 
 const EventInput = ({parentState, setParentState}) => {
-    const [preview, setPreview] = useState(parentState?.image)
+    console.log(parentState);
+    const [preview, setPreview] = useState(parentState.image)
     
+    useEffect(() => {
+        console.log('test')
+        setPreview(parentState?.image);
+    }, [])
+
     return (
         <>
             <Form.Group controlId="name">
