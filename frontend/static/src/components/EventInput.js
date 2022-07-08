@@ -9,9 +9,8 @@ const EventInput = ({parentState, setParentState}) => {
     
     return (
         <>
-            <Form.Text>All fields required</Form.Text>
             <Form.Group controlId="name">
-                <Form.Label htmlFor="name">Name</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control  
                     name="name" 
                     value={parentState.name} 
@@ -19,7 +18,7 @@ const EventInput = ({parentState, setParentState}) => {
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
             <Form.Group controlId="description">
-                <Form.Label htmlFor="description">Description</Form.Label>
+                <Form.Label>Description</Form.Label>
                 <Form.Control 
                     name="description" 
                     value={parentState.description} 
@@ -44,7 +43,7 @@ const EventInput = ({parentState, setParentState}) => {
                     type="button" 
                     className="image-button"
                     required
-                    onClick={() => document.querySelector('.input-image .event-input').click()}>
+                    onClick={() => document.querySelector('.input-image.event-image').click()}>
                     <Form.Control 
                         type="file"
                         className="input-image event-image"
@@ -60,30 +59,34 @@ const EventInput = ({parentState, setParentState}) => {
                 </button>
             </Form.Group>
             <Form.Group controlId="address">
-                <Form.Label htmlFor="address">Address</Form.Label>
+                <Form.Label>Address / Business</Form.Label>
                 <Form.Control  
-                    address="address" 
+                    name="address" 
                     value={parentState.address} 
                     type="text"  
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
             <Form.Group controlId="city">
-                <Form.Label htmlFor="city">City</Form.Label>
+                <Form.Label>City</Form.Label>
                 <Form.Control  
-                    city="city" 
+                    name="city" 
                     value={parentState.city} 
                     type="text"  
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
             <Form.Group>
-                <Form.Label htmlFor="state">State</Form.Label>
-                <Form.Select value={parentState.state}>
+                <Form.Label>State</Form.Label>
+                <Form.Select
+                    name="state" 
+                    value={parentState.state}
+                    onChange={(e) => handleInput(e, setParentState)}>
                     <option value="">Select state...</option>
-                    {states.map(state => <option value={state.abbreviation}>{state.name}</option>)}
+                    {states.map((state, i) => <option key={i} value={state.abbreviation}>{state.name}</option>)}
                 </Form.Select>
             </Form.Group>
             <Form.Group controlId="zipCode">
                 <Form.Label>Zip Code</Form.Label>
+                <Form.Text> - optional, may improve search results</Form.Text>
                 <Form.Control 
                     name="zipCode" 
                     value={parentState.zipCode}

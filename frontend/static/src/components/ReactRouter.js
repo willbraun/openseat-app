@@ -17,7 +17,7 @@ const ReactRouter = ({appState, setAppState}) => {
                     <Route path='/login' element={<Login appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/create-account' element={<CreateAccount appState={appState} setAppState={setAppState}/>}/>
                     <Route path='my-events' >
-                        <Route index element={<MyEvents appState={appState} setAppState={setAppState}/>}/>
+                        <Route index element={<MyEvents appState={appState}/>}/>
                         <Route path='create' element={<CreateEvent />}/>
                     </Route>
                     {/* Add routes for settings */}

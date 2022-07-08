@@ -12,7 +12,7 @@ class Event(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = USStateField()
-    zip_code = USZipCodeField()
+    zip_code = USZipCodeField(null=True)
     date = models.DateField()
     time = models.TimeField()
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)

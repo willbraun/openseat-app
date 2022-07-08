@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
 import { handleError } from '../helpers';
-import './../styles/home.css';
+import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
     const [state, setState] = useState({
@@ -40,7 +40,6 @@ const Home = ({appState}) => {
         return <div>No new events found. Create one!</div>
     }
 
-    console.log(state.events);
     const eventList = state.events.map((event, i) => 
     <Col key={i} xs={6}>
             <Event key={i} {...event} appState={appState}/>

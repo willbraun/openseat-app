@@ -131,10 +131,10 @@
     flex-grow: 1;
 }
 
-.fill-seat {
+.fill-seat,
+.edit-event {
     background-color: var(--dark-green);
     color: #fff;
-
 }
 
 .youre-going-box {

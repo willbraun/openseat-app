@@ -1,4 +1,5 @@
-.home-page {
+.home-page,
+.my-events-page {
     width: 90%;
     margin: 2rem auto;
 }

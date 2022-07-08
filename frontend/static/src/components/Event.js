@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
@@ -9,6 +10,9 @@ const Event = ({appState, id, creator, participants, distance, participant_count
     });
 
     const attending = eventState.participants?.map(participant => participant.id).includes(appState.userId);
+    
+    const location = useLocation();
+    const isHome = location.pathname === '/';
 
     // include view for seeing participants on the event
 
@@ -54,7 +58,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
             return <div className="event-action disabled">Log in to join!</div>
         }
         else if (creator.id === appState.userId) {
-            return <div className="event-action disabled">Your Event</div>
+            return <button className="event-action edit-event">Edit Event</button>
         }
         else if (attending) {
             return (
@@ -89,12 +93,14 @@ const Event = ({appState, id, creator, participants, distance, participant_count
                                 </div>
                                 <p>{creator.first_name} {creator.last_name}</p>
                             </div>
-                            <p className="distance">{distance.toFixed(1)} mi</p>
+                            {isHome && <p className="distance">{distance.toFixed(1)} mi</p>}
                             <address>{address} {city}, {state} {zip_code}</address>
                             <time>{date} at {time}</time>
                             </>
                             :
-                            <p className="distance">{distance.toFixed(1)} mi</p>
+                            <>
+                            {isHome && <p className="distance">{distance.toFixed(1)} mi</p>}
+                            </>
                         }
                     </div>
                 </div>
