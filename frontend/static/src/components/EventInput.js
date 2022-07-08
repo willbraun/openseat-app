@@ -4,7 +4,11 @@ import { handleInput, handleImage, states } from "../helpers";
 import plus from './../images/plus-solid.svg'; 
 
 const EventInput = ({parentState, setParentState}) => {
-    const [preview, setPreview] = useState(parentState.image)
+    const [preview, setPreview] = useState(parentState?.image)
+
+    if (!parentState) {
+        return;
+    }
 
     return (
         <>

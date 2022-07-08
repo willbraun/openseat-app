@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
 
-const Event = ({appState, setEventBeingEdited, event}) => {
+const Event = ({appState, event, setEventBeingEdited, setOriginal}) => {
     const {id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at} = event;
     const [eventState, setEventState] = useState({
         participants: participants,
@@ -58,7 +58,7 @@ const Event = ({appState, setEventBeingEdited, event}) => {
             return <div className="event-action disabled">Log in to join!</div>
         }
         else if (creator.id === appState.userId) {
-            return <button className="event-action edit-event-button" type="button" onClick={() => setEventBeingEdited(event)}>Edit Event</button>
+            return <button className="event-action edit-event-button" type="button" onClick={() => {setEventBeingEdited(event); setOriginal(event)}}>Edit Event</button>
         }
         else if (attending) {
             return (
