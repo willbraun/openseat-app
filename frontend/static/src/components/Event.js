@@ -5,7 +5,8 @@ import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
 
-const Event = ({appState, id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at}) => {
+const Event = ({appState, setEventBeingEdited, event}) => {
+    const {id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at} = event;
     const [eventState, setEventState] = useState({
         participants: participants,
     });
@@ -62,14 +63,15 @@ const Event = ({appState, id, creator, participants, distance, participant_count
         }
         else if (creator.id === appState.userId) {
             return (
-                <>
-                    <Routes>
-                        <Route path={`edit/${id}`} element={<div>TEST</div>}/> 
-                        {/* <EditEvent key={id}/> */}
-                    </Routes>
+                <button className="event-action edit-event" type="button" onClick={() => setEventBeingEdited(event)}>Edit Event</button>
+                // <>
+                //     <Routes>
+                //         <Route path={`edit/${id}`} element={<div>TEST</div>}/> 
+                //         {/* <EditEvent key={id}/> */}
+                //     </Routes>
 
-                    <Link key={id} className="event-action edit-event" to={`edit/${id}`}>Edit Event</Link>
-                </>
+                //     <Link key={id} className="event-action edit-event" to={`edit/${id}`}>Edit Event</Link>
+                // </>
                 
             )
         }

@@ -41,8 +41,8 @@ const Home = ({appState}) => {
     }
 
     const eventList = state.events.map((event, i) => 
-    <Col key={i} xs={6}>
-            <Event key={i} {...event} appState={appState}/>
+        <Col key={i} sm={12} lg={6}>
+            <Event key={i} appState={appState} event={event}/>
         </Col>
     )
     

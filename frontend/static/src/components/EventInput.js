@@ -4,13 +4,7 @@ import { handleInput, handleImage, states } from "../helpers";
 import plus from './../images/plus-solid.svg'; 
 
 const EventInput = ({parentState, setParentState}) => {
-    console.log(parentState);
     const [preview, setPreview] = useState(parentState.image)
-    
-    useEffect(() => {
-        console.log('test')
-        setPreview(parentState?.image);
-    }, [])
 
     return (
         <>
@@ -18,7 +12,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>Name</Form.Label>
                 <Form.Control  
                     name="name" 
-                    value={parentState?.name} 
+                    value={parentState.name} 
                     type="text"  
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
@@ -26,7 +20,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control 
                     name="description" 
-                    value={parentState?.description} 
+                    value={parentState.description} 
                     as="textarea"  
                     onChange={(e) => handleInput(e, setParentState)}
                 ></Form.Control > 
@@ -36,7 +30,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Text> - including yourself!</Form.Text>
                 <Form.Control 
                     name="seats" 
-                    value={parentState?.seats}
+                    value={parentState.seats}
                     type="number" 
                     min="2"
                     max="20"
@@ -67,7 +61,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>Address / Business</Form.Label>
                 <Form.Control  
                     name="address" 
-                    value={parentState?.address} 
+                    value={parentState.address} 
                     type="text"  
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
@@ -75,7 +69,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>City</Form.Label>
                 <Form.Control  
                     name="city" 
-                    value={parentState?.city} 
+                    value={parentState.city} 
                     type="text"  
                     onChange={(e) => handleInput(e, setParentState)}/>
             </Form.Group>
@@ -83,7 +77,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>State</Form.Label>
                 <Form.Select
                     name="state" 
-                    value={parentState?.state}
+                    value={parentState.state}
                     onChange={(e) => handleInput(e, setParentState)}>
                     <option value="">Select state...</option>
                     {states.map((state, i) => <option key={i} value={state.abbreviation}>{state.name}</option>)}
@@ -94,7 +88,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Text> - optional, may improve search results</Form.Text>
                 <Form.Control 
                     name="zipCode" 
-                    value={parentState?.zipCode}
+                    value={parentState.zipCode}
                     type="number" 
                     min="0"
                     max="99999"
@@ -104,7 +98,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>Date</Form.Label>
                 <Form.Control 
                     name="date" 
-                    value={parentState?.date}
+                    value={parentState.date}
                     type="date" 
                     onChange={(e) => handleInput(e, setParentState)} />
             </Form.Group>
@@ -112,7 +106,7 @@ const EventInput = ({parentState, setParentState}) => {
                 <Form.Label>Time</Form.Label>
                 <Form.Control 
                     name="time" 
-                    value={parentState?.time}
+                    value={parentState.time}
                     type="time" 
                     onChange={(e) => handleInput(e, setParentState)} />
             </Form.Group>

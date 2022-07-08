@@ -4,9 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
 import { handleError } from '../helpers';
+import EditEvent from './EditEvent';
 
 const MyEvents = ({appState}) => {
     const [events, setEvents] = useState(null)
+    const [eventBeingEdited, setEventBeingEdited] = useState(null)
 
     const location = useLocation();
     
@@ -33,24 +35,18 @@ const MyEvents = ({appState}) => {
     }
 
     const eventList = events.map((event, i) => 
-        <Col key={i} xs={6}>
-            <Event key={i} {...event} appState={appState}/>
+        <Col key={i} sm={12} lg={6}>
+            <Event key={i} appState={appState} event={event} setEventBeingEdited={setEventBeingEdited}/>
         </Col>
     )
-
-    const content = (
+    
+    return (
         <main className="my-events-page">
+            {eventBeingEdited && <EditEvent eventBeingEdited={eventBeingEdited}/>}
             <Row className="gy-4">
                 {eventList}
             </Row>
         </main>
-    )
-    
-    return (
-        <>
-        {content}
-        {/* {!location.pathname.includes('/my-events/edit/') && content} */}
-        </>
     )
 }
 
