@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
@@ -58,7 +58,7 @@ const Event = ({appState, id, creator, participants, distance, participant_count
             return <div className="event-action disabled">Log in to join!</div>
         }
         else if (creator.id === appState.userId) {
-            return <button className="event-action edit-event">Edit Event</button>
+            return <Link className="event-action edit-event" to={`${id}`}>Edit Event</Link>
         }
         else if (attending) {
             return (

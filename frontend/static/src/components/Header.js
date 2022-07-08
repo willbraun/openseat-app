@@ -1,6 +1,4 @@
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { useNavigate, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/header.css';
@@ -40,9 +38,9 @@ const Header = ({appState, setAppState}) => {
                 <>
                     <Link className="header-nav" to={'my-events/create'}>Create Event</Link>
                     <Link className="header-nav" to={'/'}>Home</Link>
-                    <Link className="header-nav" to={'/'}>Attending</Link>
+                    <Link className="header-nav" to={'/my-seats'}>My Seats</Link>
                     <Link className="header-nav" to={'my-events'}>My Events</Link>
-                    <Link className="header-nav" to={'/'}>Settings</Link> 
+                    {/* <Link className="header-nav" to={'/'}>Settings</Link>  */}
                 </>
                 }   
                 <div >

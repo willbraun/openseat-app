@@ -135,6 +135,7 @@
 .edit-event {
     background-color: var(--dark-green);
     color: #fff;
+    text-decoration: none;
 }
 
 .youre-going-box {
@@ -163,8 +164,10 @@
     transition: 0.3s;
 }
 
-.fill-seat:hover {
+.fill-seat:hover,
+.edit-event:hover {
     filter: brightness(125%);
+    color: #fff;
 }
 
 .give-up-seat:hover {
