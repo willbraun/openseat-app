@@ -25,7 +25,7 @@ const MyEvents = ({appState}) => {
         }
 
         getHomeEvents();
-    }, [])
+    }, [location.key])
 
     if (events === null) {
         return <div>Loading events...</div>
