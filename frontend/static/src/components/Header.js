@@ -36,12 +36,15 @@ const Header = ({appState, setAppState}) => {
                 <div className="logo-link-box">
                     <Link className="logo-link" to={'/'}>OpenSeat</Link>
                 </div>
-                {appState.auth && <Link className="header-nav" to={'my-events/create'}>Create Event</Link>}
-                <Link className="header-nav" to={'/'}>Home</Link>
-                <Link className="header-nav" to={'/'}>Attending</Link>
-                <Link className="header-nav" to={'my-events'}>My Events</Link>
-                <Link className="header-nav" to={'/'}>Settings</Link> 
-                {/* Edit settings routes */}
+                {appState.auth && 
+                <>
+                    <Link className="header-nav" to={'my-events/create'}>Create Event</Link>
+                    <Link className="header-nav" to={'/'}>Home</Link>
+                    <Link className="header-nav" to={'/'}>Attending</Link>
+                    <Link className="header-nav" to={'my-events'}>My Events</Link>
+                    <Link className="header-nav" to={'/'}>Settings</Link> 
+                </>
+                }   
                 <div >
                     {appState.auth ? 
                         <button className="header-nav" onClick={logOut}>Log out</button> :

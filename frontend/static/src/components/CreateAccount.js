@@ -145,12 +145,12 @@ const CreateAccount = ({appState, setAppState}) => {
                     <Form.Label>Profile Picture <span className="required-asterisk">*</span></Form.Label>
                     <button 
                         type="button" 
-                        className="create-account-image-button"
+                        className="image-button"
                         required
-                        onClick={() => document.querySelector('.create-account-input-image').click()}>
+                        onClick={() => document.querySelector('.input-image.create-account-input').click()}>
                         <Form.Control 
                             type="file"
-                            className="create-account-input-image"
+                            className="input-image create-account-input"
                             onChange={(e) => handleImage(e, state, setState, 'profilePic', setPreview)} />
                         
                             {preview ? 

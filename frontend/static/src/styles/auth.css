@@ -10,13 +10,13 @@
     color: #f00;
 }
 
-.create-account-input-image {
+.input-image {
     position: absolute;
     width: 0;
     visibility: hidden;
 }
 
-.create-account-image-button {
+.image-button {
     width: 10vw;
     height: 10vw;
     border: none;
@@ -30,11 +30,11 @@
     overflow: hidden;
 }
 
-.create-account-image-button:hover {
+.image-button:hover {
     filter: brightness(90%);
 }
 
-.create-account-image-button img {
+.image-button img {
     height: 100%;
     width: 100%;
     object-fit: cover;

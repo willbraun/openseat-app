@@ -12,7 +12,7 @@ from .models import Event
 from events.serializers import EventParticipantsSerializer, EventSearchSerializer, NoAuthEventSearchSerializer, EventSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from events.permissions import IsCreator
-from django.db.models import F, Count, Exists, Subquery, OuterRef
+from django.db.models import F, Count
 from datetime import date
 
 
