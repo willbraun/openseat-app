@@ -36,7 +36,7 @@ const MyEvents = ({appState}) => {
 
     const eventList = events.map((event, i) => 
         <Col key={i} sm={12} lg={6}>
-            <Event key={i} appState={appState} event={event} setEventBeingEdited={setEventBeingEdited}/>
+            <Event key={event.id} appState={appState} event={event} setEventBeingEdited={setEventBeingEdited}/>
         </Col>
     )
     

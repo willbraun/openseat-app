@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form'; 
 import { handleInput, handleImage, states } from "../helpers";
 import plus from './../images/plus-solid.svg'; 

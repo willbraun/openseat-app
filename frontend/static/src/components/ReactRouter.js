@@ -7,7 +7,6 @@ import MyEvents from './MyEvents';
 import CreateEvent from './CreateEvent';
 import EditEvent from './EditEvent';
 import MySeats from './MySeats';
-import EditEventParent from './EditEventParent';
 
 const ReactRouter = ({appState, setAppState}) => {
     

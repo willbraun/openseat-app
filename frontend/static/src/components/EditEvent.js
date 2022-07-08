@@ -10,6 +10,37 @@ import './../styles/editevent.css';
 const EditEvent = ({eventBeingEdited, setEventBeingEdited, events, setEvents}) => {
     const [state, setState] = useState(eventBeingEdited);
 
+    const editEvent = async () => {
+        const formData = new FormData();
+        Object.entries(state).forEach(entry => {
+            if (entry[1] !== eventBeingEdited[entry[0]] ) {
+                formData.append(entry[0], entry[1]);
+            }
+        });
+
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: formData,
+        }
+
+        const response = await fetch(`/api_v1/events/${state.id}/`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error('Network request not ok!');
+        }
+
+        const data = await response.json();
+        const index = events.findIndex(event => event.id === state.id);
+
+        const newList = events;
+        newList[index] = data;
+        setEvents(newList);
+        setEventBeingEdited(null);
+    }
+
     const deleteEvent = async () => {
         const options = {
             method: 'DELETE',
@@ -33,7 +64,7 @@ const EditEvent = ({eventBeingEdited, setEventBeingEdited, events, setEvents}) =
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // editEvent();
+        editEvent();
     }
     
     return (
