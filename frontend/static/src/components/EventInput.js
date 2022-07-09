@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form'; 
+import Row from 'react-bootstrap/Row'; 
+import Col from 'react-bootstrap/Col'; 
 import { handleInput, handleImage, states } from "../helpers";
 import plus from './../images/plus-solid.svg'; 
+import './../styles/eventinput.css'
 
 const EventInput = ({parentState, setParentState}) => {
     const [preview, setPreview] = useState(parentState?.image)
+    console.log(preview);
 
     if (!parentState) {
         return;
@@ -12,16 +16,54 @@ const EventInput = ({parentState, setParentState}) => {
 
     return (
         <>
-            <Form.Group controlId="name">
-                <Form.Label>Name</Form.Label>
-                <Form.Control  
-                    name="name" 
-                    value={parentState.name} 
-                    type="text"  
-                    onChange={(e) => handleInput(e, setParentState)}
-                    autoFocus/>
-            </Form.Group>
-            <Form.Group controlId="description">
+            <Row>
+                <Col xs={9}>
+                    <Form.Group className="mb-2" controlId="name">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control  
+                            name="name" 
+                            value={parentState.name} 
+                            type="text"  
+                            onChange={(e) => handleInput(e, setParentState)}
+                            autoFocus/>
+                    </Form.Group>
+                    <Form.Group className="mb-2" controlId="seats">
+                        <Form.Label>Seats</Form.Label>
+                        <Form.Text> - including yourself!</Form.Text>
+                        <Form.Control 
+                            name="seats" 
+                            value={parentState.seats}
+                            type="number" 
+                            min="2"
+                            max="20"
+                            onChange={(e) => handleInput(e, setParentState)} />
+                    </Form.Group>
+                </Col>
+                <Col xs={3}>
+                    <Form.Group controlId="event-image">
+                        <Form.Label>Image</Form.Label>
+                        <button 
+                            type="button" 
+                            className="image-button event-image-button"
+                            required
+                            onClick={() => document.querySelector('.input-image.event-image').click()}>
+                            <Form.Control 
+                                type="file"
+                                className="input-image event-image"
+                                onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)} />
+                            
+                                {preview ? 
+                                    <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/> : 
+                                    <div className="no-image-background">
+                                        <img className="plus" src={plus} alt="plus icon" />
+                                        <p>Add Image</p>
+                                    </div>
+                                }
+                        </button>
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Form.Group className="mb-2" controlId="description">
                 <Form.Label>Description</Form.Label>
                 <Form.Control 
                     name="description" 
@@ -30,91 +72,75 @@ const EventInput = ({parentState, setParentState}) => {
                     onChange={(e) => handleInput(e, setParentState)}
                 ></Form.Control > 
             </Form.Group>
-            <Form.Group className="mb-3" controlId="seats">
-                <Form.Label>Seats</Form.Label>
-                <Form.Text> - including yourself!</Form.Text>
-                <Form.Control 
-                    name="seats" 
-                    value={parentState.seats}
-                    type="number" 
-                    min="2"
-                    max="20"
-                    onChange={(e) => handleInput(e, setParentState)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="event-image">
-                <Form.Label>Image</Form.Label>
-                <button 
-                    type="button" 
-                    className="image-button"
-                    required
-                    onClick={() => document.querySelector('.input-image.event-image').click()}>
-                    <Form.Control 
-                        type="file"
-                        className="input-image event-image"
-                        onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)} />
-                    
-                        {preview ? 
-                            <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/> : 
-                            <div className="no-image-background">
-                                <img className="plus" src={plus} alt="plus icon" />
-                                <p>Add Image</p>
-                            </div>
-                        }
-                </button>
-            </Form.Group>
-            <Form.Group controlId="address">
-                <Form.Label>Address / Business</Form.Label>
-                <Form.Control  
-                    name="address" 
-                    value={parentState.address} 
-                    type="text"  
-                    onChange={(e) => handleInput(e, setParentState)}/>
-            </Form.Group>
-            <Form.Group controlId="city">
-                <Form.Label>City</Form.Label>
-                <Form.Control  
-                    name="city" 
-                    value={parentState.city} 
-                    type="text"  
-                    onChange={(e) => handleInput(e, setParentState)}/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>State</Form.Label>
-                <Form.Select
-                    name="state" 
-                    value={parentState.state}
-                    onChange={(e) => handleInput(e, setParentState)}>
-                    <option value="">Select state...</option>
-                    {states.map((state, i) => <option key={i} value={state.abbreviation}>{state.name}</option>)}
-                </Form.Select>
-            </Form.Group>
-            <Form.Group controlId="zipCode">
-                <Form.Label>Zip Code</Form.Label>
-                <Form.Text> - optional, may improve search results</Form.Text>
-                <Form.Control 
-                    name="zipCode" 
-                    value={parentState.zipCode}
-                    type="number" 
-                    min="0"
-                    max="99999"
-                    onChange={(e) => handleInput(e, setParentState)} />
-            </Form.Group>
-            <Form.Group controlId="date">
-                <Form.Label>Date</Form.Label>
-                <Form.Control 
-                    name="date" 
-                    value={parentState.date}
-                    type="date" 
-                    onChange={(e) => handleInput(e, setParentState)} />
-            </Form.Group>
-            <Form.Group controlId="time">
-                <Form.Label>Time</Form.Label>
-                <Form.Control 
-                    name="time" 
-                    value={parentState.time}
-                    type="time" 
-                    onChange={(e) => handleInput(e, setParentState)} />
-            </Form.Group>
+            <Row>
+                <Col xs={9}>
+                    <Row>
+                        <Form.Group className="mb-2" controlId="address">
+                            <Form.Label>Address / Business</Form.Label>
+                            <Form.Control  
+                                name="address" 
+                                value={parentState.address} 
+                                type="text"  
+                                onChange={(e) => handleInput(e, setParentState)}/>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Col xs={4}>
+                            <Form.Group controlId="city">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control  
+                                    name="city" 
+                                    value={parentState.city} 
+                                    type="text"  
+                                    onChange={(e) => handleInput(e, setParentState)}/>
+                            </Form.Group>
+                        </Col>
+                        <Col xs={5}>
+                            <Form.Group>
+                                <Form.Label>State</Form.Label>
+                                <Form.Select
+                                    name="state" 
+                                    value={parentState.state}
+                                    onChange={(e) => handleInput(e, setParentState)}>
+                                    <option value="">Select state...</option>
+                                    {states.map((state, i) => <option key={i} value={state.abbreviation}>{state.name}</option>)}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                        <Col xs={3}>
+                            <Form.Group controlId="zip_code">
+                                <Form.Label>Zip Code</Form.Label>
+                                <Form.Control 
+                                    name="zip_code" 
+                                    value={parentState.zip_code}
+                                    type="number" 
+                                    min="0"
+                                    max="99999"
+                                    placeholder="Optional"
+                                    onChange={(e) => handleInput(e, setParentState)} />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col xs={3}>
+                    <Form.Group className="mb-2" controlId="date">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control 
+                            name="date" 
+                            value={parentState.date}
+                            type="date" 
+                            onChange={(e) => handleInput(e, setParentState)} />
+                    </Form.Group>
+                    <Form.Group controlId="time">
+                        <Form.Label>Time</Form.Label>
+                        <Form.Control 
+                            name="time" 
+                            value={parentState.time}
+                            type="time" 
+                            onChange={(e) => handleInput(e, setParentState)} />
+                    </Form.Group>
+                </Col>
+            </Row>
         </>
     )
 }

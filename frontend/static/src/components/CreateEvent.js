@@ -16,7 +16,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
         address: '',
         city: '',
         state: '',
-        zipCode: '',
+        zip_code: null,
         date: '',
         time: '',
     }
@@ -44,6 +44,11 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
         }
     }
 
+    const close = () => {
+        setIsCreating(false);
+        setState(blank);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         await createEvent();
@@ -54,7 +59,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     return (
         <Modal 
             show={isCreating} 
-            onHide={() => setIsCreating(false)} 
+            onHide={() => close()} 
             backdrop="static" 
             keyboard={false}
             size="lg">
@@ -67,7 +72,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <button type="button" onClick={() => setIsCreating(false)}>Cancel</button> 
+                <button type="button" onClick={() => close()}>Cancel</button> 
                 <button type="submit" form="create-event-input-form">Create</button>
             </Modal.Footer>
         </Modal>
