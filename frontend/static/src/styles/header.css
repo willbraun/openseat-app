@@ -41,3 +41,18 @@
     width: fit-content;
     font-size: 2rem;
 }
+
+.create-event-nav {
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, rgba(245,117,226,1) 0%, rgba(252,176,69,1) 100%);
+    transition: 0.3s;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+}
+
+.create-event-nav:hover {
+    filter:brightness(110%);
+}

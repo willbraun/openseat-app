@@ -4,8 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'; 
 import EventInput from './EventInput';
 import Cookies from 'js-cookie';
-import './../styles/createevent.css';
 import { handleError } from '../helpers';
+import './../styles/createeditevent.css';
 
 const CreateEvent = ({isCreating, setIsCreating}) => {
     const blank = {
@@ -63,7 +63,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
             backdrop="static" 
             keyboard={false}
             size="lg">
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="create-event-header">
                 <Modal.Title>Create Event</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -71,9 +71,9 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
                     <EventInput key={0} parentState={state} setParentState={setState}/>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <button type="button" onClick={() => close()}>Cancel</button> 
-                <button type="submit" form="create-event-input-form">Create</button>
+            <Modal.Footer className="create-footer">
+                <button className="cancel-button" type="button" onClick={() => close()}>Cancel</button> 
+                <button className="create-button" type="submit" form="create-event-input-form">Create</button>
             </Modal.Footer>
         </Modal>
     )

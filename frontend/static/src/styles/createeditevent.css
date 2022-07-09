@@ -1,0 +1,33 @@
+.create-event-header {
+    background: linear-gradient(90deg, rgba(245,117,226,1) 0%, rgba(252,176,69,1) 100%);
+}
+
+.create-footer button,
+.edit-footer button {
+    border-radius: 0.3rem;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    transition: 0.3s;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 6rem;
+}
+
+.create-footer button:hover,
+.edit-footer button:hover {
+    filter: brightness(105%)
+}
+
+.cancel-button {
+    background-color: #ddd;
+}
+
+.create-button,
+.save-button {
+    background-color: var(--dark-green);
+    color: #fff;
+}
+
+.delete-button {
+    background-color: var(--light-red);
+}

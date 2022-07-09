@@ -42,6 +42,7 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, e
 
     return (
         <Modal 
+            className="edit-modal"    
             show={isEditing} 
             onHide={() => setIsEditing(false)}
             backdrop="static" 
@@ -55,10 +56,10 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, e
                     <EventInput key={0} parentState={state} setParentState={setState}/>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <button type="button" onClick={() => {deleteEvent(event.id); setIsEditing(false)}}>Delete</button>
-                <button type="button" onClick={() => setIsEditing(false)}>Cancel</button> 
-                <button type="submit" form="event-input-form">Save</button>
+            <Modal.Footer className="edit-footer d-flex">
+                <button className="delete-button me-auto" type="button" onClick={() => {deleteEvent(event.id); setIsEditing(false)}}>Delete</button>
+                <button className="cancel-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button> 
+                <button className="save-button" type="submit" form="event-input-form">Save</button>
             </Modal.Footer>
         </Modal>
     )
