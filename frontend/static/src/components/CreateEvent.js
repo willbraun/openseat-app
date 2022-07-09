@@ -42,13 +42,13 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
         if (!response.ok) {
             throw new Error('Network request not ok!');
         }
-        
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        createEvent();
+        await createEvent();
         setIsCreating(false);
+        navigate('/my-events')
     }
     
     return (

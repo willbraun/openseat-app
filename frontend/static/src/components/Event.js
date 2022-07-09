@@ -6,12 +6,6 @@ import './../styles/event.css';
 import EditEvent from './EditEvent';
 
 const Event = ({appState, event, editEventList, deleteEvent}) => {
-    // const {id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at} = event;
-    // const [eventState, setEventState] = useState({
-    //     participants: participants,
-    //     isEditing: false,
-    // });
-
     const [state, setState] = useState(event);
     const [isEditing, setIsEditing] = useState(false);
 

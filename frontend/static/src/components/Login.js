@@ -62,7 +62,8 @@ const Login = ({appState, setAppState}) => {
                         type="text" 
                         placeholder="Enter username" 
                         required 
-                        onChange={handleInput} />
+                        onChange={handleInput}
+                        autoFocus />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>

@@ -32,35 +32,7 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, e
 
         const data = await response.json();
         setEventState(data);
-
-        // const index = events.findIndex(event => event.id === eventBeingEdited.id);
-
-        // const newList = events;
-        // newList[index] = data;
-        // setEvents(newList);
-        // setEventBeingEdited(null);
     }
-
-    // const deleteEvent = async () => {
-    //     const options = {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'X-CSRFToken': Cookies.get('csrftoken'),
-    //         }
-    //     }
-
-    //     const response = await fetch(`/api_v1/events/${eventBeingEdited.id}/`, options).catch(handleError);
-
-    //     if (!response.ok) {
-    //         throw new Error('Network response was not ok!');
-    //     }
-
-    //     const index = events.findIndex(event => event.id === eventBeingEdited.id);
-    //     const newList = events;
-    //     newList.splice(events[index], 1);
-    //     setEvents(newList);
-    //     setEventBeingEdited(null);
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
