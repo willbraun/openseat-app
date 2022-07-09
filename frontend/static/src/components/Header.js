@@ -39,10 +39,9 @@ const Header = ({appState, setAppState}) => {
                 {appState.auth && 
                 <>
                     <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>Create Event</button>
-                    <Link className="header-nav" to={'/'}>Home</Link>
+                    <Link className="header-nav" to={'/'}>Discover</Link>
                     <Link className="header-nav" to={'/my-seats'}>My Seats</Link>
                     <Link className="header-nav" to={'my-events'}>My Events</Link>
-                    {/* <Link className="header-nav" to={'/'}>Settings</Link>  */}
                 </>
                 }   
                 <div >

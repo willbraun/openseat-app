@@ -54,7 +54,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
     const actionButton = () => {
         if (!appState.auth) {
-            return <div className="event-action disabled">Log in to join!</div>
+            return <div className="event-action log-in-to-join disabled">Log in to join!</div>
         }
         else if (state.creator.id === appState.userId) {
             return <button className="event-action edit-event-button" type="button" onClick={() => setIsEditing(true)}>Edit Event</button>
@@ -104,7 +104,12 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     </div>
                 </div>
                 <div className="event-bottom">
-                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled</button>
+                    <button 
+                        className={`view-participants${appState.auth ? "" : " disabled"}`} 
+                        disabled={!appState.auth} 
+                        type="button">
+                            {appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled
+                    </button>
                     {actionButton()}                
                 </div>
             </div>

@@ -109,9 +109,15 @@
 }
 
 .event-bottom .disabled {
-    background-color: #ccc;
-    color: #666;
+    background-color: transparent;
+    color: #000;
     cursor: default;
+    padding: 0.4rem 0 0 0;
+    height: fit-content;
+}
+
+.log-in-to-join {
+    text-align: right;
 }
 
 .view-participants {
