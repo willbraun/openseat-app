@@ -8,11 +8,12 @@ import Event from './Event';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import EventInput from './EventInput';
+import EditEvent from './EditEvent';
 
 const MyEvents = ({appState}) => {
     const [events, setEvents] = useState(null);
-    const [eventBeingEdited, setEventBeingEdited] = useState(null);
-    const [original, setOriginal] = useState(null);
+    // const [eventBeingEdited, setEventBeingEdited] = useState(null);
+    // const [original, setOriginal] = useState(null);
 
     const location = useLocation();
     
@@ -38,38 +39,46 @@ const MyEvents = ({appState}) => {
         return <div>You don't have any events. Create one!</div>
     }
 
-    const editEvent = async () => {
-        const formData = new FormData();
-        Object.entries(eventBeingEdited).forEach(entry => {
-            if (entry[1] !== original[entry[0]] ) {
-                formData.append(entry[0], entry[1]);
-            }
-        });
+    // const editEvent = async () => {
+    //     const formData = new FormData();
+    //     Object.entries(eventBeingEdited).forEach(entry => {
+    //         if (entry[1] !== original[entry[0]] ) {
+    //             formData.append(entry[0], entry[1]);
+    //         }
+    //     });
 
-        const options = {
-            method: 'PATCH',
-            headers: {
-                'X-CSRFToken': Cookies.get('csrftoken'),
-            },
-            body: formData,
-        }
+    //     const options = {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'X-CSRFToken': Cookies.get('csrftoken'),
+    //         },
+    //         body: formData,
+    //     }
 
-        const response = await fetch(`/api_v1/events/${eventBeingEdited.id}/`, options).catch(handleError);
+    //     const response = await fetch(`/api_v1/events/${eventBeingEdited.id}/`, options).catch(handleError);
 
-        if (!response.ok) {
-            throw new Error('Network request not ok!');
-        }
+    //     if (!response.ok) {
+    //         throw new Error('Network request not ok!');
+    //     }
 
-        const data = await response.json();
-        const index = events.findIndex(event => event.id === eventBeingEdited.id);
+    //     const data = await response.json();
+    //     const index = events.findIndex(event => event.id === eventBeingEdited.id);
 
+    //     const newList = events;
+    //     newList[index] = data;
+    //     setEvents(newList);
+    //     setEventBeingEdited(null);
+    // }
+
+    const editEventList = (editedEvent) => {
+        const index = events.findIndex(event => event.id === editedEvent);
         const newList = events;
-        newList[index] = data;
+        newList[index] = editedEvent;
         setEvents(newList);
-        setEventBeingEdited(null);
+        // setEventBeingEdited(null);
     }
 
-    const deleteEvent = async () => {
+    const deleteEvent = async (id) => {
         const options = {
             method: 'DELETE',
             headers: {
@@ -77,23 +86,23 @@ const MyEvents = ({appState}) => {
             }
         }
 
-        const response = await fetch(`/api_v1/events/${eventBeingEdited.id}/`, options).catch(handleError);
+        const response = await fetch(`/api_v1/events/${id}/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error('Network response was not ok!');
         }
 
-        const index = events.findIndex(event => event.id === eventBeingEdited.id);
+        const index = events.findIndex(event => event.id === id);
         const newList = events;
         newList.splice(events[index], 1);
         setEvents(newList);
-        setEventBeingEdited(null);
+        // setEventBeingEdited(null);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        editEvent();
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     editEvent();
+    // }
 
     const eventList = events.map((event, i) => 
         <Col key={i} sm={12} lg={6}>
@@ -101,14 +110,23 @@ const MyEvents = ({appState}) => {
                 key={event.id} 
                 appState={appState} 
                 event={event} 
-                setEventBeingEdited={setEventBeingEdited}
-                setOriginal={setOriginal}/>
+                editEventList={editEventList}
+                deleteEvent={deleteEvent}
+                // setEventBeingEdited={setEventBeingEdited}
+                // setOriginal={setOriginal}
+                />
         </Col>
     )
     
     return (
         <main className="my-events-page">
-            <Modal show={!!eventBeingEdited} onHide={() => setEventBeingEdited(null)} backdrop="static" keyboard={false}>
+            
+            {/* <Modal 
+                show={!!eventBeingEdited} 
+                onHide={() => setEventBeingEdited(null)} 
+                backdrop="static" 
+                keyboard={false}
+                size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Event</Modal.Title>
                 </Modal.Header>
@@ -122,11 +140,13 @@ const MyEvents = ({appState}) => {
                     <button type="button" onClick={() => setEventBeingEdited(null)}>Cancel</button> 
                     <button type="submit" form="event-input-form">Save</button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
             <Row className="gy-4">
                 {eventList}
             </Row>
+
+            {/* <EditEvent /> */}
         </main>
     )
 }

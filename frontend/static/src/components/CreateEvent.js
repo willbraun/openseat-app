@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'; 
 import EventInput from './EventInput';
@@ -21,6 +22,8 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     }
 
     const [state, setState] = useState(blank);
+
+    const navigate = useNavigate();
 
     const createEvent = async () => {
         const formData = new FormData();
@@ -49,7 +52,12 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     }
     
     return (
-        <Modal show={isCreating} onHide={() => setIsCreating(false)} backdrop="static" keyboard={false}>
+        <Modal 
+            show={isCreating} 
+            onHide={() => setIsCreating(false)} 
+            backdrop="static" 
+            keyboard={false}
+            size="lg">
             <Modal.Header closeButton>
                 <Modal.Title>Create Event</Modal.Title>
             </Modal.Header>

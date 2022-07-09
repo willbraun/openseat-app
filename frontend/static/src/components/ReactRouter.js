@@ -4,7 +4,6 @@ import Login from './Login';
 import CreateAccount from './CreateAccount';
 import Home from './Home';
 import MyEvents from './MyEvents';
-import CreateEvent from './CreateEvent';
 import MySeats from './MySeats';
 
 const ReactRouter = ({appState, setAppState}) => {
@@ -18,10 +17,7 @@ const ReactRouter = ({appState, setAppState}) => {
                     <Route path='/login' element={<Login appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/create-account' element={<CreateAccount appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/my-seats' element={<MySeats appState={appState} />}/>
-                    <Route path='/my-events' >
-                        <Route index element={<MyEvents appState={appState}/>}/>
-                        <Route path='create' element={<CreateEvent />}/>
-                    </Route>
+                    <Route path='/my-events' element={<MyEvents appState={appState}/>}/>
                 </Route>
                 <Route path='/*' element={<p>Page not found</p>}/>
             </Routes>

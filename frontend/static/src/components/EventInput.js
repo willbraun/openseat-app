@@ -18,7 +18,8 @@ const EventInput = ({parentState, setParentState}) => {
                     name="name" 
                     value={parentState.name} 
                     type="text"  
-                    onChange={(e) => handleInput(e, setParentState)}/>
+                    onChange={(e) => handleInput(e, setParentState)}
+                    autoFocus/>
             </Form.Group>
             <Form.Group controlId="description">
                 <Form.Label>Description</Form.Label>

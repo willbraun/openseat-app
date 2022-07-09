@@ -3,14 +3,19 @@ import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/event.css';
+import EditEvent from './EditEvent';
 
-const Event = ({appState, event, setEventBeingEdited, setOriginal}) => {
-    const {id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at} = event;
-    const [eventState, setEventState] = useState({
-        participants: participants,
-    });
+const Event = ({appState, event, editEventList, deleteEvent}) => {
+    // const {id, creator, participants, distance, participant_count, name, description, seats, image, address, city, state, zip_code, date, time, created_at, updated_at} = event;
+    // const [eventState, setEventState] = useState({
+    //     participants: participants,
+    //     isEditing: false,
+    // });
 
-    const attending = eventState.participants?.map(participant => participant.id).includes(appState.userId);
+    const [state, setState] = useState(event);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const attending = state.participants?.map(participant => participant.id).includes(appState.userId);
     
     const location = useLocation();
     const isHome = location.pathname === '/';
@@ -25,14 +30,14 @@ const Event = ({appState, event, setEventBeingEdited, setOriginal}) => {
             },
         }
 
-        const response = await fetch(`/api_v1/events/${id}/add-self/`, options).catch(handleError);
+        const response = await fetch(`/api_v1/events/${event.id}/add-self/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error('Network request not ok!');
         }
 
         const data = await response.json();
-        setEventState({participants: data.participants});
+        setState({...state, participants: data.participants});
     }
 
     const giveUpSeat = async () => {
@@ -43,22 +48,22 @@ const Event = ({appState, event, setEventBeingEdited, setOriginal}) => {
             },
         }
 
-        const response = await fetch(`/api_v1/events/${id}/remove-self/`, options).catch(handleError);
+        const response = await fetch(`/api_v1/events/${event.id}/remove-self/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error('Network request not ok!');
         }
 
         const data = await response.json();
-        setEventState({participants: data.participants});
+        setState({...state, participants: data.participants});
     }
 
     const actionButton = () => {
         if (!appState.auth) {
             return <div className="event-action disabled">Log in to join!</div>
         }
-        else if (creator.id === appState.userId) {
-            return <button className="event-action edit-event-button" type="button" onClick={() => {setEventBeingEdited(event); setOriginal(event)}}>Edit Event</button>
+        else if (state.creator.id === appState.userId) {
+            return <button className="event-action edit-event-button" type="button" onClick={() => setIsEditing(true)}>Edit Event</button>
         }
         else if (attending) {
             return (
@@ -75,40 +80,48 @@ const Event = ({appState, event, setEventBeingEdited, setOriginal}) => {
 
     return (
         <article className="event">
-            <p className="event-name">{name}</p>
+            <p className="event-name">{state.name}</p>
             <div className="event-content">
                 <div className="event-image-box">
-                    <img className="event-image" src={image} alt={name} />
+                    <img className="event-image" src={state.image} alt={state.name} />
                 </div>
                 <div className="event-info">
                     <div className="description">
-                        <p>{description}</p>
+                        <p>{state.description}</p>
                     </div>
                     <div className={`details${appState.auth ? " large" : ""}`}>
                         {appState.auth ?
                             <>
                             <div className="creator-info">
                                 <div className="creator-profile-pic-box">
-                                    <img className="creator-profile-pic" src={creator.profile_pic} alt={creator.username} />
+                                    <img className="creator-profile-pic" src={state.creator.profile_pic} alt={state.creator.username} />
                                 </div>
-                                <p>{creator.first_name} {creator.last_name}</p>
+                                <p>{state.creator.first_name} {state.creator.last_name}</p>
                             </div>
-                            {isHome && <p className="distance">{distance.toFixed(1)} mi</p>}
-                            <address>{address} {city}, {state} {zip_code}</address>
-                            <time>{date} at {time}</time>
+                            {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
+                            <address>{state.address} {state.city}, {state.state} {state.zip_code}</address>
+                            <time>{state.date} at {state.time}</time>
                             </>
                             :
                             <>
-                            {isHome && <p className="distance">{distance.toFixed(1)} mi</p>}
+                            {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                             </>
                         }
                     </div>
                 </div>
                 <div className="event-bottom">
-                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{appState.auth ? eventState.participants.length : participant_count} / {seats} seats filled</button>
+                    <button className={`view-participants${appState.auth ? "" : " disabled"}`} disabled={!appState.auth} type="button">{appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled</button>
                     {actionButton()}                
                 </div>
             </div>
+            <EditEvent 
+                event={event} 
+                eventState={state} 
+                setEventState={setState}
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                editEventList={editEventList}
+                deleteEvent={deleteEvent}/>
         </article>
     )
 }
