@@ -108,7 +108,7 @@ const MyEvents = ({appState}) => {
     
     return (
         <main className="my-events-page">
-            <Modal show={!!eventBeingEdited} onHide={() => setEventBeingEdited(null)}>
+            <Modal show={!!eventBeingEdited} onHide={() => setEventBeingEdited(null)} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Event</Modal.Title>
                 </Modal.Header>

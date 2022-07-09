@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'; 
 import EventInput from './EventInput';
 import Cookies from 'js-cookie';
 import './../styles/createevent.css';
 import { handleError } from '../helpers';
 
-const CreateEvent = () => {
+const CreateEvent = ({isCreating, setIsCreating}) => {
     const blank = {
         name: '',
         description: '',
@@ -21,8 +21,6 @@ const CreateEvent = () => {
     }
 
     const [state, setState] = useState(blank);
-
-    const navigate = useNavigate();
 
     const createEvent = async () => {
         const formData = new FormData();
@@ -47,20 +45,24 @@ const CreateEvent = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         createEvent();
-        navigate('/my-events/');
+        setIsCreating(false);
     }
     
     return (
-        <main className="create-event">
-            <Form className="event-input-form" onSubmit={handleSubmit}>
-                <h2>Create Event</h2>
-                <EventInput parentState={state} setParentState={setState}/>
-                <div className="create-event-bottom">
-                    <button type="button" onClick={() => navigate(-1)}>Cancel</button> 
-                    <button type="submit">Create</button>
-                </div> 
-            </Form>
-        </main>
+        <Modal show={isCreating} onHide={() => setIsCreating(false)} backdrop="static" keyboard={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Create Event</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form className="create-event-input-form" id="create-event-input-form" onSubmit={handleSubmit}>
+                    <EventInput key={0} parentState={state} setParentState={setState}/>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <button type="button" onClick={() => setIsCreating(false)}>Cancel</button> 
+                <button type="submit" form="create-event-input-form">Create</button>
+            </Modal.Footer>
+        </Modal>
     )
 }
 
