@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
+// import cities from 'all-the-cities';
 import { handleError } from '../helpers';
 import './../styles/eventlist.css';
 
@@ -12,9 +13,10 @@ const Home = ({appState}) => {
         events: null,
     })
 
-    // dropdowns in UI for each state item
-    // update state when dropdowns are changed
-    // make filter button to get events from API with query params from state
+    // const cities = require('all-the-cities');
+
+    // const abq = cities.filter(city => city.name.match('Albuquerque'));
+    // console.log(abq);
 
     
     useEffect(() => {
