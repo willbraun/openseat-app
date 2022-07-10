@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
-// import cities from 'all-the-cities';
 import { handleError } from '../helpers';
 import './../styles/eventlist.css';
 
@@ -12,12 +11,6 @@ const Home = ({appState}) => {
         radius: 20,
         events: null,
     })
-
-    // const cities = require('all-the-cities');
-
-    // const abq = cities.filter(city => city.name.match('Albuquerque'));
-    // console.log(abq);
-
     
     useEffect(() => {
         const getHomeEvents = async () => {
