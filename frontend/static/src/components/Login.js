@@ -46,7 +46,18 @@ const Login = ({appState, setAppState}) => {
         }
 
         Cookies.set("Authorization", `Token ${data.key}`);
-        setAppState({...appState, auth: true, userId: data.id, userZip: data.zip});
+        setAppState({
+            ...appState, 
+            auth: true, 
+            userId: data.id, 
+            userZip: data.zip, 
+        });
+        
+        if (!window.localStorage.openSeatSearchLocation) {
+            const newLocation = data.zip ? data.zip : 'Greenville, SC';
+            localStorage.setItem('openSeatSearchLocation', newLocation);
+        }
+        
         navigate('/');
     }
     
