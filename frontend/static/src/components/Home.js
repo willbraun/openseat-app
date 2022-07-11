@@ -11,20 +11,13 @@ import './../styles/eventlist.css';
 
 const Home = ({appState, setAppState}) => {
     const currentSearch = window.localStorage.openSeatSearchLocation ?? 'Greenville, SC, USA';
-    const currentRadius = ['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '10';
-   
-    // const [radius, setRadius] = useState(10);
+    const currentRadius = ['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25';
     
     const [state, setState] = useState({
-        // location: appState.userZip.length > 0 ? appState.userZip : '29601',
-        // location: defaultSearch,
         events: null,
     })
 
     const location = useLocation();
-
-
-    // update origin_zip to origin in backend
     
     const getHomeEvents = async (searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin_zip=${searchLocation}&radius=${searchRadius}`).catch(handleError);
