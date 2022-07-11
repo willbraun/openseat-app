@@ -5,10 +5,13 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+	// const defaultSearch = appState.userZip.length ? appState.userZip : '29601';
+
 	const [state, setState] = useState({
 		auth: !!Cookies.get('Authorization'),
 		userId: 0,
 		userZip: '',
+		searchLocation: '29601',
 	})
 	
 	return (

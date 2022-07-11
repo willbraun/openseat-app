@@ -25,6 +25,23 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>OpenSeat</title>
+    <!-- <script>
+      let autocomplete;
+      function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('autocomplete'),
+          {
+            types: ['establishment'],
+            componentRestrictions: {'country': ['AU']},
+            fields: ['place_id', 'geometry', 'name']
+          });
+      }
+    </script> -->
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_GOOGLE_API_KEY%&libraries=places"
+      >
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

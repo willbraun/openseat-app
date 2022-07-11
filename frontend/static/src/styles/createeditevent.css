@@ -6,11 +6,10 @@
 .edit-footer button {
     border-radius: 0.3rem;
     border: none;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 1rem;
     transition: 0.3s;
     font-size: 1.2rem;
     font-weight: 500;
-    width: 6rem;
 }
 
 .create-footer button:hover,
