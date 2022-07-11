@@ -1,0 +1,17 @@
+.search-bar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    height: var(--sub-header-height);
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+    padding: 0 20%;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.search-submit {
+    width: 100%;
+}
+
