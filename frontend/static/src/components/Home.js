@@ -1,15 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
 import { useLocation } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
 import { handleError } from '../helpers';
+import Search from './Search';
 import './../styles/eventlist.css';
 
 const Home = ({appState, setAppState}) => {
-    const [value, setValue] = useState(null);
+    const currentSearch = window.localStorage.openSeatSearchLocation ?? 'Greenville, SC, USA';
+   
     // const [radius, setRadius] = useState(10);
     
     const [state, setState] = useState({
@@ -20,12 +22,12 @@ const Home = ({appState, setAppState}) => {
     })
 
     const location = useLocation();
-    const currentSearch = window.localStorage.openSeatSearchLocation;
+
 
     // update origin_zip to origin in backend
     
-    const getHomeEvents = async (location) => {
-        const response = await fetch(`/api_v1/events/?origin_zip=${location}&radius=${state.radius}`).catch(handleError);
+    const getHomeEvents = async (searchTerm) => {
+        const response = await fetch(`/api_v1/events/?origin_zip=${searchTerm}&radius=${state.radius}`).catch(handleError);
         
         if (!response.ok) {
             throw new Error('Network response was not ok!');
@@ -39,23 +41,17 @@ const Home = ({appState, setAppState}) => {
         getHomeEvents(currentSearch);
     }, [location.key])
 
-    const search = () => {
-        console.log(value.label);
-        getHomeEvents(value.label);
-        localStorage.setItem('openSeatSearchLocation', value.label);
-        // setAppState({...appState, searchLocation: value.label})
+    const findEvents = (searchTerm) => {
+        setState({...state, events: null});
+        getHomeEvents(searchTerm);
+        localStorage.setItem('openSeatSearchLocation', searchTerm);
     }
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
     return (
         <main className="home-page">
-            <p>Events near {currentSearch}</p>
-            <GooglePlacesAutocomplete selectProps={{
-                value,
-                onChange: setValue,
-            }} />
-            <button type="button" onClick={search}>Find Events</button>
+            <Search currentSearch={currentSearch} findEvents={findEvents}/>
 
             {state.events === null ? 
                 <div>Loading events...</div> : 
@@ -66,7 +62,7 @@ const Home = ({appState, setAppState}) => {
                     <Row className="gy-4">
                         {state.events.map((event, i) => 
                             <Col key={i} sm={12} lg={6}>
-                                <Event key={i} appState={appState} event={event}/>
+                                <Event key={event.id} appState={appState} event={event}/>
                             </Col>
                         )}
                     </Row>
