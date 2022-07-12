@@ -1,3 +1,7 @@
+.participant-info {
+    position: relative;
+}
+
 .participants-subheader {
     font-size: 0.9rem;
     font-weight: 400;
@@ -11,6 +15,26 @@
 .participant-list-body {
     max-height: 60vh;
     overflow: auto;
+}
+
+.star-box {
+    position: absolute;
+    top: 0;
+    right: 15%;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.3rem 0.5rem 0.4rem;
+    background: var(--create-event-color);
+    border-radius: 50%;
+    border: 3px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-icon {
+    height: 100%;
+    width: 100%;
 }
 
 .participant-profile-pic-box {

@@ -12,7 +12,7 @@ const EventParticipants = ({eventState, showParticipants, setShowParticipants}) 
     
     const participantList = eventState.participants.map(participant => 
         <Col xs={6} className="px-0" key={participant.id}>
-            <Participant key={participant.id} {...participant}/>
+            <Participant key={participant.id} {...participant} creatorId={eventState.creator.id}/>
         </Col>
     )
 
@@ -26,9 +26,6 @@ const EventParticipants = ({eventState, showParticipants, setShowParticipants}) 
     })
 
     participantList.unshift(creator)
-    
-    // highlight or denote creator somehow
-    // move x into the top right corner
 
     return (
         <Modal
