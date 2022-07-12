@@ -33,7 +33,6 @@
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
     font-size: 1.2rem;
-    /* transition: 0.1s; */
 }
 
 .logo-link-box {
@@ -43,7 +42,7 @@
 .logo-link {
     width: fit-content;
     font-size: 2rem;
-    /* transition: 0.1s; */
+    font-weight: 600;
 }
 
 .create-event-nav {

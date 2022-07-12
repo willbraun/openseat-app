@@ -4,16 +4,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
 import { handleError } from '../helpers';
-import './../styles/eventlist.css';
+import './../styles/myseats.css';
 
 const MySeats = ({appState}) => {
     const [state, setState] = useState({
         events: null,
+        isFuture: true,
     })
 
     useEffect(() => {
         const getSeats = async () => {
-            const response = await fetch(`/api_v1/events/my-seats/`).catch(handleError);
+            const response = await fetch(`/api_v1/events/my-seats/${state.isFuture ? 'future' : 'past'}/`).catch(handleError);
             
             if (!response.ok) {
                 throw new Error('Network response was not ok!');
@@ -24,7 +25,7 @@ const MySeats = ({appState}) => {
         }
 
         getSeats();
-    }, [])
+    }, [state.isFuture])
 
     if (state.events === null) {
         return <div>Loading events...</div>
@@ -41,6 +42,14 @@ const MySeats = ({appState}) => {
     
     return (
         <main className="my-seats-page">
+            <select  
+                className="my-seats-timeperiod"
+                defaultValue={state.isFuture.toString()}
+                onChange={(e) => {setState({...state, events: null, isFuture: e.target.value === 'true'});console.log(typeof e.target.value)}}>
+                <option value="true">Upcoming</option>
+                <option value="false">Completed</option>
+            </select>
+
             <Row className="gy-4">
                 {eventList}
             </Row>

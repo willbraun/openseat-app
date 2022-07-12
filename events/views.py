@@ -86,14 +86,28 @@ def get_home_events(request):
     return Response(results)
         
 
-class MySeatsListApiView(generics.ListAPIView):
+class MySeatsFutureListApiView(generics.ListAPIView):
     serializer_class = EventSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return (Event.objects
             .exclude(creator=self.request.user.id)
-            .filter(participants__id=self.request.user.id))
+            .filter(date__gte=date.today())
+            .filter(participants__id=self.request.user.id)
+            .order_by('date'))
+
+
+class MySeatsPastListApiView(generics.ListAPIView):
+    serializer_class = EventSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return (Event.objects
+            .exclude(creator=self.request.user.id)
+            .filter(date__lt=date.today())
+            .filter(participants__id=self.request.user.id)
+            .order_by('-date'))
 
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):

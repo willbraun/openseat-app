@@ -1,0 +1,15 @@
+.my-seats-timeperiod {
+    border: none;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    margin: 0.5rem 0;
+    font-size: 1.75rem;
+    outline: 0px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.my-seats-timeperiod:hover {
+    background-color: var(--blue);
+    cursor: pointer;
+}

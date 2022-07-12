@@ -49,7 +49,7 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, e
             keyboard={false}
             size="lg">
             <Modal.Header closeButton>
-                <Modal.Title>Edit Event</Modal.Title>
+                <Modal.Title>{event.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form className="event-input-form" id="event-input-form" onSubmit={handleSubmit}>
