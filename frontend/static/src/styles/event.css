@@ -112,12 +112,16 @@
     background-color: transparent;
     color: #000;
     cursor: default;
-    padding: 0.4rem 0 0 0;
     height: fit-content;
 }
 
 .log-in-to-join {
     text-align: right;
+}
+
+.view-participants.disabled,
+.log-in-to-join.disabled {
+    padding: 0.4rem 0 0 0;
 }
 
 .view-participants {
@@ -142,6 +146,11 @@
     background-color: var(--dark-green);
     color: #fff;
     text-decoration: none;
+}
+
+.event-completed {
+    padding: 0;
+    align-self: center;
 }
 
 .youre-going-box {

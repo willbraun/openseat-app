@@ -53,9 +53,14 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         setState({...state, participants: data.participants});
     }
 
+    const now = new Date();
+
     const actionButton = () => {
         if (!appState.auth) {
             return <div className="event-action log-in-to-join disabled">Log in to join!</div>
+        }
+        else if (parseISO(state.date) < now) {
+            return <div className="event-action event-completed disabled">Event Completed</div>
         }
         else if (state.creator.id === appState.userId) {
             return <button className="event-action edit-event-button" type="button" onClick={() => setIsEditing(true)}>Edit Event</button>
