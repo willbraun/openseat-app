@@ -1,0 +1,38 @@
+.participants-subheader {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #888
+}
+
+.participants-subheader > * {
+    margin: 0;
+}
+
+.participant-list-body {
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.participant-profile-pic-box {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 1rem auto;
+}
+
+.participant-profile-pic {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.participant-name {
+    text-align: center;
+}
+
+.participant-list-filled {
+    font-weight: 600;
+}
+
+/* .participant-list-back shown in createeditevent.css */

@@ -4,18 +4,18 @@ import Cookies from 'js-cookie';
 import { format, parseISO } from 'date-fns'
 import { handleError } from '../helpers';
 import './../styles/event.css';
+import EventParticipants from './EventParticipants';
 import EditEvent from './EditEvent';
 
 const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [state, setState] = useState(event);
     const [isEditing, setIsEditing] = useState(false);
+    const [showParticipants, setShowParticipants] = useState(false);
 
     const attending = state.participants?.map(participant => participant.id).includes(appState.userId);
-    
+
     const location = useLocation();
     const isHome = location.pathname === '/';
-
-    // include view for seeing participants on the event
 
     const fillSeat = async () => {
         const options = {
@@ -108,12 +108,17 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     <button 
                         className={`view-participants${appState.auth ? "" : " disabled"}`} 
                         disabled={!appState.auth} 
-                        type="button">
+                        type="button"
+                        onClick={() => setShowParticipants(true)}>
                             {appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled
                     </button>
                     {actionButton()}                
                 </div>
             </div>
+            <EventParticipants 
+                eventState={state}
+                showParticipants={showParticipants}
+                setShowParticipants={setShowParticipants}/>
             <EditEvent 
                 event={event} 
                 eventState={state} 

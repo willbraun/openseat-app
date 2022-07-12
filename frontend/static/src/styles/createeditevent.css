@@ -3,7 +3,8 @@
 }
 
 .create-footer button,
-.edit-footer button {
+.edit-footer button,
+.participant-list-back {
     border-radius: 0.3rem;
     border: none;
     padding: 0.3rem 1rem;
@@ -13,11 +14,13 @@
 }
 
 .create-footer button:hover,
-.edit-footer button:hover {
-    filter: brightness(105%)
+.edit-footer button:hover,
+.participant-list-back:hover {
+    filter: brightness(110%)
 }
 
-.cancel-button {
+.cancel-button,
+.participant-list-back {
     background-color: #ddd;
 }
 
