@@ -11,12 +11,22 @@ const EventParticipants = ({eventState, showParticipants, setShowParticipants}) 
     }
     
     const participantList = eventState.participants.map(participant => 
-        <Col xs={6} className="px-0">
+        <Col xs={6} className="px-0" key={participant.id}>
             <Participant key={participant.id} {...participant}/>
         </Col>
     )
+
+    const index = participantList.findIndex(participant => participant.props.children.props.id === eventState.creator.id)
+    const creator = participantList.splice(index, 1)
+
+    participantList.sort((a, b) => {
+        const aString = a.props.children.props.first_name.toLowerCase();
+        const bString = b.props.children.props.first_name.toLowerCase();
+        return aString.localeCompare(bString);
+    })
+
+    participantList.unshift(creator)
     
-    // sort creator to be first in the list
     // highlight or denote creator somehow
     // move x into the top right corner
 
