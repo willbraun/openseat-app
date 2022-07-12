@@ -27,6 +27,7 @@ const Home = ({appState}) => {
     }
 
     useEffect(() => {
+        setEvents(null);
         getHomeEvents(currentSearch, currentRadius);
     }, [location.key])
 
