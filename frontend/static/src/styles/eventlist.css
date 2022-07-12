@@ -3,13 +3,16 @@
 .my-events-page {
     max-width: 75rem;
     width: 90%;
-    margin: auto;
 }
 
 .home-page {
-    margin-top: calc(var(--sub-header-height) + 1rem);
+    margin: calc(var(--sub-header-height) + 1rem) auto 2rem;
+}
+
+.my-seats-page {
+    margin: 0 auto 2rem;
 }
 
 .my-events-page {
-    margin-top: 2rem;
+    margin: 2rem auto;
 }

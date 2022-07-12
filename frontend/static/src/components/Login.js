@@ -63,7 +63,7 @@ const Login = ({appState, setAppState}) => {
     
     return (
         <main className="login">
-            <h2>Login</h2>
+            <h2>Log in</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
@@ -78,18 +78,22 @@ const Login = ({appState, setAppState}) => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control 
-                        name="password" 
-                        value={state.password}
-                        type={showPassword ? "text" : "password"} 
-                        placeholder="Enter password" 
-                        required 
-                        onChange={handleInput}/>
+                    <div className="password-box">
+                        <Form.Control 
+                            name="password" 
+                            value={state.password}
+                            type={showPassword ? "text" : "password"} 
+                            placeholder="Enter password" 
+                            required 
+                            onChange={handleInput}/>
+                        <Button variant="outline-primary" size="sm" onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</Button>
+                    </div>
                 </Form.Group>
-                <Button variant="outline-primary" onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</Button>
-                <Button variant="primary" disabled={!allowSubmit} type="submit">Log in</Button>
-                <p className="error-message">{error}</p>
-                <p>Don't have an account? Click <Link className="create-account-link" to={'/create-account'}>here</Link> to create one.</p>
+                <Button variant="primary" className="login-button" disabled={!allowSubmit} type="submit">Log in</Button>
+                <div className="login-footer">
+                    <p className="error-message">{error}</p>
+                    <p>Don't have an account? Click <Link className="create-account-link" to={'/create-account'}>here</Link> to create one.</p>
+                </div>
             </Form>
         </main>
     )

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col'; 
 import { handleInput, handleImage, states } from "../helpers";
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import plus from './../images/plus-solid.svg'; 
 import './../styles/eventinput.css'
 

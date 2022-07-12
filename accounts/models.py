@@ -1,3 +1,4 @@
+import pdb
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -15,9 +16,6 @@ def validate_phone(value):
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, validators=[validate_email])
     phone_number = models.CharField(max_length=16, blank=True, validators=[validate_phone])
     zip_code = USZipCodeField(blank=True)
     profile_pic = models.ImageField(upload_to='accounts/images/', null=True)
