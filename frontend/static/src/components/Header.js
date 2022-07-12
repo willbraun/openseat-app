@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 import './../styles/header.css';
@@ -39,9 +39,9 @@ const Header = ({appState, setAppState}) => {
                 {appState.auth && 
                 <>
                     <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>Create Event</button>
-                    <Link className="header-nav" to={'/'}>Discover</Link>
-                    <Link className="header-nav" to={'/my-seats'}>My Seats</Link>
-                    <Link className="header-nav" to={'my-events'}>My Events</Link>
+                    <NavLink className="header-nav" to={'/'}>Discover</NavLink>
+                    <NavLink className="header-nav" to={'/my-seats'}>My Seats</NavLink>
+                    <NavLink className="header-nav" to={'my-events'}>My Events</NavLink>
                 </>
                 }   
                 <div >

@@ -20,7 +20,7 @@
     width: 10vw;
     height: 10vw;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     background-color: #ccc;
     display: flex;
     justify-content: center;
@@ -41,6 +41,7 @@
 }
 
 .no-image-background {
+    margin-top: 1rem;
     width: 100%;
 }
 
@@ -50,5 +51,5 @@
 
 .no-image-background p {
     font-size: 1vw;
-    margin: 0;
+    margin: 0 20%;
 }

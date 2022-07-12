@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { format, parseISO } from 'date-fns'
 import { handleError } from '../helpers';
 import './../styles/event.css';
 import EditEvent from './EditEvent';
@@ -94,7 +95,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                             </div>
                             {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                             <address>{state.address} {state.city}, {state.state} {state.zip_code}</address>
-                            <time>{state.date} at {state.time}</time>
+                            <time>{format(parseISO(`${state.date} ${state.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
                             </>
                             :
                             <>

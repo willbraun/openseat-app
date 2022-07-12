@@ -11,11 +11,13 @@ const Search = ({currentSearch, currentRadius, findEvents}) => {
         <div className="search-bar">
             <Form className="search-bar-form" onSubmit={() => findEvents(value.label, radius)}>
                 <Form.Group className="location-search-input">
-                    <GooglePlacesAutocomplete selectProps={{
-                        value,
-                        onChange: setValue,
-                        placeholder: currentSearch,
-                    }} />
+                    <GooglePlacesAutocomplete 
+                        apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                        selectProps={{
+                            value,
+                            onChange: setValue,
+                            placeholder: currentSearch,
+                        }} />
                 </Form.Group>
                 <p>within</p>
                 <Form.Group >

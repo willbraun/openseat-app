@@ -9,25 +9,22 @@ import { handleError } from '../helpers';
 import Search from './Search';
 import './../styles/eventlist.css';
 
-const Home = ({appState, setAppState}) => {
+const Home = ({appState}) => {
     const currentSearch = window.localStorage.openSeatSearchLocation ?? 'Greenville, SC, USA';
     const currentRadius = ['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25';
-    
-    const [state, setState] = useState({
-        events: null,
-    })
+    const [events, setEvents] = useState(null);
 
     const location = useLocation();
     
     const getHomeEvents = async (searchLocation, searchRadius) => {
-        const response = await fetch(`/api_v1/events/?origin_zip=${searchLocation}&radius=${searchRadius}`).catch(handleError);
+        const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
         
         if (!response.ok) {
             throw new Error('Network response was not ok!');
         }
 
         const data = await response.json();
-        setState({...state, events: data});
+        setEvents(data);
     }
 
     useEffect(() => {
@@ -35,7 +32,7 @@ const Home = ({appState, setAppState}) => {
     }, [location.key])
 
     const findEvents = (searchLocation, searchRadius) => {
-        setState({...state, events: null});
+        setEvents(null);
         getHomeEvents(searchLocation, searchRadius);
         localStorage.setItem('openSeatSearchLocation', searchLocation);
         localStorage.setItem('openSeatSearchRadius', searchRadius);
@@ -50,14 +47,14 @@ const Home = ({appState, setAppState}) => {
                 currentRadius={currentRadius}
                 findEvents={findEvents}/>
 
-            {state.events === null ? 
+            {events === null ? 
                 <div>Loading events...</div> : 
 
-                state.events.length === 0 ?
+                events.length === 0 ?
                     <div>{noneFound}</div> :
                     
                     <Row className="gy-4">
-                        {state.events.map((event, i) => 
+                        {events.map((event, i) => 
                             <Col key={i} sm={12} lg={6}>
                                 <Event key={event.id} appState={appState} event={event}/>
                             </Col>

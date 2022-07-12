@@ -16,7 +16,7 @@ from django.db.models import F, Count
 from datetime import date
 
 
-def filter_events_by_distance(events, origin_zip, distance_in_miles):
+def filter_events_by_distance(events, origin, distance_in_miles):
     if len(events) == 0:
         return []
     
@@ -28,7 +28,7 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
     destination_string_encoded = urllib.parse.quote(destination_string)
     api_key = os.environ['GOOGLE_API_KEY']
 
-    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destination_string_encoded}&origins={origin_zip}&key={api_key}"
+    url = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destination_string_encoded}&origins={origin}&key={api_key}"
 
     response = requests.request("GET", url, headers={}, data={})
     response_dict = json.loads(response.text)
@@ -48,7 +48,7 @@ def filter_events_by_distance(events, origin_zip, distance_in_miles):
     return results
 
 def filter_home_events(request):
-    origin_zip = request.GET.get('origin_zip')
+    origin = request.GET.get('origin')
     radius = int(request.GET.get('radius'))
     
     events = (Event.objects
@@ -57,7 +57,7 @@ def filter_home_events(request):
         .annotate(participant_count=Count('participants'))
         .filter(participant_count__lt=F('seats')))
 
-    return filter_events_by_distance(events, origin_zip, radius)
+    return filter_events_by_distance(events, origin, radius)
 
 
 def send_text(recipient_number, message_body):
@@ -67,7 +67,7 @@ def send_text(recipient_number, message_body):
     twilio_phone_number = os.environ['TWILIO_PHONE_NUMBER']
     client = Client(api_key, api_secret, account_sid)
 
-    message = client.messages.create(
+    client.messages.create(
         to = recipient_number, 
         from_ = twilio_phone_number,
         body = message_body,

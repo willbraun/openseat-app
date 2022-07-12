@@ -23,14 +23,17 @@
 
 .logo-link:hover,
 .header-nav:hover {
-    color: #FFA500; 
+    color: var(--orange)
 }
 
 .header-nav {
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
     background-color: transparent;
     border: none;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
     font-size: 1.2rem;
+    /* transition: 0.1s; */
 }
 
 .logo-link-box {
@@ -40,6 +43,7 @@
 .logo-link {
     width: fit-content;
     font-size: 2rem;
+    /* transition: 0.1s; */
 }
 
 .create-event-nav {
@@ -55,4 +59,8 @@
 
 .create-event-nav:hover {
     filter:brightness(110%);
+}
+
+.header-nav.active {
+    border-bottom: 2px solid var(--orange);
 }
