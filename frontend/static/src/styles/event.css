@@ -96,14 +96,6 @@
     word-wrap: break-word;
 }
 
-/* .event-bottom {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin: 0 1rem 1rem;
-} */
-
 .view-participants,
 .event-action {
     height: 3rem;

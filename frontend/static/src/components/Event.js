@@ -111,7 +111,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         }
                     </Col>
                 </Row>
-                <Row className="event-bottom mx-1 mb-3 gy-2">
+                <Row className="mx-1 mb-3 gy-2 event-bottom">
                     <Col sm={12} md={5} lg={12} xl={5}>
                         <button 
                             className={`view-participants${appState.auth ? "" : " disabled"}`} 
