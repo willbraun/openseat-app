@@ -16,3 +16,11 @@
 .my-events-page {
     margin: 2rem auto;
 }
+
+@media (max-width: 992px) {
+    .home-page,
+    .my-seats-page,
+    .my-events-page {
+        margin-bottom: calc(var(--footer-height) + 2rem);
+}
+}

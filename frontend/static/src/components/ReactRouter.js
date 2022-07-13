@@ -1,16 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 import Login from './Login';
 import CreateAccount from './CreateAccount';
 import Home from './Home';
 import MyEvents from './MyEvents';
 import MySeats from './MySeats';
 
-const ReactRouter = ({appState, setAppState}) => {
+const ReactRouter = ({appState, setAppState, logOut}) => {
     
     return (
         <BrowserRouter>
-            <Header appState={appState} setAppState={setAppState}/>
+            <Header appState={appState} setAppState={setAppState} logOut={logOut}/>
+            <Footer appState={appState} setAppState={setAppState} logOut={logOut}/>
             <Routes>
                 <Route path='/' >
                     <Route index element={<Home appState={appState} />}/>

@@ -6,10 +6,10 @@
     font-size: 1.75rem;
     outline: 0px;
     transition: 0.1s;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .my-seats-timeperiod:hover {
-    background-color: var(--blue);
+    background-color: #ccc;
     cursor: pointer;
 }
