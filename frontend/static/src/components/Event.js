@@ -88,10 +88,10 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     <img className="event-image" src={state.image} alt={state.name} />
                 </div>
                 <Row className="event-info">
-                    <Col sm={12} md={7} lg={6} className="description">
+                    <Col sm={12} md={appState.auth ? 7 : 10} lg={appState.auth ? 12 : 10} className="description">
                         <p>{state.description}</p>
                     </Col>
-                    <Col sm={12} md={5} lg={6} className={`details${appState.auth ? " large" : ""}`}>
+                    <Col sm={12} md={appState.auth ? 5 : 2} lg={appState.auth ? 12 : 2} className={`details${appState.auth ? " large" : ""}`}>
                         {appState.auth ?
                             <>
                             <div className="creator-info">
@@ -112,7 +112,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     </Col>
                 </Row>
                 <Row className="mx-1 mb-3 gy-2 event-bottom">
-                    <Col sm={12} md={5} lg={12} xl={5}>
+                    <Col className="pe-0" xs={appState.auth ? 12 : 5} md={5} lg={appState.auth ? 12 : 6} xl={5}>
                         <button 
                             className={`view-participants${appState.auth ? "" : " disabled"}`} 
                             disabled={!appState.auth} 
@@ -121,7 +121,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                                 {appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled
                         </button>
                     </Col>
-                    <Col sm={12} md={7} lg={12} xl={7}>
+                    <Col className="ps-0" xs={appState.auth ? 12 : 7} md={7} lg={appState.auth ? 12 : 6} xl={7}>
                         {actionButton()}                
                     </Col>
                 </Row>

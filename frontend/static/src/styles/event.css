@@ -11,7 +11,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .event-name {
@@ -39,25 +38,13 @@
 }
 
 .event-info {
-    /* display: flex;
-    justify-content: space-between; */
     padding: 1rem;
+    flex-grow: 1;
 }
 
 .event .description {
     font-size: 1.5rem;
 }
-
-/* .event .details {
-    width: fit-content;
-    padding-left: 1rem;
-    margin-left: 1rem;
-    border-left: 1px solid var(--border-color);
-} */
-
-/* .event .details.large {
-    min-width: 40%;
-} */
 
 .event .distance {
     width: fit-content;
@@ -122,6 +109,11 @@
 .view-participants.disabled,
 .log-in-to-join.disabled {
     padding: 0.4rem 0 0 0;
+    width: fit-content;
+}
+
+.log-in-to-join.disabled {
+    margin-left: auto;
 }
 
 .view-participants {
@@ -136,9 +128,8 @@
 }
 
 .event-action {
-    /* margin-left: 1rem; */
     font-size: 1.5rem;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 .fill-seat,
