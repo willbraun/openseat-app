@@ -1,10 +1,7 @@
-import { useNavigate, useLocation, NavLink, Link } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const Footer = ({appState, logOut}) => {
     const navigate = useNavigate();
-    const location = useLocation();
-
-    const loginOrCA = location.pathname.endsWith('/login') || location.pathname.endsWith('/create-account');
 
     const logOutNav = () => {
         logOut();
@@ -13,20 +10,18 @@ const Footer = ({appState, logOut}) => {
     
     return (
         <>
-        {!loginOrCA && 
             <div className="footer">
+                <NavLink className="footer-nav" to={'/'}>Discover</NavLink>
                 {appState.auth ? 
-                    <>
-                        <NavLink className="footer-nav" to={'/'}>Discover</NavLink>
+                    <>  
                         <NavLink className="footer-nav" to={'/my-seats'}>My Seats</NavLink>
-                        <NavLink className="footer-nav" to={'my-events'}>My Events</NavLink>
+                        <NavLink className="footer-nav" to={'/my-events'}>My Events</NavLink>
                         <button className="footer-nav" onClick={logOutNav}>Log out</button>
                     </>
                     :
-                    <Link className="footer-nav login-link" to={"/login"}>Log in</Link>
+                    <NavLink className="footer-nav login-link" to={"/login"}>Log in</NavLink>
                 }   
             </div>
-        }
         </>
         
     )

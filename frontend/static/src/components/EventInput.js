@@ -9,7 +9,6 @@ import './../styles/eventinput.css'
 
 const EventInput = ({parentState, setParentState}) => {
     const [preview, setPreview] = useState(parentState?.image)
-    console.log(preview);
 
     if (!parentState) {
         return;

@@ -216,11 +216,10 @@ const CreateAccount = ({appState, setAppState}) => {
                 </Row>
                     <Link className="back-to-login" to={'/login'}>
                         <img src={arrowLeft} alt="left arrow" />
-                        Back to login</Link>
-
+                        Back to login
+                    </Link>
             </Form>
             <p className="error-message">{error}</p>
-            
         </main>
     )
 }

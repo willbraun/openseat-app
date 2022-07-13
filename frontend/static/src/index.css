@@ -8,7 +8,7 @@
 	--blue: #D8F4FA;
 	--orange: rgba(252,176,69,1);
 	--header-height: 4rem;
-	--footer-height: 4rem;
+	--footer-height: 3.5rem;
 	--sub-header-height: 3rem;
 	--create-event-color: linear-gradient(90deg, rgba(245,117,226,1) 0%, var(--orange) 100%);
 }

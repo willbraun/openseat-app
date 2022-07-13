@@ -44,7 +44,7 @@ const MySeats = ({appState}) => {
             <select  
                 className="my-seats-timeperiod"
                 defaultValue={state.isFuture.toString()}
-                onChange={(e) => {setState({...state, events: null, isFuture: e.target.value === 'true'});console.log(typeof e.target.value)}}>
+                onChange={(e) => setState({...state, events: null, isFuture: e.target.value === 'true'})}>
                 <option value="true">Upcoming</option>
                 <option value="false">History</option>
             </select>

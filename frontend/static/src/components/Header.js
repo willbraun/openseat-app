@@ -29,7 +29,10 @@ const Header = ({appState, logOut}) => {
                             <button className="header-nav" onClick={logOutNav}>Log out</button>
                         </>
                         :
-                        <Link className="header-nav login-link" to={"/login"}>Log in</Link>
+                        <>
+                            <NavLink className="header-nav" to={'/'}>Discover</NavLink>
+                            <NavLink className="header-nav login-link" to={"/login"}>Log in</NavLink>
+                        </>
                     }   
                 </div>
                 <CreateEvent isCreating={isCreating} setIsCreating={setIsCreating}/>

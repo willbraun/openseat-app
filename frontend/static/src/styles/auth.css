@@ -106,3 +106,9 @@
     margin-right: 0.3rem;
     filter: invert(47%) sepia(37%) saturate(3524%) hue-rotate(199deg) brightness(102%) contrast(95%);
 }
+
+@media (max-width: 992px) {
+    .create-account form {
+        margin-bottom: calc(var(--footer-height) + 1rem);
+    }
+}
