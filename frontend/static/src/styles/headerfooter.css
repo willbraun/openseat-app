@@ -89,4 +89,20 @@
     .footer {
         display: flex;
     }
+
+    .header {
+        justify-content: center;
+    }
+
+    .logo-link-box {
+        text-align: center;
+    }
+
+    .logo-link-box.auth {
+        text-align: left;
+    }
+
+    .create-event-nav {
+        margin: 0;
+    }
 }

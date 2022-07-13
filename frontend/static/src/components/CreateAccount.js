@@ -130,7 +130,6 @@ const CreateAccount = ({appState, setAppState}) => {
                                     placeholder="Enter password" 
                                     required 
                                     onChange={(e) => handleInput(e, setState)} />
-                                <Button variant="outline-primary" size="sm" onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</Button>
                             </div>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
