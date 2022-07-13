@@ -3,14 +3,14 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    width: 90%;
 }
 
 .login {
-    width: 25rem;
+    max-width: 25rem;
 }
 
 .create-account {
-    width: 90%;
     max-width: 60rem;
 }
 

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Cookies from 'js-cookie';
 import { format, parseISO } from 'date-fns'
 import { handleError } from '../helpers';
@@ -85,18 +87,18 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 <div className="event-image-box">
                     <img className="event-image" src={state.image} alt={state.name} />
                 </div>
-                <div className="event-info">
-                    <div className="description">
+                <Row className="event-info">
+                    <Col sm={12} md={7} lg={6} className="description">
                         <p>{state.description}</p>
-                    </div>
-                    <div className={`details${appState.auth ? " large" : ""}`}>
+                    </Col>
+                    <Col sm={12} md={5} lg={6} className={`details${appState.auth ? " large" : ""}`}>
                         {appState.auth ?
                             <>
                             <div className="creator-info">
                                 <div className="creator-profile-pic-box">
                                     <img className="creator-profile-pic" src={state.creator.profile_pic} alt={state.creator.username} />
                                 </div>
-                                <p>{state.creator.first_name} {state.creator.last_name}</p>
+                                <p className="creator-name">{state.creator.first_name} {state.creator.last_name}</p>
                             </div>
                             {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                             <address>{state.address} {state.city}, {state.state} {state.zip_code}</address>
@@ -107,18 +109,22 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                             {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                             </>
                         }
-                    </div>
-                </div>
-                <div className="event-bottom">
-                    <button 
-                        className={`view-participants${appState.auth ? "" : " disabled"}`} 
-                        disabled={!appState.auth} 
-                        type="button"
-                        onClick={() => setShowParticipants(true)}>
-                            {appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled
-                    </button>
-                    {actionButton()}                
-                </div>
+                    </Col>
+                </Row>
+                <Row className="event-bottom mx-1 mb-3 gy-2">
+                    <Col sm={12} md={5} lg={12} xl={5}>
+                        <button 
+                            className={`view-participants${appState.auth ? "" : " disabled"}`} 
+                            disabled={!appState.auth} 
+                            type="button"
+                            onClick={() => setShowParticipants(true)}>
+                                {appState.auth ? state.participants.length : state.participant_count} / {state.seats} seats filled
+                        </button>
+                    </Col>
+                    <Col sm={12} md={7} lg={12} xl={7}>
+                        {actionButton()}                
+                    </Col>
+                </Row>
             </div>
             <EventParticipants 
                 eventState={state}
