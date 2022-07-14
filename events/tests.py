@@ -5,6 +5,7 @@ from .models import Event
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 from .views import MySeatsFutureListApiView, MySeatsPastListApiView, MyEventsListCreateApiView, get_home_events, EventAddSelfApiView, EventRemoveSelfApiView, EventDetailApiView
+import os
 
 User = get_user_model()
 client = Client()
@@ -85,7 +86,6 @@ class FillSeatsEventTestCases(TestCase):
         response = view(request, pk=id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_remove_self_no_auth(self):
         id = Event.objects.get(name='Fishing').id
         request = factory.put(f'/api_v1/{id}/remove-self/')
@@ -158,7 +158,6 @@ class EventCrudTestCases(TestCase):
         self.assertEqual(user.id, response.data['participants'][0]['id'])
         
         saved_location = f"media/events/images/{image.name.split('/')[-1]}"
-        import os
         os.remove(saved_location)
         
 
