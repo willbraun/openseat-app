@@ -22,21 +22,4 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
-
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     participants = cleaned_data.get('participants')
-    #     seats = cleaned_data.get('seats')
-    #     print(seats)
-    #     print(len(participants))
-
-    #     import pdb 
-    #     pdb.set_trace()
-
-    #     if len(participants) > seats:
-    #         raise ValidationError('All seats on this event have been filled.')
-
-    # def save(self):
-    #     self.clean()
-    #     return super(Event, self).save()
         
