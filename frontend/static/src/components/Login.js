@@ -46,6 +46,9 @@ const Login = ({appState, setAppState}) => {
         }
 
         Cookies.set("Authorization", `Token ${data.key}`);
+        Cookies.set("userId", data.id);
+        Cookies.set("userZip", data.zip);
+        
         setAppState({
             ...appState, 
             auth: true, 

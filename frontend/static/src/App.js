@@ -8,8 +8,8 @@ import { handleError } from './helpers';
 function App() {
 	const [state, setState] = useState({
 		auth: !!Cookies.get('Authorization'),
-		userId: 0,
-		userZip: '',
+		userId: Cookies.get('userId') ?? 0,
+		userZip: Cookies.get('userZip') ?? '',
 	})
 
 	const logOut = async () => {
@@ -27,8 +27,11 @@ function App() {
             throw new Error('Network response not ok!');
         }
 
-        Cookies.remove("Authorization");
-        setState({...state, auth: false});
+        Cookies.remove('Authorization');
+        Cookies.remove('userId');
+        Cookies.remove('userZip');
+
+        setState({...state, auth: false, userId: 0, userZip: ''});
     }
 	
 	return (

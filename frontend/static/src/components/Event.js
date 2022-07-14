@@ -14,7 +14,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [showParticipants, setShowParticipants] = useState(false);
 
-    const attending = state.participants?.map(participant => participant.id).includes(appState.userId);
+    const attending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
 
     const location = useLocation();
     const isHome = location.pathname === '/';
@@ -102,8 +102,6 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 data-testid="fill-seat-button" 
                 onClick={() => fillSeat()}>
                     Fill Seat
-                    {console.log('correct:', appState.auth && !attending && state.creator.id !== appState.userId && parseISO(state.date) > now)}
-                    {console.log('name:', state.name, ',', 'auth', appState.auth, 'attending', attending, 'isCreator', state.creator.id === appState.userId, state.creator.id, appState.userId, 'isFuture', parseISO(state.date) > now, state.date)}
                 </button>
         }
     }
