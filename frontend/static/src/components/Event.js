@@ -14,7 +14,8 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [showParticipants, setShowParticipants] = useState(false);
 
-    const attending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
+    const isCreator = appState.auth && state.creator.id === appState.userId;
+    const isAttending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
 
     const location = useLocation();
     const isHome = location.pathname === '/';
@@ -72,7 +73,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     Event Completed
                 </div>
         }
-        else if (state.creator.id === appState.userId) {
+        else if (isCreator) {
             return <button 
                 className="event-action edit-event-button" 
                 data-testid="edit-event-button" 
@@ -81,7 +82,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     Edit Event
                 </button>
         }
-        else if (attending) {
+        else if (isAttending) {
             return (
                 <div className="event-action youre-going-box">
                     <div className="youre-going">You're going!</div>
@@ -102,6 +103,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 data-testid="fill-seat-button" 
                 onClick={() => fillSeat()}>
                     Fill Seat
+                    {/* {console.log('name:', state.name, ',', 'auth', appState.auth, 'attending', isAttending, 'isCreator', state.creator.id === appState.userId, state.creator.id, appState.userId, 'isFuture', parseISO(state.date) > now, state.date)} */}
                 </button>
         }
     }

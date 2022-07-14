@@ -1,3 +1,9 @@
+// import imagemin from 'imagemin';
+// import imageminJpegtran from 'imagemin-jpegtran';
+// import imageminPngquant from 'imagemin-pngquant';
+
+import Compressor from 'compressorjs';
+
 export const handleError = (err) => {
 	console.warn(err);
 }
@@ -11,15 +17,31 @@ export const handleInput = (e, setState) => {
 }
 
 export const handleImage = (e, state, setState, imageKey, setPreview) => {
-	const file = e.target.files[0];
-	setState({...state, [imageKey]: file});
+	const upload = (uploadImage) => {
+        setState({...state, [imageKey]: uploadImage});
 
-	const reader = new FileReader();
-	reader.onloadend = () => {
-		setPreview(reader.result);
-	}
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreview(reader.result);
+        }
+        console.log(uploadImage)
+        reader.readAsDataURL(uploadImage);
+    }
+    
+    const image = e.target.files[0];
 
-	reader.readAsDataURL(file);
+    new Compressor(image, {
+        quality: 0.2,
+        success(result) {
+            const newImage = new File([result], result.name);
+            upload(newImage)
+        },
+        error(error) {
+            upload(image)
+            console.error(error.message);
+        }
+    });
+	
 }
 
 export const states = [

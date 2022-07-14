@@ -8,7 +8,7 @@ import { handleError } from './helpers';
 function App() {
 	const [state, setState] = useState({
 		auth: !!Cookies.get('Authorization'),
-		userId: Cookies.get('userId') ?? 0,
+		userId: Number(Cookies.get('userId')) ?? 0,
 		userZip: Cookies.get('userZip') ?? '',
 	})
 

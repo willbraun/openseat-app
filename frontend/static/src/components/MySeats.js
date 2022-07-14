@@ -30,7 +30,7 @@ const MySeats = ({appState}) => {
         return <div>Loading events...</div>
     }
     else if (state.events.length === 0) {
-        return <div>No events found.</div>
+        return <div>You haven't filled any seats yet. Check out the Discover page to find events!</div>
     }
 
     const eventList = state.events.map((event, i) => 

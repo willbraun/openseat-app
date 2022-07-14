@@ -47,8 +47,6 @@
 }
 
 .image-button {
-    width: 17rem;
-    height: 17rem;
     border: none;
     background-color: #ccc;
     display: flex;
@@ -62,6 +60,8 @@
 
 .create-account .image-button {
     border-radius: 50%;
+    width: 17rem;
+    height: 17rem;
 }
 
 .image-button:hover {

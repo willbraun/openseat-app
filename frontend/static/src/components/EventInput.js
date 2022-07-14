@@ -19,37 +19,40 @@ const EventInput = ({parentState, setParentState}) => {
             <Row>
                 <Col xs={9}>
                     <Form.Group className="mb-2" controlId="name">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Name <span className="required-asterisk">*</span></Form.Label>
                         <Form.Control  
                             name="name" 
-                            value={parentState.name} 
+                            value={parentState.name ?? ''} 
                             type="text"  
+                            required
                             onChange={(e) => handleInput(e, setParentState)}
                             autoFocus/>
                     </Form.Group>
                     <Form.Group className="mb-2" controlId="seats">
-                        <Form.Label>Seats</Form.Label>
+                        <Form.Label>Seats <span className="required-asterisk">*</span></Form.Label>
                         <Form.Text> - including yourself!</Form.Text>
                         <Form.Control 
                             name="seats" 
-                            value={parentState.seats}
+                            value={parentState.seats ?? 0}
                             type="number" 
                             min="2"
                             max="20"
+                            required
                             onChange={(e) => handleInput(e, setParentState)} />
                     </Form.Group>
                 </Col>
                 <Col xs={3}>
                     <Form.Group controlId="event-image">
-                        <Form.Label>Image</Form.Label>
+                        <Form.Label>Image <span className="required-asterisk">*</span></Form.Label>
                         <button 
                             type="button" 
                             className="image-button event-image-button"
-                            required
                             onClick={() => document.querySelector('.input-image.event-image').click()}>
                             <Form.Control 
                                 type="file"
                                 className="input-image event-image"
+                                form="create-event-input-form"
+                                required
                                 onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)} />
                             
                                 {preview ? 
@@ -64,11 +67,12 @@ const EventInput = ({parentState, setParentState}) => {
                 </Col>
             </Row>
             <Form.Group className="mb-2" controlId="description">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Description <span className="required-asterisk">*</span></Form.Label>
                 <Form.Control 
                     name="description" 
-                    value={parentState.description} 
+                    value={parentState.description ?? ''} 
                     as="textarea"  
+                    required
                     onChange={(e) => handleInput(e, setParentState)}
                 ></Form.Control > 
             </Form.Group>
@@ -76,31 +80,34 @@ const EventInput = ({parentState, setParentState}) => {
                 <Col xs={9}>
                     <Row>
                         <Form.Group className="mb-2" controlId="address">
-                            <Form.Label>Address / Business</Form.Label>
+                            <Form.Label>Address / Business <span className="required-asterisk">*</span></Form.Label>
                             <Form.Control  
                                 name="address" 
-                                value={parentState.address} 
+                                value={parentState.address ?? ''} 
                                 type="text"  
+                                required
                                 onChange={(e) => handleInput(e, setParentState)}/>
                         </Form.Group>
                     </Row>
                     <Row>
                         <Col xs={4}>
                             <Form.Group controlId="city">
-                                <Form.Label>City</Form.Label>
+                                <Form.Label>City <span className="required-asterisk">*</span></Form.Label>
                                 <Form.Control  
                                     name="city" 
-                                    value={parentState.city} 
-                                    type="text"  
+                                    value={parentState.city ?? ''} 
+                                    type="text"
+                                    required  
                                     onChange={(e) => handleInput(e, setParentState)}/>
                             </Form.Group>
                         </Col>
                         <Col xs={5}>
                             <Form.Group>
-                                <Form.Label>State</Form.Label>
+                                <Form.Label>State <span className="required-asterisk">*</span></Form.Label>
                                 <Form.Select
                                     name="state" 
-                                    value={parentState.state}
+                                    value={parentState.state ?? ''}
+                                    required
                                     onChange={(e) => handleInput(e, setParentState)}>
                                     <option value="">Select state...</option>
                                     {states.map((state, i) => <option key={i} value={state.abbreviation}>{state.name}</option>)}
@@ -112,7 +119,7 @@ const EventInput = ({parentState, setParentState}) => {
                                 <Form.Label>Zip Code</Form.Label>
                                 <Form.Control 
                                     name="zip_code" 
-                                    value={parentState.zip_code}
+                                    value={parentState.zip_code ?? ''}
                                     type="number" 
                                     min="0"
                                     max="99999"
@@ -124,20 +131,22 @@ const EventInput = ({parentState, setParentState}) => {
                 </Col>
                 <Col xs={3}>
                     <Form.Group className="mb-2" controlId="date">
-                        <Form.Label>Date</Form.Label>
+                        <Form.Label>Date <span className="required-asterisk">*</span></Form.Label>
                         <Form.Control 
                             name="date" 
-                            value={parentState.date}
+                            value={parentState.date ?? ''}
                             min={format(new Date(), "yyyy-MM-dd")}
                             type="date" 
+                            required
                             onChange={(e) => handleInput(e, setParentState)} />
                     </Form.Group>
                     <Form.Group controlId="time">
-                        <Form.Label>Time</Form.Label>
+                        <Form.Label>Time <span className="required-asterisk">*</span></Form.Label>
                         <Form.Control 
                             name="time" 
-                            value={parentState.time}
-                            type="time" 
+                            value={parentState.time ?? ''}
+                            type="time"
+                            required 
                             onChange={(e) => handleInput(e, setParentState)} />
                     </Form.Group>
                 </Col>
