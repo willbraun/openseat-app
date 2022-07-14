@@ -59,29 +59,57 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
     const actionButton = () => {
         if (!appState.auth) {
-            return <div className="event-action log-in-to-join disabled">Log in to join!</div>
+            return <div 
+                className="event-action log-in-to-join disabled" 
+                data-testid="log-in-to-join">
+                    Log in to join!
+                </div>
         }
         else if (parseISO(state.date) < now) {
-            return <div className="event-action event-completed disabled">Event Completed</div>
+            return <div 
+                className="event-action event-completed disabled" 
+                data-testid="event-completed">
+                    Event Completed
+                </div>
         }
         else if (state.creator.id === appState.userId) {
-            return <button className="event-action edit-event-button" type="button" onClick={() => setIsEditing(true)}>Edit Event</button>
+            return <button 
+                className="event-action edit-event-button" 
+                data-testid="edit-event-button" 
+                type="button" 
+                onClick={() => setIsEditing(true)}>
+                    Edit Event
+                </button>
         }
         else if (attending) {
             return (
                 <div className="event-action youre-going-box">
                     <div className="youre-going">You're going!</div>
-                    <button className="give-up-seat" type="button" onClick={() => giveUpSeat()}>Cancel</button>
+                    <button 
+                        className="give-up-seat" 
+                        type="button" 
+                        data-testid="give-up-seat-button" 
+                        onClick={() => giveUpSeat()}>
+                            Cancel
+                    </button>
                 </div>
             )
         }
         else {
-            return <button className="event-action fill-seat" type="button" onClick={() => fillSeat()}>Fill Seat</button>
+            return <button 
+                className="event-action fill-seat" 
+                type="button" 
+                data-testid="fill-seat-button" 
+                onClick={() => fillSeat()}>
+                    Fill Seat
+                    {console.log('correct:', appState.auth && !attending && state.creator.id !== appState.userId && parseISO(state.date) > now)}
+                    {console.log('name:', state.name, ',', 'auth', appState.auth, 'attending', attending, 'isCreator', state.creator.id === appState.userId, state.creator.id, appState.userId, 'isFuture', parseISO(state.date) > now, state.date)}
+                </button>
         }
     }
 
     const eventContent = (appState.auth ? 
-        <div className="event-content">
+        <div className="event-content" data-testid="auth-content">
             <div className="event-image-box">
                 <img className="event-image" src={state.image} alt={state.name} />
             </div>
@@ -117,7 +145,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
             </Row>
         </div>    
         :
-        <div className="event-content">
+        <div className="event-content" data-testid="no-auth-content">
             <div className="event-image-box">
                 <img className="event-image" src={state.image} alt={state.name} />
             </div>
