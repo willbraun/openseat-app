@@ -52,7 +52,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await createEvent();
-        setIsCreating(false);
+        close();
         navigate('/my-events')
     }
     

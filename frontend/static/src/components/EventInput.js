@@ -42,26 +42,28 @@ const EventInput = ({parentState, setParentState}) => {
                     </Form.Group>
                 </Col>
                 <Col xs={3}>
-                    <Form.Group controlId="event-image">
+                    <Form.Group>
                         <Form.Label>Image <span className="required-asterisk">*</span></Form.Label>
                         <button 
                             type="button" 
                             className="image-button event-image-button"
-                            onClick={() => document.querySelector('.input-image.event-image').click()}>
+                            onClick={() => document.querySelector('.input-image.edit-event-image').click()}>
                             <Form.Control 
                                 type="file"
-                                className="input-image event-image"
+                                className="input-image edit-event-image"
                                 form="create-event-input-form"
                                 required
-                                onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)} />
+                                onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)} 
+                            />
                             
-                                {preview ? 
-                                    <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/> : 
-                                    <div className="no-image-background">
-                                        <img className="plus" src={plus} alt="plus icon" />
-                                        <p>Add Image</p>
-                                    </div>
-                                }
+                            {preview ? 
+                                <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/> : 
+                                <div className="no-image-background">
+                                    <img className="plus" src={plus} alt="plus icon" />
+                                    <p>Add Image</p>
+                                </div>
+                            }
+                            
                         </button>
                     </Form.Group>
                 </Col>
@@ -119,8 +121,8 @@ const EventInput = ({parentState, setParentState}) => {
                                 <Form.Label>Zip Code</Form.Label>
                                 <Form.Control 
                                     name="zip_code" 
-                                    value={parentState.zip_code ?? ''}
-                                    type="number" 
+                                    value={parentState.zip_code ? undefined : ""}
+                                    type="text" 
                                     min="0"
                                     max="99999"
                                     placeholder="Optional"

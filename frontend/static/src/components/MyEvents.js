@@ -50,7 +50,6 @@ const MyEvents = ({appState}) => {
         const index = events.findIndex(event => event.id === id);
         const newList = [...events];
         newList.splice(events[index], 1);
-        console.log(newList);
         setEvents(newList);
     }
 

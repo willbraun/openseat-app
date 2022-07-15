@@ -1,7 +1,3 @@
-// import imagemin from 'imagemin';
-// import imageminJpegtran from 'imagemin-jpegtran';
-// import imageminPngquant from 'imagemin-pngquant';
-
 import Compressor from 'compressorjs';
 
 export const handleError = (err) => {

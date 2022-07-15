@@ -42,8 +42,8 @@
 
 .input-image {
     position: absolute;
-    width: 0;
-    visibility: hidden;
+    opacity: 0;
+    z-index: -10;
 }
 
 .image-button {

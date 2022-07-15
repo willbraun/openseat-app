@@ -114,10 +114,10 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 <img className="event-image" src={state.image} alt={state.name} />
             </div>
             <Row className="event-info">
-                <Col sm={12} md={7} lg={12} className="description">
+                <Col sm={12} md={7} className="description">
                     <p>{state.description}</p>
                 </Col>
-                <Col sm={12} md={5} lg={12} className={`details large`}>
+                <Col sm={12} md={5} className={`details large`}>
                     <div className="creator-info">
                         <div className="creator-profile-pic-box">
                             <img className="creator-profile-pic" src={state.creator.profile_pic} alt={state.creator.username} />
@@ -150,15 +150,15 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 <img className="event-image" src={state.image} alt={state.name} />
             </div>
             <Row className="event-info">
-                <Col sm={12} md={10} lg={10} className="description">
+                <Col sm={10} className="description">
                     <p>{state.description}</p>
                 </Col>
-                <Col sm={12} md={2} lg={2} className={`details`}>
+                <Col sm={2} className={`details`}>
                     {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                 </Col>
             </Row>
             <Row className="mx-1 mb-3 gy-2 event-bottom">
-                <Col className="pe-0" xs={6} md={5} lg={6} xl={5}>
+                <Col className="pe-0" xs={6}>
                     <button 
                         className={`view-participants disabled`} 
                         disabled={true} 
@@ -167,7 +167,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                             {state.participant_count} / {state.seats} seats filled
                     </button>
                 </Col>
-                <Col className="ps-0" xs={6} md={7} lg={6} xl={7}>
+                <Col className="ps-0" xs={6}>
                     {actionButton()}                
                 </Col>
             </Row>
