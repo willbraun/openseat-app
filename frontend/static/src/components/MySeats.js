@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Spinner from 'react-bootstrap/Spinner';
 import Event from './Event';
 import { handleError } from '../helpers';
 import './../styles/myseats.css';
@@ -36,15 +35,12 @@ const MySeats = ({appState}) => {
                 defaultValue={state.isFuture.toString()}
                 onChange={(e) => setState({...state, events: null, isFuture: e.target.value === 'true'})}>
                 <option value="true">Upcoming</option>
-                <option value="false">History</option>
+                <option value="false">Past</option>
             </select>
 
             {state.events === null ?
                 <>
                     <div>Loading events...</div>
-                    {/* <Spinner className="my-seats-spinner" animation="border" role="status" variant="dark">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner> */}
                 </>
                 :
                 state.events.length === 0 ?

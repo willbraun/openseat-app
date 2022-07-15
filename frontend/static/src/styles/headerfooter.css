@@ -49,18 +49,30 @@
 }
 
 .create-event-nav {
+    position: relative;
     border-radius: 0.5rem;
     border: none;
     font-size: 1.2rem;
     font-weight: 600;
-    background: var(--create-event-color);
+    background-color: var(--orange);
+    color: #000;
     transition: 0.3s;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem;
     margin-right: 1rem;
 }
 
+.create-event-nav > * {
+    display: inline-block;
+    margin: 0;
+}
+
 .create-event-nav:hover {
-    filter: brightness(125%);
+    filter: brightness(115%);
+}
+
+.calendar-plus {
+    height: 1.6rem;
+    margin: -0.2rem 0 0 0.75rem;
 }
 
 .header-nav.active,

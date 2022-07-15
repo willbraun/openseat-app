@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link, NavLink } from 'react-router-dom';
 import './../styles/headerfooter.css';
 import CreateEvent from './CreateEvent';
+import calendarPlus from './../images/calendar-plus-solid.svg';
 
 const Header = ({appState, logOut}) => {
     const [isCreating, setIsCreating] = useState(false);
@@ -22,7 +23,10 @@ const Header = ({appState, logOut}) => {
                 <div className="header-options">
                     {appState.auth ? 
                         <>
-                            <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>Create Event</button>
+                            <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>
+                                <p>Create Event</p>
+                                <img className="calendar-plus" src={calendarPlus} alt="calendar plus" />
+                            </button>
                             <NavLink className="header-nav" to={'/'}>Discover</NavLink>
                             <NavLink className="header-nav" to={'/my-seats'}>My Seats</NavLink>
                             <NavLink className="header-nav" to={'my-events'}>My Events</NavLink>
