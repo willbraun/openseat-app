@@ -103,7 +103,6 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 data-testid="fill-seat-button" 
                 onClick={() => fillSeat()}>
                     Fill Seat
-                    {/* {console.log('name:', state.name, ',', 'auth', appState.auth, 'attending', isAttending, 'isCreator', state.creator.id === appState.userId, state.creator.id, appState.userId, 'isFuture', parseISO(state.date) > now, state.date)} */}
                 </button>
         }
     }
@@ -125,7 +124,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         <p className="creator-name">{state.creator.first_name} {state.creator.last_name}</p>
                     </div>
                     {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
-                    <address>{state.address} {state.city}, {state.state} {state.zip_code}</address>
+                    <address>{state.address} {state.city}, {state.state} {state.zip_code.toString() === 'null' ? "" : state.zip_code}</address>
                     <time>{format(parseISO(`${state.date} ${state.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
                 </Col>
             </Row>

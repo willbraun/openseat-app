@@ -6,10 +6,13 @@
     font-size: 1.75rem;
     outline: 0px;
     transition: 0.1s;
-    /* text-align: center; */
 }
 
 .my-seats-timeperiod:hover {
     background-color: #ccc;
     cursor: pointer;
+}
+
+.my-seats-spinner {
+    margin: 0 0 0 1rem;
 }

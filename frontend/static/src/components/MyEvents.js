@@ -30,7 +30,7 @@ const MyEvents = ({appState}) => {
         return <div>Loading events...</div>
     }
     else if (events.length === 0) {
-        return <div>You don't have any events. Create one!</div>
+        return <p className="center-message">You don't have any events. Create one!</p>
     }
 
     const deleteEvent = async (id) => {

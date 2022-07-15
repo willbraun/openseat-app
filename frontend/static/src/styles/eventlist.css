@@ -17,6 +17,21 @@
     margin: 1rem auto;
 }
 
+.center-message {
+    padding: 1rem 0;
+    font-size: 1.3rem;
+    text-align: center;
+    white-space: pre-line;
+}
+
+.center-message a {
+    color: #000;
+}
+
+.center-message a:hover {
+    color: var(--orange);
+}
+
 @media (max-width: 992px) {
     .home-page,
     .my-seats-page,

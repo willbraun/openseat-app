@@ -55,7 +55,8 @@ def filter_home_events(request):
         .exclude(participants__id=request.user.id)
         .filter(date__gte=date.today())
         .annotate(participant_count=Count('participants'))
-        .filter(participant_count__lt=F('seats')))
+        .filter(participant_count__lt=F('seats'))
+        .order_by('date'))
 
     return filter_events_by_distance(events, origin, radius)
 

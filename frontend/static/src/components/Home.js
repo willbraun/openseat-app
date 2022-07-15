@@ -28,14 +28,14 @@ const Home = ({appState}) => {
 
     useEffect(() => {
         setEvents(null);
-        getHomeEvents(currentSearch, currentRadius);
+        getHomeEvents(currentSearch, currentRadius)
     }, [location.key])
 
     const findEvents = (searchLocation, searchRadius) => {
-        setEvents(null);
-        getHomeEvents(searchLocation, searchRadius);
         localStorage.setItem('openSeatSearchLocation', searchLocation);
         localStorage.setItem('openSeatSearchRadius', searchRadius);
+        setEvents(null);
+        getHomeEvents(searchLocation, searchRadius)
     }
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
@@ -48,11 +48,11 @@ const Home = ({appState}) => {
                 findEvents={findEvents}/>
 
             {events === null ? 
-                <div>Loading events...</div> : 
-
+                <div>Loading events...</div> 
+                : 
                 events.length === 0 ?
-                    <div>{noneFound}</div> :
-                    
+                    <p className="center-message">{noneFound}</p> 
+                    :
                     <Row className="gy-4">
                         {events.map((event, i) => 
                             <Col key={i} sm={12} lg={6}>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 import Event from './Event';
 import { handleError } from '../helpers';
 import './../styles/myseats.css';
@@ -25,19 +27,7 @@ const MySeats = ({appState}) => {
 
         getSeats();
     }, [state.isFuture])
-
-    if (state.events === null) {
-        return <div>Loading events...</div>
-    }
-    else if (state.events.length === 0) {
-        return <div>You haven't filled any seats yet. Check out the Discover page to find events!</div>
-    }
-
-    const eventList = state.events.map((event, i) => 
-        <Col key={i} sm={12} lg={6}>
-            <Event key={i} appState={appState} event={event}/>
-        </Col>
-    )
+ 
     
     return (
         <main className="my-seats-page">
@@ -49,9 +39,25 @@ const MySeats = ({appState}) => {
                 <option value="false">History</option>
             </select>
 
-            <Row className="gy-4">
-                {eventList}
-            </Row>
+            {state.events === null ?
+                <>
+                    <div>Loading events...</div>
+                    {/* <Spinner className="my-seats-spinner" animation="border" role="status" variant="dark">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner> */}
+                </>
+                :
+                state.events.length === 0 ?
+                    <p className="center-message">{state.isFuture ? "You don't have any upcoming seats. \nFill a seat on Discover to see it here!" : "You don't have any seats in the past."}</p>
+                    :
+                    <Row className="gy-4">
+                        {state.events.map((event, i) => 
+                            <Col key={i} sm={12} lg={6}>
+                                <Event key={i} appState={appState} event={event}/>
+                            </Col>
+                        )}
+                    </Row>
+                }
         </main>
     )
 }
