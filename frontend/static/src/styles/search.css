@@ -12,19 +12,20 @@
     align-items: center;
 }
 
-.search-bar-form {
+.search-options {
     display: flex;
     align-items: center;
     width: 50rem;
     margin: auto;
 }
 
-.search-bar-form > * {
+.search-options > * {
     margin: 0 0.25rem;
 }
 
 .location-search-input {
     flex-grow: 1;
+    width: 20rem;
 }
 
 .search-submit {

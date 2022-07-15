@@ -9,8 +9,8 @@ import Search from './Search';
 import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
-    const currentSearch = window.localStorage.openSeatSearchLocation ?? 'Greenville, SC, USA';
-    const currentRadius = ['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25';
+    const [currentLocation, setCurrentLocation] = useState(window.localStorage.openSeatSearchLocation || 'Greenville, SC, USA');
+    const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25');
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
@@ -28,24 +28,21 @@ const Home = ({appState}) => {
 
     useEffect(() => {
         setEvents(null);
-        getHomeEvents(currentSearch, currentRadius)
-    }, [location.key])
-
-    const findEvents = (searchLocation, searchRadius) => {
-        localStorage.setItem('openSeatSearchLocation', searchLocation);
-        localStorage.setItem('openSeatSearchRadius', searchRadius);
-        setEvents(null);
-        getHomeEvents(searchLocation, searchRadius)
-    }
+        getHomeEvents(currentLocation, currentRadius)
+        localStorage.setItem('openSeatSearchLocation', currentLocation);
+        localStorage.setItem('openSeatSearchRadius', currentRadius);
+    }, [location.key, currentLocation, currentRadius])
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
     return (
         <main className="home-page">
             <Search 
-                currentSearch={currentSearch} 
+                currentLocation={currentLocation} 
                 currentRadius={currentRadius}
-                findEvents={findEvents}/>
+                setCurrentLocation={setCurrentLocation}
+                setCurrentRadius={setCurrentRadius}
+            />
 
             {events === null ? 
                 <div>Loading events...</div> 

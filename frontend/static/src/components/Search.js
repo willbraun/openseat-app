@@ -1,30 +1,26 @@
-import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import './../styles/search.css';
 
-const Search = ({currentSearch, currentRadius, findEvents}) => {
-    const [value, setValue] = useState(null);
-    const [radius, setRadius] = useState(currentRadius);
+const Search = ({currentLocation, currentRadius, setCurrentLocation, setCurrentRadius}) => {
 
     return (
-        <div className="search-bar">
-            <Form className="search-bar-form" onSubmit={() => findEvents(value.label, radius)}>
-                <Form.Group className="location-search-input">
+        <section className="search-bar">
+            <div className="search-options">
+                <div className="location-search-input">
                     <GooglePlacesAutocomplete 
                         apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                         selectProps={{
-                            value,
-                            onChange: setValue,
-                            placeholder: currentSearch,
+                            placeholder: currentLocation,
+                            onChange: (e) => setCurrentLocation(e.label),
                         }} />
-                </Form.Group>
-                <p>within</p>
-                <Form.Group >
+                </div>
+                <div className="radius-search-input">
                     <Form.Select
                         name="radius" 
-                        value={radius}
-                        onChange={(e) => setRadius(e.target.value)}>
+                        className="radius-select"
+                        value={currentRadius}
+                        onChange={(e) => setCurrentRadius(e.target.value)}>
                         <option value="2">2 miles</option>
                         <option value="5">5 miles</option>
                         <option value="10">10 miles</option>
@@ -32,11 +28,9 @@ const Search = ({currentSearch, currentRadius, findEvents}) => {
                         <option value="50">50 miles</option>
                         <option value="100">100 miles</option>
                     </Form.Select>
-                </Form.Group>
-                <button className="search-submit" type="submit">Find Events</button>
-            </Form>
-        </div>
-        
+                </div>
+            </div>
+        </section>
     )
 }
 
