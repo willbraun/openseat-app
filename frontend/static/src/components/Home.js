@@ -6,16 +6,18 @@ import Col from 'react-bootstrap/Col';
 import Event from './Event';
 import { handleError } from '../helpers';
 import Search from './Search';
+import Fuse from 'fuse.js';
 import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
-    const [currentLocation, setCurrentLocation] = useState(window.localStorage.openSeatSearchLocation || 'Greenville, SC, USA');
-    const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25');
+    const [currentPhrase, setCurrentPhrase] = useState(window.sessionStorage.openSeatSearchPhrase || "")
+    const [currentLocation, setCurrentLocation] = useState(window.sessionStorage.openSeatSearchLocation || 'Greenville, SC, USA');
+    const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.sessionStorage.openSeatSearchRadius) ? window.sessionStorage.openSeatSearchRadius : '25');
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
     
-    const getHomeEvents = async (searchLocation, searchRadius) => {
+    const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
         
         if (!response.ok) {
@@ -23,17 +25,35 @@ const Home = ({appState}) => {
         }
 
         const data = await response.json();
-        setEvents(data);
+        
+        if (searchPhrase.length > 0) {
+            const options = {
+                includeScore: true,
+                ignoreLocation: true,
+                keys: ['name', 'description', 'address', 'creator']
+            }
+        
+            const fuse = new Fuse(data, options);
+            const result = fuse.search(searchPhrase);
+            setEvents(result);
+        }
+        else {
+            setEvents(data);
+        }
     }
 
     useEffect(() => {
         setEvents(null);
-        getHomeEvents(currentLocation, currentRadius)
-        localStorage.setItem('openSeatSearchLocation', currentLocation);
-        localStorage.setItem('openSeatSearchRadius', currentRadius);
+        getHomeEvents(currentPhrase, currentLocation, currentRadius)
+        sessionStorage.setItem('openSeatSearchPhrase', currentPhrase);
+        sessionStorage.setItem('openSeatSearchLocation', currentLocation);
+        sessionStorage.setItem('openSeatSearchRadius', currentRadius);
     }, [location.key, currentLocation, currentRadius])
 
-    const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
+    // function to set phrase
+    
+
+    const noneFound = `No new events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
     return (
         <main className="home-page">
