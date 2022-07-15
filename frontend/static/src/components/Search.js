@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import './../styles/search.css';
 
-const Search = ({currentLocation, currentRadius, setCurrentLocation, setCurrentRadius}) => {
+const Search = ({currentPhrase, currentLocation, currentRadius, setCurrentPhrase, setCurrentLocation, setCurrentRadius}) => {
+    const [newPhrase, setNewPhrase] = useState(currentPhrase);
+
+    const handleSubmitPhrase = (e) => {
+        e.preventDefault();
+        setCurrentPhrase(newPhrase);
+    }
 
     return (
         <section className="search-bar">
             <div className="search-options">
+                <div className="phrase-search-input">
+                    <Form onSubmit={handleSubmitPhrase}>
+                        <Form.Control 
+                            name="phrase"
+                            value={newPhrase}
+                            placeholder="Search..."
+                            onChange={(e) => setNewPhrase(e.target.value)}
+                        />
+                    </Form>
+                </div>
                 <div className="location-search-input">
                     <GooglePlacesAutocomplete 
                         apiKey={process.env.REACT_APP_GOOGLE_API_KEY}

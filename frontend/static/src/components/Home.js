@@ -25,17 +25,19 @@ const Home = ({appState}) => {
         }
 
         const data = await response.json();
-        
+
         if (searchPhrase.length > 0) {
             const options = {
                 includeScore: true,
                 ignoreLocation: true,
+                threshold: 0.2,
                 keys: ['name', 'description', 'address', 'creator']
             }
         
             const fuse = new Fuse(data, options);
             const result = fuse.search(searchPhrase);
-            setEvents(result);
+            const newData = result.map(entry => entry.item);
+            setEvents(newData);
         }
         else {
             setEvents(data);
@@ -48,18 +50,17 @@ const Home = ({appState}) => {
         sessionStorage.setItem('openSeatSearchPhrase', currentPhrase);
         sessionStorage.setItem('openSeatSearchLocation', currentLocation);
         sessionStorage.setItem('openSeatSearchRadius', currentRadius);
-    }, [location.key, currentLocation, currentRadius])
+    }, [location.key, currentPhrase, currentLocation, currentRadius])
 
-    // function to set phrase
-    
-
-    const noneFound = `No new events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
+    const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
     return (
         <main className="home-page">
             <Search 
+                currentPhrase={currentPhrase}
                 currentLocation={currentLocation} 
                 currentRadius={currentRadius}
+                setCurrentPhrase={setCurrentPhrase}
                 setCurrentLocation={setCurrentLocation}
                 setCurrentRadius={setCurrentRadius}
             />
