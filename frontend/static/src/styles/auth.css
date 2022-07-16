@@ -81,6 +81,7 @@
 
 .no-image-background img {
     width: 30%;
+    max-width: 3rem;
 }
 
 .no-image-background p {

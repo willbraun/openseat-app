@@ -1,7 +1,7 @@
 .image-button.event-image-button {
     position: relative;
+    height: 12rem;
     width: 100%;
-    aspect-ratio: 1 / 1;
     border-radius: 0.25rem;
 }
 

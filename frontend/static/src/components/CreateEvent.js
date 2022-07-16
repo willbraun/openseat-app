@@ -62,7 +62,8 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
             onHide={close} 
             backdrop="static" 
             keyboard={false}
-            size="lg">
+            size="lg"
+        >
             <Modal.Header closeButton className="create-event-header">
                 <Modal.Title>Create Event</Modal.Title>
             </Modal.Header>
