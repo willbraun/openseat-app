@@ -53,13 +53,13 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
         e.preventDefault();
         await createEvent();
         close();
-        navigate('/my-events')
+        navigate('/my-events');
     }
     
     return (
         <Modal 
             show={isCreating} 
-            onHide={() => close()} 
+            onHide={close} 
             backdrop="static" 
             keyboard={false}
             size="lg">
@@ -72,7 +72,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer className="create-footer">
-                <button className="cancel-button" type="button" onClick={() => close()}>Cancel</button> 
+                <button className="cancel-button" type="button" onClick={close}>Cancel</button> 
                 <button className="create-button" type="submit" form="create-event-input-form">Create</button>
             </Modal.Footer>
         </Modal>

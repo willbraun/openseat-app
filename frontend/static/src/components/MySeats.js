@@ -26,7 +26,6 @@ const MySeats = ({appState}) => {
 
         getSeats();
     }, [state.isFuture])
- 
     
     return (
         <main className="my-seats-page">

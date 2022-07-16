@@ -4,3 +4,14 @@
     aspect-ratio: 1 / 1;
     border-radius: 0.25rem;
 }
+
+.event-address-wrapper {
+    position: relative;
+}
+
+.event-address-validation {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+}
+

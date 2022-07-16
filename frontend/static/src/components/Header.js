@@ -24,8 +24,8 @@ const Header = ({appState, logOut}) => {
                     {appState.auth ? 
                         <>
                             <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>
-                                <p>Create Event</p>
                                 <img className="calendar-plus" src={calendarPlus} alt="calendar plus" />
+                                <p>Create Event</p>
                             </button>
                             <NavLink className="header-nav" to={'/'}>Discover</NavLink>
                             <NavLink className="header-nav" to={'/my-seats'}>My Seats</NavLink>

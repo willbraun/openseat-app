@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form'; 
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col'; 
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { handleInput, handleImage, states } from "../helpers";
 import { format } from 'date-fns';
 import plus from './../images/plus-solid.svg'; 
@@ -48,6 +49,7 @@ const EventInput = ({parentState, setParentState}) => {
                             type="button" 
                             className="image-button event-image-button"
                             onClick={() => document.querySelector('.input-image.edit-event-image').click()}>
+                            
                             <Form.Control 
                                 type="file"
                                 className="input-image edit-event-image"
@@ -81,7 +83,25 @@ const EventInput = ({parentState, setParentState}) => {
             <Row>
                 <Col xs={9}>
                     <Row>
-                        <Form.Group className="mb-2" controlId="address">
+                        <Form.Group>
+                            <Form.Label>Location <span className="required-asterisk">*</span></Form.Label>
+                            <div className="event-address-wrapper">
+                                <input 
+                                    className="event-address-validation"
+                                    type="text" 
+                                    value={parentState.address} 
+                                    required
+                                />
+                                <GooglePlacesAutocomplete 
+                                    apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                                    selectProps={{
+                                        placeholder: parentState.address || '',
+                                        onChange: (e) => setParentState({...parentState, address: e.label}),
+                                    }} 
+                                />
+                            </div>
+                        </Form.Group>
+                        {/* <Form.Group className="mb-2" controlId="address">
                             <Form.Label>Address / Business <span className="required-asterisk">*</span></Form.Label>
                             <Form.Control  
                                 name="address" 
@@ -89,9 +109,9 @@ const EventInput = ({parentState, setParentState}) => {
                                 type="text"  
                                 required
                                 onChange={(e) => handleInput(e, setParentState)}/>
-                        </Form.Group>
+                        </Form.Group> */}
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col xs={4}>
                             <Form.Group controlId="city">
                                 <Form.Label>City <span className="required-asterisk">*</span></Form.Label>
@@ -129,7 +149,7 @@ const EventInput = ({parentState, setParentState}) => {
                                     onChange={(e) => handleInput(e, setParentState)} />
                             </Form.Group>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Col>
                 <Col xs={3}>
                     <Form.Group className="mb-2" controlId="date">
