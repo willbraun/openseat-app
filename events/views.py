@@ -3,8 +3,6 @@ import requests
 import urllib.parse
 import json
 from twilio.rest import Client
-from django.conf import settings
-from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import generics
@@ -21,7 +19,7 @@ def filter_events_by_distance(events, origin, distance_in_miles):
         return []
     
     def event_to_address(event):
-        return f'{event.address} {event.city}, {event.state} {event.zip_code}'
+        return event.address
     
     addresses = list(map(event_to_address, events))
     destination_string = ('|').join(addresses)

@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from localflavor.us.models import USStateField, USZipCodeField
 from django.conf import settings
 
 # Create your models here.
@@ -10,9 +9,6 @@ class Event(models.Model):
     seats = models.PositiveIntegerField(validators=[MinValueValidator(2), MaxValueValidator(20)])
     image = models.ImageField(upload_to='events/images')
     address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    state = USStateField()
-    zip_code = USZipCodeField(null=True)
     date = models.DateField()
     time = models.TimeField()
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)

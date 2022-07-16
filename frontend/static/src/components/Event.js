@@ -124,7 +124,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         <p className="creator-name">{state.creator.first_name} {state.creator.last_name}</p>
                     </div>
                     {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
-                    <address>{state.address} {state.city}, {state.state} {state.zip_code.toString() === 'null' ? "" : state.zip_code}</address>
+                    <address>{state.address}</address>
                     <time>{format(parseISO(`${state.date} ${state.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
                 </Col>
             </Row>

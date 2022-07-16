@@ -16,6 +16,8 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, d
             }
         });
 
+        console.log(formData.keys());
+
         const options = {
             method: 'PATCH',
             headers: {

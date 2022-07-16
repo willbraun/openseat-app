@@ -10,13 +10,10 @@ import './../styles/createeditevent.css';
 const CreateEvent = ({isCreating, setIsCreating}) => {
     const blank = {
         name: '',
-        description: '',
         seats: 0,
         image: null,
+        description: '',
         address: '',
-        city: '',
-        state: '',
-        zip_code: null,
         date: '',
         time: '',
     }

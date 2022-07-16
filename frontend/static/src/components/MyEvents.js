@@ -12,8 +12,8 @@ const MyEvents = ({appState}) => {
     const location = useLocation();
     
     useEffect(() => {
-        const getHomeEvents = async () => {
-            const response = await fetch(`/api_v1/events/mine`).catch(handleError);
+        const getMyEvents = async () => {
+            const response = await fetch(`/api_v1/events/mine/`).catch(handleError);
             
             if (!response.ok) {
                 throw new Error('Network response was not ok!');
@@ -23,7 +23,7 @@ const MyEvents = ({appState}) => {
             setEvents(data);
         }
 
-        getHomeEvents();
+        getMyEvents();
     }, [location.key])
 
     if (events === null) {
