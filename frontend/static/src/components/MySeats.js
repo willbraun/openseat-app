@@ -14,7 +14,6 @@ const MySeats = ({appState}) => {
     })
 
     const location = useLocation();
-    console.log(location.key);
 
     useEffect(() => {
         const getSeats = async () => {

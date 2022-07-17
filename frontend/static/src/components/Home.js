@@ -7,15 +7,17 @@ import Event from './Event';
 import { handleError } from '../helpers';
 import Search from './Search';
 import Fuse from 'fuse.js';
+import { geocodeByLatLng } from 'react-google-places-autocomplete';
 import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
-    const [currentPhrase, setCurrentPhrase] = useState(window.sessionStorage.openSeatSearchPhrase || "")
-    const [currentLocation, setCurrentLocation] = useState(window.sessionStorage.openSeatSearchLocation || 'Greenville, SC, USA');
-    const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.sessionStorage.openSeatSearchRadius) ? window.sessionStorage.openSeatSearchRadius : '25');
+    const [currentPhrase, setCurrentPhrase] = useState(window.localStorage.openSeatSearchPhrase || "")
+    const [currentLocation, setCurrentLocation] = useState(window.localStorage.openSeatSearchLocation);
+    const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25');
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
+    const locationDefault = 'Location...';
     
     const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
@@ -45,12 +47,33 @@ const Home = ({appState}) => {
     }
 
     useEffect(() => {
+        const getReadableLocation = position => {
+            const { latitude, longitude } = position.coords;
+    
+            geocodeByLatLng({ lat: latitude, lng: longitude })
+            .then(results => {
+                const address = results.find(result => result.types.includes('postal_code')).formatted_address
+                setCurrentLocation(address);
+            })
+            .catch(error => console.error(error));
+        }
+
+        const failure = () => {
+            setCurrentLocation(locationDefault);
+        }
+
+        if (!currentLocation) {
+            window.navigator.geolocation.getCurrentPosition(getReadableLocation, failure);
+        }
+    }, [])
+
+    useEffect(() => {
         setEvents(null);
         getHomeEvents(currentPhrase, currentLocation, currentRadius)
-        sessionStorage.setItem('openSeatSearchPhrase', currentPhrase);
-        sessionStorage.setItem('openSeatSearchLocation', currentLocation);
-        sessionStorage.setItem('openSeatSearchRadius', currentRadius);
-    }, [location.key, currentPhrase, currentLocation, currentRadius])
+        localStorage.setItem('openSeatSearchPhrase', currentPhrase);
+        localStorage.setItem('openSeatSearchLocation', currentLocation);
+        localStorage.setItem('openSeatSearchRadius', currentRadius);
+    }, [location.key, currentPhrase, currentLocation, currentRadius]);
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
@@ -65,20 +88,26 @@ const Home = ({appState}) => {
                 setCurrentRadius={setCurrentRadius}
             />
 
-            {events === null ? 
-                <div>Loading events...</div> 
-                : 
-                events.length === 0 ?
-                    <p className="center-message">{noneFound}</p> 
-                    :
-                    <Row className="gy-4">
-                        {events.map(event => 
-                            <Col key={event.id} sm={12} lg={6}>
-                                <Event key={event.id} appState={appState} event={event}/>
-                            </Col>
-                        )}
-                    </Row>
-                }
+            {!currentLocation ?
+                <p className="center-message">Loading...</p>
+            :
+            currentLocation === locationDefault ?
+                <p className="center-message">{'Welcome to OpenSeat! \nSelect your location from above or allow location services in your web browser.'}</p>
+            :
+            events === null ? 
+                <p className="center-message">Loading...</p> 
+            : 
+            events.length === 0 ?
+                <p className="center-message">{noneFound}</p> 
+            :
+            <Row className="gy-4">
+                {events.map(event => 
+                    <Col key={event.id} sm={12} lg={6}>
+                        <Event key={event.id} appState={appState} event={event}/>
+                    </Col>
+                )}
+            </Row>
+            }
         </main>
     )
 }

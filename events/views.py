@@ -30,7 +30,11 @@ def filter_events_by_distance(events, origin, distance_in_miles):
 
     response = requests.request("GET", url, headers={}, data={})
     response_dict = json.loads(response.text)
-    elements = response_dict['rows'][0]['elements']
+    try:
+        elements = response_dict['rows'][0]['elements']
+    except:
+        print(f'Error: {response_dict}')
+        return
 
     METERS_PER_MILE = 1609.34
 
