@@ -29,7 +29,7 @@ const Header = ({appState, logOut}) => {
                             </button>
                             <NavLink className="header-nav" to={'/'}>Discover</NavLink>
                             <NavLink className="header-nav" to={'/my-seats'}>My Seats</NavLink>
-                            <NavLink className="header-nav" to={'my-events'}>My Events</NavLink>
+                            <NavLink className="header-nav" to={'/my-events'}>My Events</NavLink>
                             <button className="header-nav" onClick={logOutNav}>Log out</button>
                         </>
                         :

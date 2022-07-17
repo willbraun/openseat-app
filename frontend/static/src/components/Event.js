@@ -59,14 +59,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     const now = new Date();
 
     const actionButton = () => {
-        if (!appState.auth) {
-            return <div 
-                className="event-action log-in-to-join disabled" 
-                data-testid="log-in-to-join">
-                    Log in to join!
-                </div>
-        }
-        else if (parseISO(state.date) < now) {
+        if (parseISO(state.date) < now) {
             return <div 
                 className="event-action event-completed disabled" 
                 data-testid="event-completed">
@@ -167,14 +160,18 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     </button>
                 </Col>
                 <Col className="ps-0" xs={6}>
-                    {actionButton()}                
+                    <div 
+                        className="event-action log-in-to-join disabled" 
+                        data-testid="log-in-to-join">
+                            Log in to join!
+                    </div>               
                 </Col>
             </Row>
         </div>
     )
 
     return (
-        <article className="event">
+        <article className={`event${isCreator ? ' is-creator' : ''}`}>
             <p className="event-name">{state.name}</p>
             {eventContent}
             <EventParticipants 

@@ -91,7 +91,6 @@ class MySeatsFutureListApiView(generics.ListAPIView):
 
     def get_queryset(self):
         return (Event.objects
-            .exclude(creator=self.request.user.id)
             .filter(date__gte=date.today())
             .filter(participants__id=self.request.user.id)
             .order_by('date'))
@@ -103,7 +102,6 @@ class MySeatsPastListApiView(generics.ListAPIView):
 
     def get_queryset(self):
         return (Event.objects
-            .exclude(creator=self.request.user.id)
             .filter(date__lt=date.today())
             .filter(participants__id=self.request.user.id)
             .order_by('-date'))

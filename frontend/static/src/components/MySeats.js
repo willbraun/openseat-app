@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
+import { useLocation } from 'react-router-dom';
 import { handleError } from '../helpers';
 import './../styles/myseats.css';
 
@@ -11,6 +12,9 @@ const MySeats = ({appState}) => {
         events: null,
         isFuture: true,
     })
+
+    const location = useLocation();
+    console.log(location.key);
 
     useEffect(() => {
         const getSeats = async () => {
@@ -25,7 +29,7 @@ const MySeats = ({appState}) => {
         }
 
         getSeats();
-    }, [state.isFuture])
+    }, [location.key, state.isFuture]);
     
     return (
         <main className="my-seats-page">
@@ -46,9 +50,9 @@ const MySeats = ({appState}) => {
                     <p className="center-message">{state.isFuture ? "You don't have any upcoming seats. \nFill a seat on Discover to see it here!" : "You don't have any seats in the past."}</p>
                     :
                     <Row className="gy-4">
-                        {state.events.map((event, i) => 
-                            <Col key={i} sm={12} lg={6}>
-                                <Event key={i} appState={appState} event={event}/>
+                        {state.events.map(event => 
+                            <Col key={event.id} sm={12} lg={6}>
+                                <Event key={event.id} appState={appState} event={event}/>
                             </Col>
                         )}
                     </Row>

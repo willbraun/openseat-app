@@ -13,7 +13,6 @@ const CreateAccount = ({appState, setAppState}) => {
     const [preview, setPreview] = useState(null);
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const requiredFields = ['username', 'password1', 'password2', 'email', 'firstName', 'lastName', 'profilePic'];
     const [state, setState] = useState({
         username: '',
         password1: '',
@@ -25,8 +24,6 @@ const CreateAccount = ({appState, setAppState}) => {
         phoneNumber: '',
         zipCode: '',
     });
-
-    const allowSubmit = requiredFields.every(field => !!state[field]);
 
     const navigate = useNavigate();
 
@@ -215,7 +212,7 @@ const CreateAccount = ({appState, setAppState}) => {
                     </Col>
                 </Row>
                 <Row className="mx-0">
-                    <Button variant="primary" className="create-account-button" disabled={!allowSubmit} type="submit">Create Account</Button>
+                    <Button variant="primary" className="create-account-button" type="submit">Create Account</Button>
                 </Row>
                     <Link className="back-to-login" to={'/login'}>
                         <img src={arrowLeft} alt="left arrow" />

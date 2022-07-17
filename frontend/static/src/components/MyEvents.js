@@ -53,8 +53,8 @@ const MyEvents = ({appState}) => {
         setEvents(newList);
     }
 
-    const eventList = events.map((event, i) => 
-        <Col key={i} sm={12} lg={6}>
+    const eventList = events.map(event => 
+        <Col key={event.id} sm={12} lg={6}>
             <Event 
                 key={event.id} 
                 appState={appState} 

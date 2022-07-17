@@ -72,8 +72,8 @@ const Home = ({appState}) => {
                     <p className="center-message">{noneFound}</p> 
                     :
                     <Row className="gy-4">
-                        {events.map((event, i) => 
-                            <Col key={i} sm={12} lg={6}>
+                        {events.map(event => 
+                            <Col key={event.id} sm={12} lg={6}>
                                 <Event key={event.id} appState={appState} event={event}/>
                             </Col>
                         )}
