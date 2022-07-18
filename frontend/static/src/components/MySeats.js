@@ -49,8 +49,8 @@ const MySeats = ({appState}) => {
                     <p className="center-message">{state.isFuture ? "You don't have any upcoming seats. \nFill a seat on Discover to see it here!" : "You don't have any seats in the past."}</p>
                     :
                     <Row className="gy-4">
-                        {state.events.map(event => 
-                            <Col key={event.id} sm={12} lg={6}>
+                        {state.events.map((event, i) => 
+                            <Col key={i} sm={12} lg={6}>
                                 <Event key={event.id} appState={appState} event={event}/>
                             </Col>
                         )}

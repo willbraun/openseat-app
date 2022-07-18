@@ -5,7 +5,7 @@
 .home-page,
 .my-seats-page,
 .my-events-page {
-    max-width: 75rem;
+    max-width: var(--max-page-width);
     width: 90%;
 }
 

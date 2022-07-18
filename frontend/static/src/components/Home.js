@@ -97,10 +97,10 @@ const Home = ({appState}) => {
                 />
                 
                 {!currentLocation ?
-                    <p className="center-message">{`OpenSeat would like to use your location \nto show you events in your area`}</p>
+                    <p className="center-message">{`Welcome! OpenSeat would like to use your location to show you events in your area`}</p>
                 :
                 currentLocation === locationDefault ?
-                    <p className="center-message">{'Welcome to OpenSeat! \nSelect your location from above or allow location services in your web browser.'}</p>
+                    <p className="center-message">{'Select your location from above or allow location services in your web browser'}</p>
                 :
                 events === null ? 
                     <p className="center-message">Loading...</p> 
@@ -109,8 +109,8 @@ const Home = ({appState}) => {
                     <p className="center-message">{noneFound}</p> 
                 :
                 <Row className="gy-4">
-                    {events.map(event => 
-                        <Col key={event.id} sm={12} lg={6}>
+                    {events.map((event, i) => 
+                        <Col key={i} sm={12} lg={6}>
                             <Event key={event.id} appState={appState} event={event}/>
                         </Col>
                     )}
