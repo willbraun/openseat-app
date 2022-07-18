@@ -11,7 +11,6 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     const blank = {
         name: '',
         seats: 0,
-        image: null,
         description: '',
         address: '',
         date: '',

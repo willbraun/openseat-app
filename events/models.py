@@ -7,7 +7,7 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     seats = models.PositiveIntegerField(validators=[MinValueValidator(2), MaxValueValidator(20)])
-    image = models.ImageField(upload_to='events/images')
+    image = models.ImageField(upload_to='events/images', default='events/images/default-event-2-min.jpg', blank=True)
     address = models.CharField(max_length=255)
     date = models.DateField()
     time = models.TimeField()

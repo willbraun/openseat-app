@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Cookies from 'js-cookie';
-import { handleError, handleInput, handleImage } from '../helpers';
+import { handleError, handleInput, handleImage, locationDefault } from '../helpers';
+import { geocodeByAddress } from 'react-google-places-autocomplete';
 import plus from './../images/plus-solid.svg';
 import arrowLeft from './../images/arrow-left-solid.svg'; 
 
@@ -34,7 +35,6 @@ const CreateAccount = ({appState, setAppState}) => {
             password: state.password1,
             first_name: state.firstName, 
             last_name: state.lastName,
-            // profile_pic: state.profilePic,
             phone_number: state.phoneNumber,
             zip_code: state.zipCode,
         }
@@ -86,12 +86,17 @@ const CreateAccount = ({appState, setAppState}) => {
             userZip: data.zip
         });
 
-        if (!window.localStorage.openSeatSearchLocation) {
-            const newLocation = data.zip ? data.zip : 'Greenville, SC';
-            localStorage.setItem('openSeatSearchLocation', newLocation);
+        if ([locationDefault, null, undefined, ""].includes(window.localStorage.openSeatSearchLocation) && !!data.zip) {
+            geocodeByAddress(data.zip)
+                .then(results => {
+                    console.log(Date.now());
+                    localStorage.setItem('openSeatSearchLocation', results[0].formatted_address);
+                    console.log(Date.now());
+                })
+                .catch(error => console.error(error));
         }
 
-        navigate('/');
+        setTimeout(() => navigate('/'), 1000);
     }
     
     return (

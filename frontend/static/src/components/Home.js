@@ -4,20 +4,19 @@ import { useLocation } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
-import { handleError } from '../helpers';
+import { handleError, locationDefault } from '../helpers';
 import Search from './Search';
 import Fuse from 'fuse.js';
 import { geocodeByLatLng } from 'react-google-places-autocomplete';
 import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
-    const [currentPhrase, setCurrentPhrase] = useState(window.localStorage.openSeatSearchPhrase || "")
+    const [currentPhrase, setCurrentPhrase] = useState(window.localStorage.openSeatSearchPhrase || "");
     const [currentLocation, setCurrentLocation] = useState(window.localStorage.openSeatSearchLocation);
     const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25');
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
-    const locationDefault = 'Select location...';
     
     const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
@@ -73,7 +72,7 @@ const Home = ({appState}) => {
         localStorage.setItem('openSeatSearchPhrase', currentPhrase);
         localStorage.setItem('openSeatSearchRadius', currentRadius); 
         
-        if (![locationDefault, null, undefined].includes(currentLocation)) {
+        if (![locationDefault, null, undefined, ""].includes(currentLocation)) {
             localStorage.setItem('openSeatSearchLocation', currentLocation);
         }
 

@@ -15,7 +15,7 @@ const ReactRouter = ({appState, setAppState, logOut}) => {
             <Footer appState={appState} setAppState={setAppState} logOut={logOut}/>
             <Routes>
                 <Route path='/' >
-                    <Route index element={<Home appState={appState} />}/>
+                    <Route index element={<Home appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/login' element={<Login appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/create-account' element={<CreateAccount appState={appState} setAppState={setAppState}/>}/>
                     <Route path='/my-seats' element={<MySeats appState={appState} />}/>

@@ -44,7 +44,7 @@ const EventInput = ({parentState, setParentState}) => {
                 </Col>
                 <Col xs={12} lg={6}>
                     <Form.Group className="mb-2">
-                        <Form.Label>Image <span className="required-asterisk">*</span></Form.Label>
+                        <Form.Label>Image</Form.Label>
                         <button 
                             type="button" 
                             className="image-button event-image-button"
@@ -54,7 +54,6 @@ const EventInput = ({parentState, setParentState}) => {
                                 type="file"
                                 className="input-image edit-event-image"
                                 form="create-event-input-form"
-                                required
                                 onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)}
                             />
                             
