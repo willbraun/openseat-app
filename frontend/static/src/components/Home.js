@@ -81,36 +81,38 @@ const Home = ({appState}) => {
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
     return (
-        <main className="home-page">
-            <Search 
-                currentPhrase={currentPhrase}
-                currentLocation={currentLocation} 
-                currentRadius={currentRadius}
-                setCurrentPhrase={setCurrentPhrase}
-                setCurrentLocation={setCurrentLocation}
-                setCurrentRadius={setCurrentRadius}
-            />
-
-            {!currentLocation ?
-                <p className="center-message">Loading...</p>
-            :
-            currentLocation === locationDefault ?
-                <p className="center-message">{'Welcome to OpenSeat! \nSelect your location from above or allow location services in your web browser.'}</p>
-            :
-            events === null ? 
-                <p className="center-message">Loading...</p> 
-            : 
-            events.length === 0 ?
-                <p className="center-message">{noneFound}</p> 
-            :
-            <Row className="gy-4">
-                {events.map(event => 
-                    <Col key={event.id} sm={12} lg={6}>
-                        <Event key={event.id} appState={appState} event={event}/>
-                    </Col>
-                )}
-            </Row>
-            }
+        <main className="home-page-bg">
+            <div className="home-page">
+                <Search 
+                    currentPhrase={currentPhrase}
+                    currentLocation={currentLocation} 
+                    currentRadius={currentRadius}
+                    setCurrentPhrase={setCurrentPhrase}
+                    setCurrentLocation={setCurrentLocation}
+                    setCurrentRadius={setCurrentRadius}
+                />
+                
+                {!currentLocation ?
+                    <p className="center-message">Loading...</p>
+                :
+                currentLocation === locationDefault ?
+                    <p className="center-message">{'Welcome to OpenSeat! \nSelect your location from above or allow location services in your web browser.'}</p>
+                :
+                events === null ? 
+                    <p className="center-message">Loading...</p> 
+                : 
+                events.length === 0 ?
+                    <p className="center-message">{noneFound}</p> 
+                :
+                <Row className="gy-4">
+                    {events.map(event => 
+                        <Col key={event.id} sm={12} lg={6}>
+                            <Event key={event.id} appState={appState} event={event}/>
+                        </Col>
+                    )}
+                </Row>
+                }
+            </div>
         </main>
     )
 }

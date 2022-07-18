@@ -1,4 +1,5 @@
 :root {
+	--off-white: #FEF6EB;
 	--border-color: #999;
 	--dark-green: #3E7444;
 	--medium-green: #498850;
@@ -7,6 +8,9 @@
 	--light-red: #FADBDF;
 	--blue: #D8F4FA;
 	--orange: rgba(252,176,69,1);
+	--light-orange: #FCD69D;
+	--pink: #FBD9FC;
+	--purple: #842DB4;
 	--header-height: 4rem;
 	--footer-height: 3.5rem;
 	--sub-header-height: 3rem;

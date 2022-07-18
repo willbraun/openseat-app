@@ -37,7 +37,7 @@ const EventParticipants = ({eventState, showParticipants, setShowParticipants}) 
                 <Modal.Title>
                     {eventState.name} 
                     <div className="participants-subheader">
-                        <address>{eventState.address} {eventState.city}, {eventState.state} {eventState.zip_code}</address>
+                        <address>{eventState.address}</address>
                         <time>{format(parseISO(`${eventState.date} ${eventState.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
                     </div>
                 </Modal.Title>

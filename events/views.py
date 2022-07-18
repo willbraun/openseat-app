@@ -58,7 +58,7 @@ def filter_home_events(request):
         .filter(date__gte=date.today())
         .annotate(participant_count=Count('participants'))
         .filter(participant_count__lt=F('seats'))
-        .order_by('date'))
+        .order_by('date', 'time'))
 
     return filter_events_by_distance(events, origin, radius)
 
@@ -97,7 +97,7 @@ class MySeatsFutureListApiView(generics.ListAPIView):
         return (Event.objects
             .filter(date__gte=date.today())
             .filter(participants__id=self.request.user.id)
-            .order_by('date'))
+            .order_by('date', 'time'))
 
 
 class MySeatsPastListApiView(generics.ListAPIView):
@@ -108,7 +108,7 @@ class MySeatsPastListApiView(generics.ListAPIView):
         return (Event.objects
             .filter(date__lt=date.today())
             .filter(participants__id=self.request.user.id)
-            .order_by('-date'))
+            .order_by('-date', 'time'))
 
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):
