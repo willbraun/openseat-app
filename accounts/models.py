@@ -18,4 +18,4 @@ def validate_phone(value):
 class User(AbstractUser):
     phone_number = models.CharField(max_length=16, blank=True, validators=[validate_phone])
     zip_code = USZipCodeField(blank=True)
-    profile_pic = models.ImageField(upload_to='accounts/images/', null=True)
+    profile_pic = models.ImageField(upload_to='accounts/images/', default='accounts/images/default-user-2.jpeg', blank=True)

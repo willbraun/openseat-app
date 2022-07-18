@@ -17,7 +17,7 @@ const Home = ({appState}) => {
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
-    const locationDefault = 'Location...';
+    const locationDefault = 'Select location...';
     
     const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
@@ -71,8 +71,12 @@ const Home = ({appState}) => {
         setEvents(null);
         getHomeEvents(currentPhrase, currentLocation, currentRadius)
         localStorage.setItem('openSeatSearchPhrase', currentPhrase);
-        localStorage.setItem('openSeatSearchLocation', currentLocation);
-        localStorage.setItem('openSeatSearchRadius', currentRadius);
+        localStorage.setItem('openSeatSearchRadius', currentRadius); 
+        
+        if (![locationDefault, null, undefined].includes(currentLocation)) {
+            localStorage.setItem('openSeatSearchLocation', currentLocation);
+        }
+
     }, [location.key, currentPhrase, currentLocation, currentRadius]);
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;

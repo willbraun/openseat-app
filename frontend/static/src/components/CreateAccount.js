@@ -34,9 +34,13 @@ const CreateAccount = ({appState, setAppState}) => {
             password: state.password1,
             first_name: state.firstName, 
             last_name: state.lastName,
-            profile_pic: state.profilePic,
+            // profile_pic: state.profilePic,
             phone_number: state.phoneNumber,
             zip_code: state.zipCode,
+        }
+
+        if (state.profilePic !== null) {
+            payload.profile_pic = state.profilePic;
         }
         delete payload.password1;
         delete payload.firstName;
@@ -165,11 +169,10 @@ const CreateAccount = ({appState, setAppState}) => {
                     </Col>
                     <Col sm={12} lg={6}>
                         <Form.Group className="mb-3" controlId="formBasicProfilePic">
-                            <Form.Label>Profile Picture <span className="required-asterisk">*</span></Form.Label>
+                            <Form.Label>Profile Picture</Form.Label>
                             <button 
                                 type="button" 
                                 className="image-button"
-                                required
                                 onClick={() => document.querySelector('.input-image.create-account-input').click()}>
                                 <Form.Control 
                                     type="file"
@@ -185,7 +188,6 @@ const CreateAccount = ({appState, setAppState}) => {
                                     }
                             </button>
                         </Form.Group>
-                        <Form.Text>Recommended</Form.Text>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                             <Form.Label>Phone Number</Form.Label>
                             <Form.Text> - for notifications</Form.Text>

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from dj_rest_auth.models import TokenModel
 from .models import User
+from PIL import Image 
+import glob
 
 
 class TokenSerializer(serializers.ModelSerializer):
@@ -32,8 +34,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
             last_name=self.validated_data['last_name'],
             phone_number=self.validated_data['phone_number'],
             zip_code=self.validated_data['zip_code'],
-            profile_pic=self.validated_data['profile_pic'],
         )
+
+        if 'profile_pic' in self.validated_data:
+            user.profile_pic=self.validated_data['profile_pic']
 
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
