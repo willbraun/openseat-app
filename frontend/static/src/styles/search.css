@@ -16,7 +16,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 50%;
+    width: fit-content;
     margin: auto;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .phrase-search-input {
-    flex-grow: 1;
+    width: 35rem;
 }
 
 .location-search-input {

@@ -19,7 +19,7 @@ const Search = ({currentPhrase, currentLocation, currentRadius, setCurrentPhrase
                         <Form.Control 
                             name="phrase"
                             value={newPhrase}
-                            placeholder="Search..."
+                            placeholder="Search by topic, address, or host..."
                             onChange={(e) => setNewPhrase(e.target.value)}
                         />
                     </Form>

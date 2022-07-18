@@ -27,12 +27,16 @@ const Home = ({appState}) => {
 
         const data = await response.json();
 
+        if (appState.auth) {
+            data.forEach(event => event.creator.fullName = `${event.creator.first_name} ${event.creator.last_name}`);
+        }
+
         if (searchPhrase.length > 0) {
             const options = {
                 includeScore: true,
                 ignoreLocation: true,
                 threshold: 0.2,
-                keys: ['name', 'description', 'address', 'creator']
+                keys: ['name', 'description', 'address', 'creator.first_name', 'creator.last_name', `creator.fullName`, 'creator.username']
             }
         
             const fuse = new Fuse(data, options);
@@ -93,7 +97,7 @@ const Home = ({appState}) => {
                 />
                 
                 {!currentLocation ?
-                    <p className="center-message">Loading...</p>
+                    <p className="center-message">{`OpenSeat would like to use your location \nto show you events in your area`}</p>
                 :
                 currentLocation === locationDefault ?
                     <p className="center-message">{'Welcome to OpenSeat! \nSelect your location from above or allow location services in your web browser.'}</p>
