@@ -14,12 +14,13 @@ const Home = ({appState}) => {
     const [currentPhrase, setCurrentPhrase] = useState(window.localStorage.openSeatSearchPhrase || "");
     const [currentLocation, setCurrentLocation] = useState(window.localStorage.openSeatSearchLocation);
     const [currentRadius, setCurrentRadius] = useState(['2', '5', '10', '25', '50', '100'].includes(window.localStorage.openSeatSearchRadius) ? window.localStorage.openSeatSearchRadius : '25');
+    const [serverEvents, setServerEvents] = useState(null);
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
     const blankLocation = [locationDefault, null, undefined, ""].includes(currentLocation);
     
-    const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
+    const getHomeEvents = async (searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
         
         if (!response.ok) {
@@ -32,22 +33,22 @@ const Home = ({appState}) => {
             data.forEach(event => event.creator.fullName = `${event.creator.first_name} ${event.creator.last_name}`);
         }
 
-        if (searchPhrase.length > 0) {
-            const options = {
-                includeScore: true,
-                ignoreLocation: true,
-                threshold: 0.2,
-                keys: ['name', 'description', 'address', 'creator.first_name', 'creator.last_name', `creator.fullName`, 'creator.username']
-            }
-        
-            const fuse = new Fuse(data, options);
-            const result = fuse.search(searchPhrase);
-            const newData = result.map(entry => entry.item);
-            setEvents(newData);
+        setServerEvents(data);
+        setEvents(data);
+    }
+
+    const filterByPhrase = () => {
+        const options = {
+            includeScore: true,
+            ignoreLocation: true,
+            threshold: 0.2,
+            keys: ['name', 'description', 'address', 'creator.first_name', 'creator.last_name', `creator.fullName`, 'creator.username']
         }
-        else {
-            setEvents(data);
-        }
+    
+        const fuse = new Fuse(serverEvents, options);
+        const result = fuse.search(currentPhrase);
+        const filtered = result.map(entry => entry.item);
+        return filtered;
     }
 
     const getReadableLocation = position => {
@@ -93,12 +94,26 @@ const Home = ({appState}) => {
         }
 
         setEvents(null);
-        getHomeEvents(currentPhrase, currentLocation, currentRadius);
-        localStorage.setItem('openSeatSearchPhrase', currentPhrase);
+        getHomeEvents(currentLocation, currentRadius);
         localStorage.setItem('openSeatSearchRadius', currentRadius);
         localStorage.setItem('openSeatSearchLocation', currentLocation);
 
-    }, [appState, location.key, currentPhrase, currentLocation, currentRadius]);
+    }, [appState, location.key, currentLocation, currentRadius]);
+
+    useEffect(() => {
+        if (!serverEvents) {
+            return;
+        }
+        else if (currentPhrase.length === 0) {
+            setEvents(serverEvents);
+            localStorage.setItem('openSeatSearchPhrase', currentPhrase);
+            return;
+        }
+
+        setEvents(filterByPhrase());
+        localStorage.setItem('openSeatSearchPhrase', currentPhrase);
+
+    }, [currentPhrase])
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
@@ -106,6 +121,7 @@ const Home = ({appState}) => {
         <main className="home-page-bg">
             <div className="home-page">
                 <Search 
+                    appState={appState}
                     currentPhrase={currentPhrase}
                     currentLocation={currentLocation} 
                     currentRadius={currentRadius}
@@ -127,8 +143,8 @@ const Home = ({appState}) => {
                     <p className="center-message">{noneFound}</p> 
                 :
                 <Row className="gy-4">
-                    {events.map((event, i) => 
-                        <Col key={i} sm={12} lg={6}>
+                    {events.map(event => 
+                        <Col key={event.id} sm={12} lg={6}>
                             <Event key={event.id} appState={appState} event={event}/>
                         </Col>
                     )}

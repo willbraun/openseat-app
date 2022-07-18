@@ -31,6 +31,7 @@ class NoAuthEventSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
+            'id',
             'name',
             'description',
             'seats',

@@ -125,11 +125,7 @@ const EventInput = ({parentState, setParentState}) => {
                         />
                         <GooglePlacesAutocomplete 
                             apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
-                            // autocompletionRequest={{
-                            //     types: ['address', 'street_address', 'premise', 'establishment']
-                            // }}
                             selectProps={{
-                                // placeholder: parentState.address || 'Search...',
                                 value: parentState.address_json.label ? parentState.address_json : null,
                                 onChange: (e) => {
                                     const goodType = e.value.types.every(type => {
