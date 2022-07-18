@@ -2,32 +2,18 @@
     position: fixed;
     top: var(--header-height);
     left: 0;
-    /* height: var(--sub-header-height); */
     width: 100%;
     border-bottom: 1px solid var(--border-color);
     margin: 0;
     z-index: 10;
-    /* display: flex; */
-    /* align-items: center; */
     background-color: #fff;
 }
 
 .search-options {
-    /* display: flex;
-    justify-content: flex-end;
-    align-items: center; */
     max-width: var(--max-page-width);
-    /* margin: auto;
 }
 
-.search-options > * {
-    /* margin: 0 0.25rem; */
-}
-
-.phrase-search-input {
-    width: 35rem;
-}
-
-.location-search-input {
-    width: 20rem
+.mobile-search-header button {
+    text-align: center;
+    font-size: 1.2rem;
 }
