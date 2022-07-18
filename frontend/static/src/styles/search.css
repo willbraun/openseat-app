@@ -4,7 +4,6 @@
     left: 0;
     width: 100%;
     border-bottom: 1px solid var(--border-color);
-    margin: 0;
     z-index: 10;
     background-color: #fff;
 }
@@ -14,6 +13,5 @@
 }
 
 .mobile-search-header button {
-    text-align: center;
     font-size: 1.2rem;
 }

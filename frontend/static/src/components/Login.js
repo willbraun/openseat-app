@@ -56,11 +56,6 @@ const Login = ({appState, setAppState}) => {
             userZip: data.zip, 
         });
         
-        if (!window.localStorage.openSeatSearchLocation) {
-            const newLocation = data.zip ? data.zip : 'Greenville, SC';
-            localStorage.setItem('openSeatSearchLocation', newLocation);
-        }
-        
         navigate('/');
     }
     

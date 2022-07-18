@@ -16,7 +16,7 @@ const Search = ({currentPhrase, currentLocation, currentRadius, setCurrentPhrase
     }
 
     const searchOptions = (
-        <Row className="mx-3 mx-md-5 mx-lg-0 my-0 mb-1 gx-1 gy-2">
+        <Row className="mx-3 mx-md-5 mx-lg-0 gx-2 gy-2">
             <Col xs={12} lg={5} className="phrase-search-input">
                 <Form onSubmit={handleSubmitPhrase}>
                     <Form.Control 
@@ -41,12 +41,12 @@ const Search = ({currentPhrase, currentLocation, currentRadius, setCurrentPhrase
                     className="radius-select"
                     value={currentRadius}
                     onChange={(e) => setCurrentRadius(e.target.value)}>
-                    <option value="2">2 miles</option>
-                    <option value="5">5 miles</option>
-                    <option value="10">10 miles</option>
-                    <option value="25">25 miles</option>
-                    <option value="50">50 miles</option>
-                    <option value="100">100 miles</option>
+                        <option value="2">2 miles</option>
+                        <option value="5">5 miles</option>
+                        <option value="10">10 miles</option>
+                        <option value="25">25 miles</option>
+                        <option value="50">50 miles</option>
+                        <option value="100">100 miles</option>
                 </Form.Select>
             </Col>
         </Row>
@@ -54,7 +54,7 @@ const Search = ({currentPhrase, currentLocation, currentRadius, setCurrentPhrase
 
     return (
         <section className="search-bar">
-            <Container fluid className="px-0 d-none d-lg-block search-options">
+            <Container fluid className="px-0 my-2 d-none d-lg-block search-options">
                 {searchOptions}
             </Container>
 

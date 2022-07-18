@@ -7,7 +7,7 @@ import Event from './Event';
 import { handleError, locationDefault } from '../helpers';
 import Search from './Search';
 import Fuse from 'fuse.js';
-import { geocodeByLatLng } from 'react-google-places-autocomplete';
+import { geocodeByLatLng, geocodeByAddress } from 'react-google-places-autocomplete';
 import './../styles/eventlist.css';
 
 const Home = ({appState}) => {
@@ -17,6 +17,7 @@ const Home = ({appState}) => {
     const [events, setEvents] = useState(null);
 
     const location = useLocation();
+    const blankLocation = [locationDefault, null, undefined, ""].includes(currentLocation);
     
     const getHomeEvents = async (searchPhrase, searchLocation, searchRadius) => {
         const response = await fetch(`/api_v1/events/?origin=${searchLocation}&radius=${searchRadius}`).catch(handleError);
@@ -26,7 +27,7 @@ const Home = ({appState}) => {
         }
 
         const data = await response.json();
-
+        console.log(appState.auth);
         if (appState.auth) {
             data.forEach(event => event.creator.fullName = `${event.creator.first_name} ${event.creator.last_name}`);
         }
@@ -49,38 +50,55 @@ const Home = ({appState}) => {
         }
     }
 
-    useEffect(() => {
-        const getReadableLocation = position => {
-            const { latitude, longitude } = position.coords;
-    
-            geocodeByLatLng({ lat: latitude, lng: longitude })
-            .then(results => {
-                const address = results.find(result => result.types.includes('postal_code')).formatted_address
-                setCurrentLocation(address);
-            })
-            .catch(error => console.error(error));
-        }
+    const getReadableLocation = position => {
+        const { latitude, longitude } = position.coords;
 
-        const failure = () => {
+        geocodeByLatLng({ lat: latitude, lng: longitude })
+        .then(results => {
+            const address = results.find(result => result.types.includes('postal_code')).formatted_address
+            setCurrentLocation(address);
+        })
+        .catch(error => {
+            console.error(error);
+            tryUserZip();
+        });
+    }
+
+    const tryUserZip = () => {
+        if (appState.userZip.length > 0) {
+            geocodeByAddress(appState.userZip)
+                .then(results => {
+                    const address = results[0].formatted_address;
+                    setCurrentLocation(address);
+                })
+                .catch(error => {
+                    console.error(error);
+                    setCurrentLocation(locationDefault);
+                });
+        }
+        else {
             setCurrentLocation(locationDefault);
         }
+    }
 
-        if (!currentLocation) {
-            window.navigator.geolocation.getCurrentPosition(getReadableLocation, failure);
+    useEffect(() => {
+        if (blankLocation) {
+            window.navigator.geolocation.getCurrentPosition(getReadableLocation, tryUserZip);
         }
     }, [])
 
     useEffect(() => {
-        setEvents(null);
-        getHomeEvents(currentPhrase, currentLocation, currentRadius)
-        localStorage.setItem('openSeatSearchPhrase', currentPhrase);
-        localStorage.setItem('openSeatSearchRadius', currentRadius); 
-        
-        if (![locationDefault, null, undefined, ""].includes(currentLocation)) {
-            localStorage.setItem('openSeatSearchLocation', currentLocation);
+        if (blankLocation) {
+            return;
         }
 
-    }, [location.key, currentPhrase, currentLocation, currentRadius]);
+        setEvents(null);
+        getHomeEvents(currentPhrase, currentLocation, currentRadius);
+        localStorage.setItem('openSeatSearchPhrase', currentPhrase);
+        localStorage.setItem('openSeatSearchRadius', currentRadius);
+        localStorage.setItem('openSeatSearchLocation', currentLocation);
+
+    }, [appState, location.key, currentPhrase, currentLocation, currentRadius]);
 
     const noneFound = `No events found. ${appState.auth ? "Create one!" : "Log in to create one!"}`;
     
