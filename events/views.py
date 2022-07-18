@@ -145,7 +145,7 @@ class EventAddSelfApiView(generics.RetrieveUpdateAPIView):
             serializer.save(participants=new_list)
             if len(event.creator.phone_number) > 0:
                 message = f'✅ {self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has filled a seat on your event "{event.name}"! Seats filled: {len(new_list)}/{event.seats}.'
-                # send_text(event.creator.phone_number, message)
+                send_text(event.creator.phone_number, message)
 
 
 class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
@@ -165,4 +165,4 @@ class EventRemoveSelfApiView(generics.RetrieveUpdateAPIView):
             serializer.save(participants=new_list)
             if len(event.creator.phone_number) > 0:
                 message = f'{self.request.user.first_name} {self.request.user.first_name} ({self.request.user.username}) has given up their seat on your event "{event.name}". Seats filled: {len(new_list)}/{event.seats}.'
-                # send_text(event.creator.phone_number, message)
+                send_text(event.creator.phone_number, message)
