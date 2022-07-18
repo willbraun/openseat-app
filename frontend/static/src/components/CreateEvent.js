@@ -13,6 +13,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
         seats: 0,
         description: '',
         address: '',
+        address_json: {},
         date: '',
         time: '',
     }
@@ -22,8 +23,9 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     const navigate = useNavigate();
 
     const createEvent = async () => {
+        const sendCopy = {...state, address_json: JSON.stringify(state.address_json)};
         const formData = new FormData();
-        Object.entries(state).forEach(entry => formData.append(entry[0], entry[1]));
+        Object.entries(sendCopy).forEach(entry => formData.append(entry[0], entry[1]));
         
         const options = {
             method: 'POST',

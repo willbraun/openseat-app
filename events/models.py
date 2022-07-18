@@ -9,6 +9,7 @@ class Event(models.Model):
     seats = models.PositiveIntegerField(validators=[MinValueValidator(2), MaxValueValidator(20)])
     image = models.ImageField(upload_to='events/images', default='events/images/default-event-2-min.jpg', blank=True)
     address = models.CharField(max_length=255)
+    address_json = models.JSONField(null=True)
     date = models.DateField()
     time = models.TimeField()
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)

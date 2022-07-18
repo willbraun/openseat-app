@@ -15,3 +15,7 @@
     opacity: 0;
 }
 
+.invalid-location {
+    position: relative;
+    width: fit-content;
+}

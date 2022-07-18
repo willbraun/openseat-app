@@ -9,8 +9,9 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, d
     const [state, setState] = useState(event)
 
     const editEvent = async () => {
+        const sendCopy = {...state, address_json: JSON.stringify(state.address_json)};
         const formData = new FormData();
-        Object.entries(state).forEach(entry => {
+        Object.entries(sendCopy).forEach(entry => {
             if (entry[1] !== event[entry[0]] ) {
                 formData.append(entry[0], entry[1]);
             }

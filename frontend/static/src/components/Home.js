@@ -27,7 +27,7 @@ const Home = ({appState}) => {
         }
 
         const data = await response.json();
-        console.log(appState.auth);
+        
         if (appState.auth) {
             data.forEach(event => event.creator.fullName = `${event.creator.first_name} ${event.creator.last_name}`);
         }
