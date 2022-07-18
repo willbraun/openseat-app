@@ -9,8 +9,8 @@ const Header = ({appState, logOut}) => {
     
     const navigate = useNavigate();
 
-    const logOutNav = () => {
-        logOut();
+    const logOutNav = async () => {
+        await logOut();
         navigate('/');
     }
 
