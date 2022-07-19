@@ -6,6 +6,7 @@
     font-size: 1.75rem;
     outline: 0px;
     transition: 0.1s;
+    background-color: transparent;
 }
 
 .my-seats-timeperiod:hover {

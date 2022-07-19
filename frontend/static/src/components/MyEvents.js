@@ -64,10 +64,12 @@ const MyEvents = ({appState}) => {
     )
     
     return (
-        <main className="my-events-page">
-            <Row className="gy-4">
-                {eventList}
-            </Row>
+        <main className="my-events-bg">
+            <div className="my-events-page">
+                <Row className="gy-4">
+                    {eventList}
+                </Row>
+            </div>
         </main>
     )
 }

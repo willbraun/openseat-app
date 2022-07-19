@@ -1,9 +1,10 @@
 :root {
+	--light-gray: #F9F9F9;
 	--off-white: #FEF6EB;
-	--border-color: #999;
-	--dark-green: #3E7444;
-	--medium-green: #498850;
-	--light-green: #DEEDDF;
+	--border-color: #bbb;
+	--dark-green: #023047;
+	--medium-green: #37A2D3;
+	--light-green: #D7ECF6;
 	--red: #e01e37;
 	--light-red: #FADBDF;
 	--blue: #D8F4FA;
@@ -11,11 +12,13 @@
 	--light-orange: #FCD69D;
 	--pink: #FBD9FC;
 	--purple: #842DB4;
+	--small-create-event-color: linear-gradient(90deg, rgba(255,188,246,1) 0%, rgba(255,218,165,1) 100%);
+	--create-event-color: linear-gradient(90deg, rgba(245,117,226,100) 0%, var(--orange) 100%);
+	--background-gradient: linear-gradient(0deg, rgb(255, 245, 205) 0%, #fff 100%);
 	--header-height: 4rem;
 	--footer-height: 3.5rem;
 	--sub-header-height: 3rem;
 	--max-page-width: 75rem;
-	--create-event-color: linear-gradient(90deg, rgba(245,117,226,1) 0%, var(--orange) 100%);
 }
 
 * {

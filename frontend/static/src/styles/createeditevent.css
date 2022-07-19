@@ -1,4 +1,5 @@
 .create-event-header {
+    /* background-color: var(--orange); */
     background: var(--create-event-color);
 }
 
@@ -26,7 +27,7 @@
 
 .create-button,
 .save-button {
-    background-color: var(--dark-green);
+    background-color: var(--medium-green);
     color: #fff;
 }
 

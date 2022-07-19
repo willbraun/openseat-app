@@ -12,6 +12,10 @@
     max-width: var(--max-page-width);
 }
 
+.search-options-mobile {
+    background-color: var(--light-gray);
+}
+
 .mobile-search-header button {
     font-size: 1.2rem;
 }

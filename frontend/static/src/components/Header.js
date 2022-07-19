@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link, NavLink } from 'react-router-dom';
+import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import './../styles/headerfooter.css';
 import CreateEvent from './CreateEvent';
 import calendarPlus from './../images/calendar-plus-solid.svg';
@@ -8,6 +8,7 @@ const Header = ({appState, logOut}) => {
     const [isCreating, setIsCreating] = useState(false);
     
     const navigate = useNavigate();
+    const location = useLocation();
 
     const logOutNav = async () => {
         await logOut();
@@ -16,7 +17,7 @@ const Header = ({appState, logOut}) => {
 
     return (
         <>
-            <div className="header">
+            <div className={`header${location.pathname === '/' ? ' header-home' : ''}`}>
                 <div className={`logo-link-box${appState.auth ? ' auth' : ''}`}>
                     <Link className="logo-link" to={'/'}>OpenSeat</Link>
                 </div>

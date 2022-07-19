@@ -12,6 +12,10 @@
     background-color: #fff;
 }
 
+.header-home {
+    border-bottom: none;
+}
+
 .spacer {
     height: var(--header-height)
 }

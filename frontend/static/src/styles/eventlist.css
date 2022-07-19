@@ -1,5 +1,11 @@
-.home-page-bg {
+.home-page-bg,
+.my-seats-bg,
+.my-events-bg {
     padding-bottom: 2rem;
+    background-color: var(--light-gray);
+    /* background: var(--background-gradient); */
+    height: calc(100vh - var(--header-height));
+    overflow: auto;
 }
 
 .home-page,
@@ -10,7 +16,7 @@
 }
 
 .home-page {
-    margin: calc(var(--sub-header-height) + 1rem) auto 2rem;
+    margin: calc(var(--sub-header-height) + 2rem) auto 2rem;
 }
 
 .my-seats-page {
