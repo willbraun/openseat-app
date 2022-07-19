@@ -20,20 +20,28 @@ export const handleImage = (e, state, setState, imageKey, setPreview) => {
         reader.onloadend = () => {
             setPreview(reader.result);
         }
-        console.log(uploadImage)
         reader.readAsDataURL(uploadImage);
     }
     
     const image = e.target.files[0];
+    
+    let quality;
+    const minQuality = 0.3;
+    if (image.size > 1000000) {
+        quality = minQuality;
+    }
+    else {
+        quality = ((-minQuality/1000000) * image.size) + 1;
+    }
 
     new Compressor(image, {
-        quality: 0.2,
+        quality: quality,
         success(result) {
             const newImage = new File([result], result.name);
-            upload(newImage)
+            upload(newImage);
         },
         error(error) {
-            upload(image)
+            upload(image);
             console.error(error.message);
         }
     });
