@@ -2,16 +2,10 @@
 	--light-gray: #F9F9F9;
 	--off-white: #FEF6EB;
 	--border-color: #bbb;
-	--dark-green: #023047;
-	--medium-green: #37A2D3;
-	--light-green: #D7ECF6;
-	--red: #e01e37;
-	--light-red: #FADBDF;
-	--blue: #D8F4FA;
+	--dark-blue: #023047;
+	--medium-blue: #37A2D3;
+	--light-blue: #D7ECF6;
 	--orange: rgba(252,176,69,1);
-	--light-orange: #FCD69D;
-	--pink: #FBD9FC;
-	--purple: #842DB4;
 	--create-event-color: linear-gradient(90deg, rgba(245,117,226,100) 0%, var(--orange) 100%);
 	--header-height: 4rem;
 	--footer-height: 3.5rem;
@@ -38,7 +32,7 @@ code {
 }
 
 .animate-button {
-	transition: 0.05s;
+	transition: 0.04s;
 }
 
 .animate-button:active {
