@@ -2,6 +2,8 @@
 
 OpenSeat is an app designed to help you meet people in your area that share your interests. You can create events to do any activity you'd like with a small group. You can also search for and sign up for events that others have posted. 
 
+See app here - https://openseat-app.herokuapp.com/
+
 # Features
 - View basic event information and search while logged out
 - Create an account to create and sign up for events
