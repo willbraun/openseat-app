@@ -5,11 +5,11 @@ OpenSeat is an app designed to help you meet people in your area that share your
 # Features
 - View basic event information and search while logged out
 - Create an account to create and sign up for events
-- Find events on "Discover" by selecting a location, radius, and search phrase
+- Find events on "Discover" by selecting a location, radius, and optional search phrase
 - View participants on events
 - Fill a seat on an event
 - Cancel a seat on an event
-- Notifications via text are sent to creators when someone else has filled or canceled a seat on one of their events
+- Notifications via text are sent to creators when someone has filled or canceled a seat on one of their events
 - Create an event
 - Edit one of your events
 - Delete one of your events
