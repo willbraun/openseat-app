@@ -8,6 +8,13 @@
     background-color: #fff;
 }
 
+.event-star {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+
 .event-content {
     height: 100%;
     display: flex;
@@ -25,7 +32,11 @@
     background: rgba(0, 0, 0, 0.7);
     color: #fff;
     border-radius: 0.5rem;
-    padding: 0 0.5rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.event-name.is-creator {
+    max-width: calc(100% - 6.5rem);
 }
 
 .event-image-box {

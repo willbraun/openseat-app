@@ -17,24 +17,10 @@
     overflow: auto;
 }
 
-.star-box {
+.participant-star {
     position: absolute;
     top: -5%;
     right: 13%;
-    height: 3.5rem;
-    width: 3.5rem;
-    padding: 0.3rem 0.5rem 0.4rem;
-    background: var(--create-event-color);
-    border-radius: 50%;
-    border: 3px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.star-icon {
-    height: 100%;
-    width: 100%;
 }
 
 .participant-profile-pic-box {

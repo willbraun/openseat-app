@@ -8,6 +8,7 @@ import { handleError } from '../helpers';
 import './../styles/event.css';
 import EventParticipants from './EventParticipants';
 import EditEvent from './EditEvent';
+import star from './../images/star.svg'
 
 const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [state, setState] = useState(event);
@@ -114,7 +115,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         <div className="creator-profile-pic-box">
                             <img className="creator-profile-pic" src={state.creator.profile_pic} alt={state.creator.username} />
                         </div>
-                        <p className="creator-name">{state.creator.first_name} {state.creator.last_name}</p>
+                        <p className="creator-name">{state.creator.first_name} {state.creator.last_name} {isCreator && '(you)'}</p>
                     </div>
                     {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                     <address>{state.address}</address>
@@ -171,8 +172,13 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     )
 
     return (
-        <article className={`event${isCreator ? ' is-creator' : ''}`}>
-            <p className="event-name">{state.name}</p>
+        <article className="event">
+            {isCreator && 
+                <div className="star-box event-star">
+                    <img className="star-icon" src={star} alt="star" />
+                </div>
+            }
+            <h2 className={`event-name${isCreator ? " is-creator" : ''}`}>{state.name}</h2>
             {eventContent}
             <EventParticipants 
                 eventState={state}
