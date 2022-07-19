@@ -186,8 +186,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 showParticipants={showParticipants}
                 setShowParticipants={setShowParticipants}/>
             <EditEvent 
-                event={event} 
-                eventState={state} 
+                event={event}  
                 setEventState={setState}
                 isEditing={isEditing}
                 setIsEditing={setIsEditing}

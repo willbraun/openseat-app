@@ -5,7 +5,7 @@ import EventInput from './EventInput';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 
-const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, deleteEvent}) => {
+const EditEvent = ({event, setEventState, isEditing, setIsEditing, deleteEvent}) => {
     const [state, setState] = useState(event)
 
     const editEvent = async () => {
