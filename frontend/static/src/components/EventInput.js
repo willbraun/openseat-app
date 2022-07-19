@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form'; 
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col'; 
+import Spinner from 'react-bootstrap/Spinner';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { handleInput, handleImage } from "../helpers";
 import { format } from 'date-fns';
@@ -88,9 +89,12 @@ const EventInput = ({parentState, setParentState}) => {
                                 onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)}
                             />
                             
-                            {preview ? 
-                                <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/> : 
-                                <div className="no-image-background">
+                            {preview
+                                ? parentState.image 
+                                    ? <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/>
+                                    : preview === 'spinner' && <Spinner animation="border" />
+
+                                : <div className="no-image-background">
                                     <img className="plus" src={plus} alt="plus icon" />
                                     <p>Add Image</p>
                                 </div>

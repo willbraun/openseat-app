@@ -37,10 +37,11 @@ code {
 		monospace;
 }
 
-button {
+.animate-button {
 	transition: 0.05s;
 }
 
-button:not(.event-image-button):active {
+.animate-button:active {
 	transform: translateY(2px);
 }
+

@@ -13,7 +13,9 @@ export const handleInput = (e, setState) => {
 }
 
 export const handleImage = (e, state, setState, imageKey, setPreview) => {
-	const upload = (uploadImage) => {
+	setPreview('spinner');
+    
+    const upload = (uploadImage) => {
         setState({...state, [imageKey]: uploadImage});
 
         const reader = new FileReader();
@@ -45,7 +47,6 @@ export const handleImage = (e, state, setState, imageKey, setPreview) => {
             console.error(error.message);
         }
     });
-	
 }
 
 export const locationDefault = 'Select location...';

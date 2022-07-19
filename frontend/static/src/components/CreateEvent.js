@@ -43,7 +43,6 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     }
 
     const close = () => {
-        // setAppState({...appState, isCreating: false});
         setIsCreating(false);
         setState(blank);
     }
@@ -72,8 +71,8 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer className="create-footer">
-                <button className="cancel-button" type="button" onClick={close}>Cancel</button> 
-                <button className="create-button" type="submit" form="create-event-input-form">Create</button>
+                <button className="cancel-button animate-button" type="button" onClick={close}>Cancel</button> 
+                <button className="create-button animate-button" type="submit" form="create-event-input-form">Create</button>
             </Modal.Footer>
         </Modal>
     )

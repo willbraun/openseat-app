@@ -22,7 +22,7 @@ const Header = ({appState, isCreating, setIsCreating, logOut}) => {
                 <div className="header-options">
                     {appState.auth ? 
                         <>
-                            <button className="create-event-nav" type="button" onClick={() => setIsCreating(true)}>
+                            <button className="create-event-nav animate-button" type="button" onClick={() => setIsCreating(true)}>
                                 <img className="calendar-plus" src={calendarPlus} alt="calendar plus" />
                                 <p>Create Event</p>
                             </button>

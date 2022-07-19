@@ -62,14 +62,14 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     const actionButton = () => {
         if (parseISO(state.date) < now) {
             return <div 
-                className="event-action event-completed disabled" 
+                className="event-action event-completed animate-button disabled" 
                 data-testid="event-completed">
                     Event Completed
                 </div>
         }
         else if (isCreator) {
             return <button 
-                className="event-action edit-event-button" 
+                className="event-action edit-event-button animate-button" 
                 data-testid="edit-event-button" 
                 type="button" 
                 onClick={() => setIsEditing(true)}>
@@ -81,7 +81,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 <div className="event-action youre-going-box">
                     <div className="youre-going">You're going!</div>
                     <button 
-                        className="give-up-seat" 
+                        className="give-up-seat animate-button" 
                         type="button" 
                         data-testid="give-up-seat-button" 
                         onClick={() => giveUpSeat()}>
@@ -92,7 +92,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         }
         else {
             return <button 
-                className="event-action fill-seat" 
+                className="event-action fill-seat animate-button" 
                 type="button" 
                 data-testid="fill-seat-button" 
                 onClick={() => fillSeat()}>
@@ -101,7 +101,8 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         }
     }
 
-    const eventContent = (appState.auth ? 
+    const eventContent = (appState.auth 
+        ? 
         <div className="event-content" data-testid="auth-content">
             <div className="event-image-box">
                 <img className="event-image" src={state.image} alt={state.name} />
@@ -125,7 +126,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
             <Row className="mx-1 mb-3 gy-2 event-bottom">
                 <Col xs={12} md={5} lg={12} xl={5}>
                     <button 
-                        className={`view-participants`} 
+                        className={`view-participants animate-button`} 
                         disabled={false} 
                         type="button"
                         onClick={() => setShowParticipants(true)}>

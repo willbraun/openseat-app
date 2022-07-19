@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 import Cookies from 'js-cookie';
-import { handleError, handleInput, handleImage, locationDefault } from '../helpers';
+import { handleError, handleInput, handleImage } from '../helpers';
 import plus from './../images/plus-solid.svg';
 import arrowLeft from './../images/arrow-left-solid.svg'; 
 
@@ -173,9 +174,12 @@ const CreateAccount = ({appState, setAppState}) => {
                                     className="input-image create-account-input"
                                     onChange={(e) => handleImage(e, state, setState, 'profilePic', setPreview)} />
                                 
-                                    {preview ? 
-                                        <img className="image-button-background" src={preview} alt={`${state.username} profile`}/> : 
-                                        <div className="no-image-background">
+                                    {preview 
+                                        ? state.profilePic 
+                                            ? <img className="image-button-background" src={preview} alt={`${state.username} profile`}/> 
+                                            : <Spinner animation="border" />
+
+                                        : <div className="no-image-background">
                                             <img className="plus" src={plus} alt="plus icon" />
                                             <p>Add Profile Picture</p>
                                         </div>

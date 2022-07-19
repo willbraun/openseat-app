@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
+import Loading from './Loading';
 import Cookies from 'js-cookie';
 import { handleError } from '../helpers';
 
@@ -27,7 +28,7 @@ const MyEvents = ({appState}) => {
     }, [location.key])
 
     if (events === null) {
-        return <div className="center-message">Loading...</div>
+        return <Loading />
     }
     else if (events.length === 0) {
         return <p className="center-message">You don't have any events. Create one!</p>

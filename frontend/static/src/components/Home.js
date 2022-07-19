@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Event from './Event';
+import Loading from './Loading';
 import { handleError, locationDefault } from '../helpers';
 import Search from './Search';
 import Fuse from 'fuse.js';
@@ -137,7 +138,7 @@ const Home = ({appState}) => {
                     <p className="center-message">{'Select your location from above or allow location services in your web browser'}</p>
                 :
                 events === null ? 
-                    <p className="center-message">Loading...</p> 
+                    <Loading />
                 : 
                 events.length === 0 ?
                     <p className="center-message">{noneFound}</p> 

@@ -58,9 +58,9 @@ const EditEvent = ({event, eventState, setEventState, isEditing, setIsEditing, d
                 </Form>
             </Modal.Body>
             <Modal.Footer className="edit-footer d-flex">
-                <button className="delete-button me-auto" type="button" onClick={() => {deleteEvent(event.id); setIsEditing(false)}}>Delete Event</button>
-                <button className="cancel-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button> 
-                <button className="save-button" type="submit" form="event-input-form">Save</button>
+                <button className="delete-button animate-button me-auto" type="button" onClick={() => {deleteEvent(event.id); setIsEditing(false)}}>Delete Event</button>
+                <button className="cancel-button animate-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button> 
+                <button className="save-button animate-button" type="submit" form="event-input-form">Save</button>
             </Modal.Footer>
         </Modal>
     )
