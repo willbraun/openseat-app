@@ -27,7 +27,7 @@ const MyEvents = ({appState}) => {
     }, [location.key])
 
     if (events === null) {
-        return <div>Loading events...</div>
+        return <div className="center-message">Loading...</div>
     }
     else if (events.length === 0) {
         return <p className="center-message">You don't have any events. Create one!</p>

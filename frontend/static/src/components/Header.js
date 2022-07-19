@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import './../styles/headerfooter.css';
 import CreateEvent from './CreateEvent';
 import calendarPlus from './../images/calendar-plus-solid.svg';
 
-const Header = ({appState, logOut}) => {
-    const [isCreating, setIsCreating] = useState(false);
+const Header = ({appState, isCreating, setIsCreating, logOut}) => {
     
     const navigate = useNavigate();
     const location = useLocation();

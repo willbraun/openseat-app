@@ -11,6 +11,7 @@ function App() {
 		userId: Number(Cookies.get('userId')) ?? 0,
 		userZip: Cookies.get('userZip') ?? '',
 	})
+    const [isCreating, setIsCreating] = useState(false);
 
 	const logOut = async () => {
         const options = {
@@ -35,7 +36,7 @@ function App() {
     }
 	
 	return (
-		<ReactRouter appState={state} setAppState={setState} logOut={logOut}/>
+		<ReactRouter appState={state} setAppState={setState} isCreating={isCreating} setIsCreating={setIsCreating} logOut={logOut}/>
 	);
 }
 

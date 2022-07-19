@@ -174,7 +174,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     return (
         <article className="event">
             {isCreator && 
-                <div className="star-box event-star">
+                <div className="star-box event-star" data-testid="event-star">
                     <img className="star-icon" src={star} alt="star" />
                 </div>
             }

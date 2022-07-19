@@ -36,3 +36,11 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+
+button {
+	transition: 0.05s;
+}
+
+button:not(.event-image-button):active {
+	transform: translateY(2px);
+}

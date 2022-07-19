@@ -119,6 +119,8 @@ describe('<Event />', () => {
         expect(screen.queryByTestId('event-completed')).not.toBeInTheDocument();
         expect(screen.queryByTestId('fill-seat-button')).not.toBeInTheDocument();
         expect(screen.queryByTestId('give-up-seat-button')).not.toBeInTheDocument();
+
+        expect(screen.getByTestId('event-star')).toBeInTheDocument();
     });
 
     test('renders my event, past, authorized', () => {
@@ -138,6 +140,7 @@ describe('<Event />', () => {
         expect(screen.queryByTestId('fill-seat-button')).not.toBeInTheDocument();
         expect(screen.queryByTestId('give-up-seat-button')).not.toBeInTheDocument();
 
+        expect(screen.getByTestId('event-star')).toBeInTheDocument();
     });
 
     test("renders someone else's event, seat not filled, authorized", () => {
@@ -156,6 +159,8 @@ describe('<Event />', () => {
         expect(screen.queryByTestId('event-completed')).not.toBeInTheDocument();
         expect(screen.getByTestId('fill-seat-button')).toBeInTheDocument();
         expect(screen.queryByTestId('give-up-seat-button')).not.toBeInTheDocument();
+
+        expect(screen.queryByTestId('event-star')).not.toBeInTheDocument();
     });
 
     test("renders someone else's event, seat filled, authorized", () => {
@@ -174,6 +179,8 @@ describe('<Event />', () => {
         expect(screen.queryByTestId('event-completed')).not.toBeInTheDocument();
         expect(screen.queryByTestId('fill-seat-button')).not.toBeInTheDocument();
         expect(screen.getByTestId('give-up-seat-button')).toBeInTheDocument();
+
+        expect(screen.queryByTestId('event-star')).not.toBeInTheDocument();
     });
 
     test('renders unauthorized event', () => {
@@ -192,6 +199,8 @@ describe('<Event />', () => {
         expect(screen.queryByTestId('event-completed')).not.toBeInTheDocument();
         expect(screen.queryByTestId('fill-seat-button')).not.toBeInTheDocument();
         expect(screen.queryByTestId('give-up-seat-button')).not.toBeInTheDocument();
+
+        expect(screen.queryByTestId('event-star')).not.toBeInTheDocument();
     });
 
 });

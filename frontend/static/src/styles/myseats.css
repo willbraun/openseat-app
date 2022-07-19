@@ -17,3 +17,13 @@
 .my-seats-spinner {
     margin: 0 0 0 1rem;
 }
+
+.my-seats-create-event-button {
+    background-color: var(--orange);
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.my-seats-create-event-button:hover {
+    filter: brightness(110%);
+}

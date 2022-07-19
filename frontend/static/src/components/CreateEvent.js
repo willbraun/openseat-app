@@ -43,6 +43,7 @@ const CreateEvent = ({isCreating, setIsCreating}) => {
     }
 
     const close = () => {
+        // setAppState({...appState, isCreating: false});
         setIsCreating(false);
         setState(blank);
     }
