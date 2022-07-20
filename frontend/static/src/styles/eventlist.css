@@ -44,11 +44,11 @@
 }
 
 @media (max-width: 992px) {
-    /* .home-page,
+    .home-page,
     .my-seats-page,
     .my-events-page {
         margin-bottom: calc(var(--footer-height) + 1rem);
-    } */
+    }
 
     .home-page-bg,
     .my-seats-bg,
