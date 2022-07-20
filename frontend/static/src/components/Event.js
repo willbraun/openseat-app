@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Cookies from 'js-cookie';
@@ -163,9 +163,9 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                 </Col>
                 <Col className="ps-0" xs={6}>
                     <div 
-                        className="event-action log-in-to-join disabled" 
+                        className="event-action log-in-to-join" 
                         data-testid="log-in-to-join">
-                            Log in to join!
+                            <Link to={'/login'}>Log in to join!</Link>
                     </div>               
                 </Col>
             </Row>

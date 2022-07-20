@@ -12,7 +12,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    z-index: 10;
+    z-index: 5;
 }
 
 .event-content {
@@ -115,16 +115,21 @@
 
 .log-in-to-join {
     text-align: right;
+    padding: 0.6rem 0 0 0;
 }
 
-.view-participants.disabled,
-.log-in-to-join.disabled {
-    padding: 0.4rem 0 0 0;
+.log-in-to-join a {
+    color: #000;
+    text-decoration: none;
+}
+
+.log-in-to-join a:hover {
+    color: var(--orange);
+}
+
+.view-participants.disabled {
+    padding: 1.1rem 0 0 0;
     width: fit-content;
-}
-
-.log-in-to-join.disabled {
-    margin-left: auto;
 }
 
 .view-participants {
