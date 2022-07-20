@@ -5,7 +5,8 @@ from accounts.serializers import UserOnEventSerializer
 
 class EventSearchSerializer(serializers.ModelSerializer):
     creator = UserOnEventSerializer('creator', read_only=True)
-    participants = UserOnEventSerializer('participants', read_only=True, many=True)
+    participants = UserOnEventSerializer(
+        'participants', read_only=True, many=True)
     distance = serializers.SerializerMethodField()
     participant_count = serializers.SerializerMethodField()
 
@@ -49,8 +50,9 @@ class NoAuthEventSearchSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     creator = UserOnEventSerializer('creator', read_only=True)
-    participants = UserOnEventSerializer('participants', read_only=True, many=True)
-    
+    participants = UserOnEventSerializer(
+        'participants', read_only=True, many=True)
+
     class Meta:
         model = Event
         fields = '__all__'
@@ -58,8 +60,9 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventParticipantsSerializer(serializers.ModelSerializer):
-    participants = UserOnEventSerializer('participants', read_only=True, many=True)
-    
+    participants = UserOnEventSerializer(
+        'participants', read_only=True, many=True)
+
     class Meta:
         model = Event
         fields = ('participants',)

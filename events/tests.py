@@ -9,18 +9,20 @@ import os
 
 User = get_user_model()
 client = Client()
-factory = APIRequestFactory() 
+factory = APIRequestFactory()
 
 
 # Create your tests here.
 class EventListTestCases(TestCase):
-    
+
     def test_get_discover_events_no_auth(self):
-        response = client.get(reverse('api:events:events'), {'origin': '29615', 'radius': '50'})
+        response = client.get(reverse('api:events:events'), {
+                              'origin': '29615', 'radius': '50'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_discover_events_auth(self):
-        request = factory.get('/api_v1/events/', {'origin': '29615', 'radius': '50'})
+        request = factory.get(
+            '/api_v1/events/', {'origin': '29615', 'radius': '50'})
         user = User.objects.create(username='test_user')
         view = get_home_events
         force_authenticate(request, user=user)
@@ -66,7 +68,7 @@ class FillSeatsEventTestCases(TestCase):
             time='12:00:00',
             creator=creator,
         )
-    
+
     def test_add_self_no_auth(self):
         id = Event.objects.get(name='Fishing').id
         request = factory.put(f'/api_v1/{id}/add-self/')
@@ -97,7 +99,7 @@ class FillSeatsEventTestCases(TestCase):
         view = EventRemoveSelfApiView.as_view()
         force_authenticate(request, user=user)
         response = view(request, pk=id)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)    
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class EventCrudTestCases(TestCase):
@@ -114,14 +116,14 @@ class EventCrudTestCases(TestCase):
             time='12:00:00',
             creator=creator,
         )
-    
+
     def test_create_event_auth(self):
 
         def temporary_image():
             import tempfile
             from PIL import Image
 
-            image = Image.new('RGB', (100,100))
+            image = Image.new('RGB', (100, 100))
             tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
             image.save(tmp_file, 'jpeg')
             tmp_file.seek(0)
@@ -141,7 +143,7 @@ class EventCrudTestCases(TestCase):
             'zip_code': '12345',
             'date': '2100-01-01',
             'time': '12:00:00',
-            }))
+        }))
 
         view = MyEventsListCreateApiView.as_view()
         force_authenticate(request, user=user)
@@ -150,10 +152,9 @@ class EventCrudTestCases(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(user.id, response.data['creator']['id'])
         self.assertEqual(user.id, response.data['participants'][0]['id'])
-        
+
         saved_location = f"media/events/images/{image.name.split('/')[-1]}"
         os.remove(saved_location)
-        
 
     def test_read_event_auth(self):
         id = Event.objects.get(name='Go-karting').id
@@ -167,7 +168,8 @@ class EventCrudTestCases(TestCase):
     def test_edit_event_auth(self):
         id = Event.objects.get(name='Go-karting').id
         creator = User.objects.get(username='test_creator')
-        request = factory.patch(f'/api_v1/events/{id}/', {'name': 'Mario-karting'})
+        request = factory.patch(
+            f'/api_v1/events/{id}/', {'name': 'Mario-karting'})
         view = EventDetailApiView.as_view()
         force_authenticate(request, user=creator)
         response = view(request, pk=id)
@@ -181,4 +183,3 @@ class EventCrudTestCases(TestCase):
         force_authenticate(request, user=creator)
         response = view(request, pk=id)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-

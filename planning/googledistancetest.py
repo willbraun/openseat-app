@@ -9,7 +9,7 @@
 #         get all events from database
 #         initiate one google distance matrix api call in backend to find distances between all events and the zip code
 #         filter events to only show the ones within the radius
-#             **** filter in google api call or in django once I have all data back? 
+#             **** filter in google api call or in django once I have all data back?
 #                  no documentation on how to filter in google api call, so django it is
 #         return filtered events to frontend
 
@@ -21,7 +21,8 @@ import json
 # in final project, get list of "events" and then map them to just their addresses/locations
 
 api_key = os.environ['GOOGLE_API_KEY']
-destinations = ['Downtown Atlanta', '2301 Vanderbilt Place Nashville, TN 37235', 'Charlotte, NC']
+destinations = ['Downtown Atlanta',
+                '2301 Vanderbilt Place Nashville, TN 37235', 'Charlotte, NC']
 destination_string = ('|').join(destinations)
 destination_string_encoded = urllib.parse.quote(destination_string)
 origin = '29615'
@@ -37,14 +38,17 @@ elements = response_dict['rows'][0]['elements']
 
 input_radius_miles = 200
 METERS_TO_MILES = 1609.34
-indicies_less_than_200_miles = [index for (index, el) in enumerate(elements) if el['distance']['value'] < input_radius_miles * METERS_TO_MILES]
+indicies_less_than_200_miles = [index for (index, el) in enumerate(
+    elements) if el['distance']['value'] < input_radius_miles * METERS_TO_MILES]
 
 # in project, use indicies to get the actual events from the original list of "events"
 
 # for demo, indicies can be used to map to the original destination addresses provided
 
+
 def get_filtered_destinations(index):
     return response_dict['destination_addresses'][index]
+
 
 result = list(map(get_filtered_destinations, indicies_less_than_200_miles))
 

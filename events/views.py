@@ -17,10 +17,10 @@ from datetime import date
 def filter_events_by_distance(events, origin, distance_in_miles):
     if len(events) == 0:
         return []
-    
+
     def event_to_address(event):
         return event.address
-    
+
     addresses = list(map(event_to_address, events))
     destination_string = ('|').join(addresses)
     destination_string_encoded = urllib.parse.quote(destination_string)
@@ -42,23 +42,25 @@ def filter_events_by_distance(events, origin, distance_in_miles):
     for (index, el) in enumerate(elements):
         try:
             if el['distance']['value'] < distance_in_miles * METERS_PER_MILE:
-                events[index].distance = el['distance']['value'] / METERS_PER_MILE
+                events[index].distance = el['distance']['value'] / \
+                    METERS_PER_MILE
                 results.append(events[index])
         except:
             pass
-        
+
     return results
+
 
 def filter_home_events(request):
     origin = request.GET.get('origin')
     radius = int(request.GET.get('radius'))
-    
+
     events = (Event.objects
-        .exclude(participants__id=request.user.id)
-        .filter(date__gte=date.today())
-        .annotate(participant_count=Count('participants'))
-        .filter(participant_count__lt=F('seats'))
-        .order_by('date', 'time'))
+              .exclude(participants__id=request.user.id)
+              .filter(date__gte=date.today())
+              .annotate(participant_count=Count('participants'))
+              .filter(participant_count__lt=F('seats'))
+              .order_by('date', 'time'))
 
     return filter_events_by_distance(events, origin, radius)
 
@@ -71,12 +73,14 @@ def send_text(recipient_number, message_body):
     client = Client(api_key, api_secret, account_sid)
 
     client.messages.create(
-        to = recipient_number, 
-        from_ = twilio_phone_number,
-        body = message_body,
+        to=recipient_number,
+        from_=twilio_phone_number,
+        body=message_body,
     )
 
 # Create your views here.
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_home_events(request):
@@ -85,9 +89,9 @@ def get_home_events(request):
         results = EventSearchSerializer(events, many=True).data
     else:
         results = NoAuthEventSearchSerializer(events, many=True).data
-    
+
     return Response(results)
-        
+
 
 class MySeatsFutureListApiView(generics.ListAPIView):
     serializer_class = EventSerializer
@@ -95,9 +99,9 @@ class MySeatsFutureListApiView(generics.ListAPIView):
 
     def get_queryset(self):
         return (Event.objects
-            .filter(date__gte=date.today())
-            .filter(participants__id=self.request.user.id)
-            .order_by('date', 'time'))
+                .filter(date__gte=date.today())
+                .filter(participants__id=self.request.user.id)
+                .order_by('date', 'time'))
 
 
 class MySeatsPastListApiView(generics.ListAPIView):
@@ -106,9 +110,9 @@ class MySeatsPastListApiView(generics.ListAPIView):
 
     def get_queryset(self):
         return (Event.objects
-            .filter(date__lt=date.today())
-            .filter(participants__id=self.request.user.id)
-            .order_by('-date', 'time'))
+                .filter(date__lt=date.today())
+                .filter(participants__id=self.request.user.id)
+                .order_by('-date', 'time'))
 
 
 class MyEventsListCreateApiView(generics.ListCreateAPIView):
@@ -118,8 +122,9 @@ class MyEventsListCreateApiView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Event.objects.filter(creator=self.request.user).order_by('-created_at')
 
-    def perform_create(self, serializer):    
-        serializer.save(creator=self.request.user, participants=[self.request.user])
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user,
+                        participants=[self.request.user])
 
 
 class EventDetailApiView(generics.RetrieveUpdateDestroyAPIView):

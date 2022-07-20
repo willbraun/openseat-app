@@ -14,8 +14,8 @@ client = Client(api_key, api_secret, account_sid)
 
 message = client.messages.create(
     # the creator's phone number (mine for testing)
-    to=my_phone_number, 
-    
+    to=my_phone_number,
+
     # from the phone number set up in my free Twilio account
     from_=twilio_phone_number,
 
