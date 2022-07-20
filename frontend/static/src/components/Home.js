@@ -42,7 +42,7 @@ const Home = ({appState}) => {
         const options = {
             includeScore: true,
             ignoreLocation: true,
-            threshold: 0.2,
+            threshold: 0.1,
             keys: ['name', 'description', 'address', 'creator.first_name', 'creator.last_name', `creator.fullName`, 'creator.username']
         }
     

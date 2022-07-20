@@ -17,6 +17,8 @@ const EventInput = ({parentState, setParentState}) => {
         return;
     }
 
+    const participantNum = parentState.participants?.length;
+
     const notAcceptedTypes = [
         'administrative_area_level_1',
         'administrative_area_level_2',
@@ -68,7 +70,7 @@ const EventInput = ({parentState, setParentState}) => {
                             name="seats" 
                             defaultValue={parentState.seats || 0}
                             type="number" 
-                            min={parentState.participants.length > 1 ? parentState.participants.length : 2}
+                            min={participantNum > 1 ? participantNum : 2}
                             max="20"
                             required
                             onChange={(e) => handleInput(e, setParentState)} />
