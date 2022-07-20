@@ -47,12 +47,12 @@
     .home-page,
     .my-seats-page,
     .my-events-page {
-        margin-bottom: calc(var(--footer-height) + 1rem);
+        padding-bottom: calc(var(--footer-height) + 1rem);
     }
 
-    .home-page-bg,
+    /* .home-page-bg,
     .my-seats-bg,
     .my-events-bg {
         height: calc(100vh - var(--header-height) - var(--footer-height));
-    }
+    } */
 }
