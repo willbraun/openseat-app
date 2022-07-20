@@ -1,7 +1,9 @@
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import './../styles/headerfooter.css';
 import CreateEvent from './CreateEvent';
+import chair from './../images/icons8-armchair-80.png';
 import calendarPlus from './../images/calendar-plus-solid.svg';
+
 
 const Header = ({appState, isCreating, setIsCreating, logOut}) => {
     
@@ -17,7 +19,10 @@ const Header = ({appState, isCreating, setIsCreating, logOut}) => {
         <>
             <div className={`header${location.pathname === '/' ? ' header-home' : ''}`}>
                 <div className={`logo-link-box${appState.auth ? ' auth' : ''}`}>
-                    <Link className="logo-link" to={'/'}>OpenSeat</Link>
+                    <Link className="logo-link" to={'/'}>
+                        OpenSeat
+                        <img className="chair-icon" src={chair} alt="chair" />
+                    </Link>
                 </div>
                 <div className="header-options">
                     {appState.auth ? 

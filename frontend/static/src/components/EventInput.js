@@ -108,6 +108,7 @@ const EventInput = ({parentState, setParentState}) => {
             <Row>
                 <Form.Group className="mb-2" controlId="description">
                     <Form.Label>Description <span className="required-asterisk">*</span></Form.Label>
+                    <Form.Text> - let guests know what to expect, and how they can identify you</Form.Text>
                     <Form.Control 
                         name="description" 
                         defaultValue={parentState.description || ''} 

@@ -28,7 +28,7 @@
 
 .logo-link:hover,
 .header-nav:hover {
-    color: var(--orange)
+    filter: invert(55%) sepia(61%) saturate(850%) hue-rotate(2deg) brightness(108%) contrast(103%);
 }
 
 .header-nav,
@@ -51,6 +51,12 @@
     width: fit-content;
     font-size: 2rem;
     font-weight: 600;
+}
+
+.chair-icon {
+    height: 3rem;
+    width: 3rem;
+    margin: 0 0 0 0.5rem;
 }
 
 .create-event-nav {

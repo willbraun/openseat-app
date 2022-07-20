@@ -192,9 +192,10 @@ const CreateAccount = ({appState, setAppState}) => {
                             <Form.Control 
                                 name="phoneNumber" 
                                 value={state.phoneNumber}
-                                type="text" 
-                                maxLength="16"
-                                placeholder="Enter phone Number"
+                                type="number" 
+                                min="0"
+                                max="9999999999"
+                                placeholder="Enter 10-digit phone number"
                                 onChange={(e) => handleInput(e, setState)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicZipCode">
