@@ -69,12 +69,12 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         }
         else if (isCreator) {
             return <button 
-                className="event-action edit-event-button animate-button" 
-                data-testid="edit-event-button" 
-                type="button" 
-                onClick={() => setIsEditing(true)}>
-                    Edit Event
-                </button>
+                    className="event-action edit-event-button animate-button" 
+                    data-testid="edit-event-button" 
+                    type="button" 
+                    onClick={() => setIsEditing(true)}>
+                        Edit Event
+                    </button>
         }
         else if (isAttending) {
             return (
@@ -84,7 +84,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         className="give-up-seat animate-button" 
                         type="button" 
                         data-testid="give-up-seat-button" 
-                        onClick={() => giveUpSeat()}>
+                        onClick={giveUpSeat}>
                             Cancel
                     </button>
                 </div>
@@ -92,12 +92,12 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         }
         else {
             return <button 
-                className="event-action fill-seat animate-button" 
-                type="button" 
-                data-testid="fill-seat-button" 
-                onClick={() => fillSeat()}>
-                    Fill Seat
-                </button>
+                    className="event-action fill-seat animate-button" 
+                    type="button" 
+                    data-testid="fill-seat-button" 
+                    onClick={fillSeat}>
+                        Fill Seat
+                    </button>
         }
     }
 
