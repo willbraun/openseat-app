@@ -68,7 +68,7 @@ const EventInput = ({parentState, setParentState}) => {
                             name="seats" 
                             defaultValue={parentState.seats || 0}
                             type="number" 
-                            min="2"
+                            min={parentState.participants.length > 1 ? parentState.participants.length : 2}
                             max="20"
                             required
                             onChange={(e) => handleInput(e, setParentState)} />
