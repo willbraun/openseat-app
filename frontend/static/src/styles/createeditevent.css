@@ -22,6 +22,7 @@
 .cancel-button,
 .participant-list-back {
     background-color: #ddd;
+    color: #000;
 }
 
 .create-button,
@@ -32,4 +33,5 @@
 
 .delete-button {
     background-color: var(--light-red);
+    color: #000;
 }

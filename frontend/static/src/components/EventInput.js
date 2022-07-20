@@ -59,7 +59,7 @@ const EventInput = ({parentState, setParentState}) => {
                             type="text"  
                             required
                             onChange={(e) => handleInput(e, setParentState)}
-                            autoFocus/>
+                        />
                     </Form.Group>
                     <Form.Group className="mb-2" controlId="seats">
                         <Form.Label>Seats <span className="required-asterisk">*</span></Form.Label>

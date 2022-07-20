@@ -1,9 +1,8 @@
 .home-page-bg,
 .my-seats-bg,
 .my-events-bg {
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     background-color: var(--light-gray);
-    /* background: var(--background-gradient); */
     height: calc(100vh - var(--header-height));
     overflow: auto;
 }
@@ -16,11 +15,11 @@
 }
 
 .home-page {
-    margin: calc(var(--sub-header-height) + 2rem) auto 2rem;
+    margin: calc(var(--sub-header-height) + 2rem) auto 1rem;
 }
 
 .my-seats-page {
-    margin: 0 auto 2rem;
+    margin: 0 auto 1rem;
 }
 
 .my-events-page {
@@ -45,9 +44,15 @@
 }
 
 @media (max-width: 992px) {
-    .home-page,
+    /* .home-page,
     .my-seats-page,
     .my-events-page {
         margin-bottom: calc(var(--footer-height) + 1rem);
-}
+    } */
+
+    .home-page-bg,
+    .my-seats-bg,
+    .my-events-bg {
+        height: calc(100vh - var(--header-height) - var(--footer-height));
+    }
 }

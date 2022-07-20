@@ -49,6 +49,7 @@
 .image-button {
     border: none;
     background-color: #ccc;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;

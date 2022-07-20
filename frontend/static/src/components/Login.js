@@ -72,7 +72,7 @@ const Login = ({appState, setAppState}) => {
                         placeholder="Enter username" 
                         required 
                         onChange={handleInput}
-                        autoFocus />
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>

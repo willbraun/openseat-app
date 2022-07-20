@@ -104,7 +104,7 @@ const CreateAccount = ({appState, setAppState}) => {
                                 placeholder="Enter username" 
                                 required 
                                 onChange={(e) => handleInput(e, setState)}
-                                autoFocus />
+                                />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword1">
                             <Form.Label>Password <span className="required-asterisk">*</span></Form.Label>
