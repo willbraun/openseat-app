@@ -2,12 +2,13 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Participant from './Participant';
+import Loading from './Loading';
 import { format, parseISO } from 'date-fns';
 import './../styles/eventparticipants.css'
 
 const EventParticipants = ({eventState, showParticipants, setShowParticipants}) => {
     if (!eventState.participants) {
-        return <div>Loading participants...</div>
+        return <Loading />
     }
     
     const participantList = eventState.participants.map(participant => 
