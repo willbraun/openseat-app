@@ -174,16 +174,16 @@ const CreateAccount = ({appState, setAppState}) => {
                                     className="input-image create-account-input"
                                     onChange={(e) => handleImage(e, state, setState, 'profilePic', setPreview)} />
                                 
-                                    {preview 
-                                        ? state.profilePic 
-                                            ? <img className="image-button-background" src={preview} alt={`${state.username} profile`}/> 
-                                            : <Spinner animation="border" />
-
-                                        : <div className="no-image-background">
-                                            <img className="plus" src={plus} alt="plus icon" />
-                                            <p>Add Profile Picture</p>
-                                        </div>
+                                    {preview === 'spinner' 
+                                        ?   <Spinner animation="border" />
+                                        :   state.profilePic 
+                                            ?   <img className="image-button-background" src={preview} alt={`${state.username} profile`}/>
+                                            :   <div className="no-image-background">
+                                                    <img className="plus" src={plus} alt="plus icon" />
+                                                    <p>Add Profile Picture</p>
+                                                </div>
                                     }
+
                             </button>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">

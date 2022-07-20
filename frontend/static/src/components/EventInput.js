@@ -90,16 +90,15 @@ const EventInput = ({parentState, setParentState}) => {
                                 form="create-event-input-form"
                                 onChange={(e) => handleImage(e, parentState, setParentState, 'image', setPreview)}
                             />
-                            
-                            {preview
-                                ? parentState.image 
-                                    ? <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/>
-                                    : preview === 'spinner' && <Spinner animation="border" />
 
-                                : <div className="no-image-background">
-                                    <img className="plus" src={plus} alt="plus icon" />
-                                    <p>Add Image</p>
-                                </div>
+                            {preview === 'spinner' 
+                                ?   <Spinner animation="border" />
+                                :   parentState.image 
+                                    ?   <img className="image-button-background" src={preview} alt={`${parentState.name} profile`}/>
+                                    :   <div className="no-image-background">
+                                            <img className="plus" src={plus} alt="plus icon" />
+                                            <p>Add Image</p>
+                                        </div>
                             }
                             
                         </button>
