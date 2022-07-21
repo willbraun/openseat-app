@@ -69,7 +69,12 @@
 
 .success-message {
     font-size: 2rem;
-    padding: 1rem 0 0 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.back-event-name {
+    font-size: 1.5rem;
 }
 
 .card-inner.flipped {
@@ -129,6 +134,12 @@
     font-size: 1.2rem;
     font-weight: 500;
 }
+
+
+
+/* .confirmation-footer button[disabled='true'] {
+    background-color: #ddd;
+} */
 
 .confirm-button {
     background-color: var(--medium-blue);

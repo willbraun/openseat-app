@@ -1,19 +1,13 @@
 import Modal from 'react-bootstrap/Modal';
 import { format, parseISO } from 'date-fns';
 import './../styles/confirmation.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CreatorInfo from './CreatorInfo';
 import check from './../images/check-solid.svg';
 
 const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfirm, fillSeat, giveUpSeat}) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const isFilling = isAttending === isFlipped;
-    
-    // useEffect(() => {
-    //     if (showConfirm === false) {
-    //         setIsFlipped(false);
-    //     }
-    // }, [showConfirm])
 
     const action = isAttending ? giveUpSeat : fillSeat;
 
@@ -63,13 +57,14 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
                                 <img src={check} alt="check mark" />
                             </div>
                             <p className="success-message">{isFilling ? 'You filled a seat! 🎉' : 'Seat canceled'}</p>
+                            <p className="back-event-name">{event.name}</p>
                         </div>
                     </div>
                 </div>
             </Modal.Body>
             <Modal.Footer className="confirmation-footer">
-                <button className="cancel-button animate-button" type="button" onClick={close}>Exit</button> 
-                <button className="confirm-button animate-button" type="submit" form="create-event-input-form" onClick={confirm}>{isFilling ? 'Fill Seat' : 'Cancel Seat' }</button>
+                <button className="cancel-button animate-button" type="button" disabled={isFlipped} onClick={close}>Exit</button> 
+                <button className="confirm-button animate-button" type="button" disabled={isFlipped} onClick={confirm}>{isFilling ? 'Fill Seat' : 'Cancel Seat' }</button>
             </Modal.Footer>
         </Modal>
     )
