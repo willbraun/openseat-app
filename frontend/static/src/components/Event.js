@@ -144,12 +144,13 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
             </Row>
         </div>   
         <EventParticipants 
-        eventState={state}
-        showParticipants={showParticipants}
-        setShowParticipants={setShowParticipants}
+            eventState={state}
+            showParticipants={showParticipants}
+            setShowParticipants={setShowParticipants}
         />
         <Confirmation 
             event={event}
+            eventState={state}
             isAttending={isAttending}
             showConfirm={showConfirm}
             setShowConfirm={setShowConfirm}
