@@ -6,6 +6,7 @@
 	--medium-blue: #37A2D3;
 	--light-blue: #D7ECF6;
 	--light-red: #FADBDF;
+	--green: #27A249;
 	--orange: rgba(252,176,69,1);
 	--create-event-color: linear-gradient(90deg, rgba(245,117,226,100) 0%, var(--orange) 100%);
 	--header-height: 4rem;

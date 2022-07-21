@@ -43,14 +43,33 @@
 .card-back {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    transform: translateY(-50%);
     width: 100%;
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateY(-50%);
     background-color: #fff;
     height: fit-content;
-    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back img {
+    padding: 1.5rem;
+    filter: invert();
+}
+
+.check-circle {
+    background-color: var(--green);
+    border-radius: 50%;
+    height: 7rem;
+    width: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-message {
+    font-size: 2rem;
+    padding: 1rem 0 0 0;
 }
 
 .card-inner.flipped {

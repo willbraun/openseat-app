@@ -3,33 +3,38 @@ import { format, parseISO } from 'date-fns';
 import './../styles/confirmation.css';
 import { useEffect, useState } from 'react';
 import CreatorInfo from './CreatorInfo';
+import check from './../images/check-solid.svg';
 
 const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfirm, fillSeat, giveUpSeat}) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const isFilling = isAttending === isFlipped;
     
-    useEffect(() => {
-        setIsFlipped(false);
-    }, [showConfirm])
+    // useEffect(() => {
+    //     if (showConfirm === false) {
+    //         setIsFlipped(false);
+    //     }
+    // }, [showConfirm])
 
     const action = isAttending ? giveUpSeat : fillSeat;
 
     const close = () => {
-        setShowConfirm(false);
+        setTimeout(() => {
+            setShowConfirm(false);
+        }, 3000);
+        setTimeout(() => {
+            setIsFlipped(false);
+        }, 4000);
     }
 
     const confirm = async () => {
         await action();
         if (event.participants !== eventState.participants) {
             setIsFlipped(true);
-            setTimeout(() => {
-                close();
-            }, 3000);
+            close();
         }
         else {
             console.error('Seat update unsuccessful');
         }
-        
     }
 
     return (
@@ -39,7 +44,7 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
         >
             <Modal.Header closeButton className="confirmation border-0"></Modal.Header>
             <Modal.Body className="confirmation-body">
-                <p className="confirmation-header">{isFilling ? 'Great choice! Confirm your attendance for' : 'Are you sure you want to cancel your seat?'}</p>
+                <p className="confirmation-header">{isFilling ? 'Great choice! Confirm your attendance.' : 'Are you sure you want to cancel your seat?'}</p>
                 <div className="confirmation-card">
                     <div className={`card-inner${isFlipped ? ' flipped' : ''}`}>
                         <div className="card-front">
@@ -54,7 +59,10 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
                             <p className="confirmation-event-name">{eventState.name}</p>
                         </div>
                         <div className="card-back">
-                            Back of card
+                            <div className="check-circle">
+                                <img src={check} alt="check mark" />
+                            </div>
+                            <p className="success-message">{isFilling ? 'You filled a seat! 🎉' : 'Seat canceled'}</p>
                         </div>
                     </div>
                 </div>
