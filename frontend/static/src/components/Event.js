@@ -10,6 +10,7 @@ import EventParticipants from './EventParticipants';
 import EditEvent from './EditEvent';
 import star from './../images/star.svg'
 import Confirmation from './Confirmation';
+import CreatorInfo from './CreatorInfo';
 
 const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [state, setState] = useState(event);
@@ -105,6 +106,13 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
     const eventContent = (appState.auth 
         ? 
+        <>
+        {isCreator && 
+                <div className="star-box event-star" data-testid="event-star">
+                    <img className="star-icon" src={star} alt="star" />
+                </div>
+            }
+        <h2 className={`event-name${isCreator ? " is-creator" : ''}`}>{state.name}</h2>
         <div className="event-content" data-testid="auth-content">
             <div className="event-image-box">
                 <img className="event-image" src={state.image} alt={state.name} />
@@ -114,12 +122,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     <p>{state.description}</p>
                 </Col>
                 <Col sm={12} md={5} className={`details large`}>
-                    <div className="creator-info">
-                        <div className="creator-profile-pic-box">
-                            <img className="creator-profile-pic" src={state.creator.profile_pic} alt={state.creator.username} />
-                        </div>
-                        <p className="creator-name">{state.creator.first_name} {state.creator.last_name} {isCreator && '(you)'}</p>
-                    </div>
+                    <CreatorInfo creator={state.creator} isCreator={isCreator}/>
                     {isHome && <p className="distance">{state.distance.toFixed(1)} mi</p>}
                     <address>{state.address}</address>
                     <time>{format(parseISO(`${state.date} ${state.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
@@ -139,7 +142,29 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     {actionButton()}                
                 </Col>
             </Row>
-        </div>    
+        </div>   
+        <EventParticipants 
+        eventState={state}
+        showParticipants={showParticipants}
+        setShowParticipants={setShowParticipants}
+        />
+        <Confirmation 
+            event={event}
+            isAttending={isAttending}
+            showConfirm={showConfirm}
+            setShowConfirm={setShowConfirm}
+            fillSeat={fillSeat}
+            giveUpSeat={giveUpSeat}
+        />
+        <EditEvent 
+            event={event}  
+            setEventState={setState}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            editEventList={editEventList}
+            deleteEvent={deleteEvent}
+        /> 
+        </>
         :
         <div className="event-content" data-testid="no-auth-content">
             <div className="event-image-box">
@@ -176,34 +201,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
     return (
         <article className="event">
-            {isCreator && 
-                <div className="star-box event-star" data-testid="event-star">
-                    <img className="star-icon" src={star} alt="star" />
-                </div>
-            }
-            <h2 className={`event-name${isCreator ? " is-creator" : ''}`}>{state.name}</h2>
             {eventContent}
-            <EventParticipants 
-                eventState={state}
-                showParticipants={showParticipants}
-                setShowParticipants={setShowParticipants}
-            />
-            <Confirmation 
-                event={event}
-                isAttending={isAttending}
-                showConfirm={showConfirm}
-                setShowConfirm={setShowConfirm}
-                fillSeat={fillSeat}
-                giveUpSeat={giveUpSeat}
-            />
-            <EditEvent 
-                event={event}  
-                setEventState={setState}
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-                editEventList={editEventList}
-                deleteEvent={deleteEvent}
-            />
         </article>
     )
 }

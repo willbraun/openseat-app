@@ -75,26 +75,6 @@
     margin: 0 0 0.3rem;
 }
 
-.creator-profile-pic-box {
-    aspect-ratio: 1 / 1;
-    min-width: 3rem;
-    max-width: 3rem;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.creator-profile-pic {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.creator-name {
-    display: inline;
-    margin: 0 0 0 1rem;
-    word-wrap: break-word;
-}
-
 .view-participants,
 .event-action {
     height: 3rem;

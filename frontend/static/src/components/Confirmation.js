@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import { format, parseISO } from 'date-fns';
 import './../styles/confirmation.css';
+import CreatorInfo from './CreatorInfo';
 
 const Confirmation = ({event, isAttending, showConfirm, setShowConfirm, fillSeat, giveUpSeat}) => {
 
@@ -22,12 +23,13 @@ const Confirmation = ({event, isAttending, showConfirm, setShowConfirm, fillSeat
         >
             <Modal.Header closeButton className="confirmation border-0"></Modal.Header>
             <Modal.Body className="confirmation-body">
-                <p className="confirmation-header">Great choice! Confirm your attendance for</p>
+                <p className="confirmation-header">{isAttending ? 'Are you sure you want to cancel your seat?' : 'Great choice! Confirm your attendance for'}</p>
                 <div className="confirmation-card">
                     <div className="confirmation-image-box">
                         <img src={event.image} alt="" />
                     </div>
                     <div className="confirmation-details">
+                        <CreatorInfo creator={event.creator}/>
                         <address>{event.address}</address>
                         <time>{format(parseISO(`${event.date} ${event.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
                     </div>
