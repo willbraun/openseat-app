@@ -1,9 +1,15 @@
 import Modal from 'react-bootstrap/Modal';
 import { format, parseISO } from 'date-fns';
 import './../styles/confirmation.css';
+import { useEffect, useState } from 'react';
 import CreatorInfo from './CreatorInfo';
 
 const Confirmation = ({event, isAttending, showConfirm, setShowConfirm, fillSeat, giveUpSeat}) => {
+    const [isFlipped, setIsFlipped] = useState(false);
+    
+    useEffect(() => {
+        setIsFlipped(false);
+    }, [showConfirm])
 
     const action = isAttending ? giveUpSeat : fillSeat;
 
@@ -12,8 +18,11 @@ const Confirmation = ({event, isAttending, showConfirm, setShowConfirm, fillSeat
     }
 
     const confirm = () => {
-        action();
-        close();
+        setIsFlipped(true);
+        setTimeout(() => {
+            action();
+            close();
+        }, 3000);
     }
 
     return (
@@ -25,15 +34,22 @@ const Confirmation = ({event, isAttending, showConfirm, setShowConfirm, fillSeat
             <Modal.Body className="confirmation-body">
                 <p className="confirmation-header">{isAttending ? 'Are you sure you want to cancel your seat?' : 'Great choice! Confirm your attendance for'}</p>
                 <div className="confirmation-card">
-                    <div className="confirmation-image-box">
-                        <img src={event.image} alt="" />
+                    <div className={`card-inner${isFlipped ? ' flipped' : ''}`}>
+                        <div className="card-front">
+                            <div className="confirmation-image-box">
+                                <img src={event.image} alt="" />
+                            </div>
+                            <div className="confirmation-details">
+                                <CreatorInfo creator={event.creator}/>
+                                <address>{event.address}</address>
+                                <time>{format(parseISO(`${event.date} ${event.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
+                            </div>
+                            <p className="confirmation-event-name">{event.name}</p>
+                        </div>
+                        <div className="card-back">
+                            Back of card
+                        </div>
                     </div>
-                    <div className="confirmation-details">
-                        <CreatorInfo creator={event.creator}/>
-                        <address>{event.address}</address>
-                        <time>{format(parseISO(`${event.date} ${event.time}`), 'h:mm a, M/d/yyyy (eee)')}</time>
-                    </div>
-                    <p className="confirmation-event-name">{event.name}</p>
                 </div>
             </Modal.Body>
             <Modal.Footer className="confirmation-footer">
