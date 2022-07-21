@@ -64,25 +64,20 @@
     position: relative;
     border-radius: 0.5rem;
     border: none;
-    font-size: 100%;
+    font-size: 1.2rem;
     font-weight: 600;
     background-color: var(--orange);
     color: #000;
     padding: 0.5rem 0.75rem;
     margin: 0 1rem 0 0.5rem;
     white-space: nowrap;
-    aspect-ratio: 8 / 1;
-    /* min-width: 10.5rem; */
+    min-width: 9rem;
 }
 
 .create-event-nav * {
     display: inline-block;
     margin: 0;
 }
-
-/* .create-event-nav p {
-    margin: 0 0.5rem 0 0;
-} */
 
 .create-event-nav:hover {
     filter: brightness(115%);
@@ -127,6 +122,10 @@
         letter-spacing: -0.5px;
     }
 
+    .footer-nav:hover {
+        color: #000;
+    }
+
     .header {
         justify-content: center;
     }
@@ -140,10 +139,11 @@
     }
 
     .create-event-nav {
+        font-size: 1rem;
         margin: 0;
     }
 
-    .footer-nav:hover {
-        color: #000;
+    .calendar-plus {
+        height: 1.3rem;
     }
 }

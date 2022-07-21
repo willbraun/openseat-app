@@ -9,11 +9,13 @@ import './../styles/event.css';
 import EventParticipants from './EventParticipants';
 import EditEvent from './EditEvent';
 import star from './../images/star.svg'
+import Confirmation from './Confirmation';
 
 const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [state, setState] = useState(event);
     const [isEditing, setIsEditing] = useState(false);
     const [showParticipants, setShowParticipants] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const isCreator = appState.auth && state.creator.id === appState.userId;
     const isAttending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
@@ -84,7 +86,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                         className="give-up-seat animate-button" 
                         type="button" 
                         data-testid="give-up-seat-button" 
-                        onClick={giveUpSeat}>
+                        onClick={() => setShowConfirm(true)}>
                             Cancel
                     </button>
                 </div>
@@ -95,7 +97,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
                     className="event-action fill-seat animate-button" 
                     type="button" 
                     data-testid="fill-seat-button" 
-                    onClick={fillSeat}>
+                    onClick={() => setShowConfirm(true)}>
                         Fill Seat
                     </button>
         }
@@ -184,14 +186,24 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
             <EventParticipants 
                 eventState={state}
                 showParticipants={showParticipants}
-                setShowParticipants={setShowParticipants}/>
+                setShowParticipants={setShowParticipants}
+            />
+            <Confirmation 
+                event={event}
+                isAttending={isAttending}
+                showConfirm={showConfirm}
+                setShowConfirm={setShowConfirm}
+                fillSeat={fillSeat}
+                giveUpSeat={giveUpSeat}
+            />
             <EditEvent 
                 event={event}  
                 setEventState={setState}
                 isEditing={isEditing}
                 setIsEditing={setIsEditing}
                 editEventList={editEventList}
-                deleteEvent={deleteEvent}/>
+                deleteEvent={deleteEvent}
+            />
         </article>
     )
 }
