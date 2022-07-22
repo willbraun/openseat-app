@@ -28,13 +28,12 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
         const newParticipants = await action();
         if (Array.isArray(newParticipants)) {
             setIsFlipped(true);
-            setIsLoading(false);
             close();
         }
         else {
             console.error('Seat update unsuccessful');
-            setIsLoading(false);
         }
+        setIsLoading(false);
     }
 
     return (
@@ -72,7 +71,7 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
                 <button className="cancel-button animate-button" type="button" disabled={isFlipped} onClick={close}>Exit</button> 
                 <button className="confirm-button animate-button" type="button" disabled={isFlipped} onClick={confirm}>
                     {isFilling ? 'Fill Seat' : 'Cancel Seat' }
-                    {isLoading ? <Spinner className="confirmation-spinner" animation="border" size="sm"/> : undefined}
+                    {isLoading ? <Spinner className="confirmation-spinner" animation="border" variant="light" size="sm"/> : undefined}
                 </button>
             </Modal.Footer>
         </Modal>
