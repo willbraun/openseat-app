@@ -18,11 +18,11 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
     const [showParticipants, setShowParticipants] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
-    const isCreator = appState.auth && state.creator.id === appState.userId;
-    const isAttending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
-
     const location = useLocation();
     const isHome = location.pathname === '/';
+
+    const isCreator = appState.auth && state.creator.id === appState.userId;
+    const isAttending = appState.auth && state.participants.findIndex(participant => participant.id === appState.userId) !== -1;
 
     const fillSeat = async () => {
         const options = {

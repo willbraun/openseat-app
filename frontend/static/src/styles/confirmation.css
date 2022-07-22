@@ -78,7 +78,7 @@
 }
 
 .card-inner.flipped {
-    transform: rotateY(-180deg);
+    transform: rotateY(180deg);
     overflow: visible;
 }
 
@@ -135,11 +135,14 @@
     font-weight: 500;
 }
 
-
-
-/* .confirmation-footer button[disabled='true'] {
+.confirmation-footer button[disabled] {
     background-color: #ddd;
-} */
+    color: #666;
+}
+
+.confirmation-footer button[disabled]:active {
+    transform: none;
+}
 
 .confirm-button {
     background-color: var(--medium-blue);
