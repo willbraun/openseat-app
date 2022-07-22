@@ -1,4 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 import { format, parseISO } from 'date-fns';
 import './../styles/confirmation.css';
 import { useState } from 'react';
@@ -7,7 +8,9 @@ import check from './../images/check-solid.svg';
 
 const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfirm, fillSeat, giveUpSeat}) => {
     const [isFlipped, setIsFlipped] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const isFilling = isAttending === isFlipped;
+    
 
     const action = isAttending ? giveUpSeat : fillSeat;
 
@@ -17,17 +20,20 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
         }, 3000);
         setTimeout(() => {
             setIsFlipped(false);
-        }, 4000);
+        }, 3200);
     }
 
     const confirm = async () => {
+        setIsLoading(true);
         const newParticipants = await action();
         if (Array.isArray(newParticipants)) {
             setIsFlipped(true);
+            setIsLoading(false);
             close();
         }
         else {
             console.error('Seat update unsuccessful');
+            setIsLoading(false);
         }
     }
 
@@ -64,7 +70,10 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
             </Modal.Body>
             <Modal.Footer className="confirmation-footer">
                 <button className="cancel-button animate-button" type="button" disabled={isFlipped} onClick={close}>Exit</button> 
-                <button className="confirm-button animate-button" type="button" disabled={isFlipped} onClick={confirm}>{isFilling ? 'Fill Seat' : 'Cancel Seat' }</button>
+                <button className="confirm-button animate-button" type="button" disabled={isFlipped} onClick={confirm}>
+                    {isFilling ? 'Fill Seat' : 'Cancel Seat' }
+                    {isLoading ? <Spinner className="confirmation-spinner" animation="border" size="sm"/> : undefined}
+                </button>
             </Modal.Footer>
         </Modal>
     )

@@ -127,11 +127,11 @@
 }
 
 .confirmation-footer button {
+    position: relative;
     width: calc(50% - 0.5rem);
     border-radius: 0.3rem;
     border: none;
     padding: 0.3rem 1rem;
-    transition: 0.3s;
     font-size: 1.2rem;
     font-weight: 500;
 }
@@ -148,4 +148,10 @@
 .confirm-button {
     background-color: var(--medium-blue);
     color: #fff;
+}
+
+.confirmation-spinner {
+    position: absolute;
+    top: calc(50% - 0.5rem);
+    right: 1rem;
 }
