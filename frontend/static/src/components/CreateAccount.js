@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Cookies from 'js-cookie';
-import { handleError, handleInput, handleImage } from '../helpers';
+import { handleError, handleInput, handleNumberInput, handleImage } from '../helpers';
 import plus from './../images/plus-solid.svg';
 import arrowLeft from './../images/arrow-left-solid.svg'; 
 
@@ -192,11 +192,11 @@ const CreateAccount = ({appState, setAppState}) => {
                             <Form.Control 
                                 name="phoneNumber" 
                                 value={state.phoneNumber}
-                                type="number" 
-                                min="0"
-                                max="9999999999"
-                                placeholder="Enter 10-digit phone number"
-                                onChange={(e) => handleInput(e, setState)} />
+                                type="tel" 
+                                minLength="10"
+                                maxLength="10"
+                                placeholder="Enter 10-digit phone number, numbers only"
+                                onChange={(e) => handleNumberInput(e, setState)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicZipCode">
                             <Form.Label>Zip Code</Form.Label>
@@ -204,11 +204,11 @@ const CreateAccount = ({appState, setAppState}) => {
                             <Form.Control 
                                 name="zipCode" 
                                 value={state.zipCode}
-                                type="number" 
-                                min="0"
-                                max="99999"
+                                type="text"
+                                minLength="5"
+                                maxLength="5"
                                 placeholder="Enter 5-digit zip code" 
-                                onChange={(e) => handleInput(e, setState)} />
+                                onChange={(e) => handleNumberInput(e, setState)} />
                         </Form.Group>
                     </Col>
                 </Row>

@@ -12,6 +12,17 @@ export const handleInput = (e, setState) => {
 	}))
 }
 
+export const handleNumberInput = (e, setState) => {
+	const {name, value} = e.target;
+
+    if (!Number.isNaN(Number(value)) && !value.includes(' ')) {
+        setState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+}
+
 export const handleImage = (e, state, setState, imageKey, setPreview) => {
 	setPreview('spinner');
     
