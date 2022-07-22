@@ -22,7 +22,7 @@ const Confirmation = ({event, eventState, isAttending, showConfirm, setShowConfi
 
     const confirm = async () => {
         const newParticipants = await action();
-        if (newParticipants.length !== undefined) {
+        if (Array.isArray(newParticipants)) {
             setIsFlipped(true);
             close();
         }
