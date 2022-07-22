@@ -17,8 +17,8 @@ const Header = ({appState, isCreating, setIsCreating, logOut}) => {
 
     return (
         <>
-            <div className={`header${location.pathname === '/' ? ' header-home' : ''}`}>
-                <div className={`logo-link-box${appState.auth ? ' auth' : ''}`}>
+            <div className={`header${location.pathname === '/' ? ' header-home' : ''}${appState.auth ? ' auth' : ''}`}>
+                <div className={`logo-link-box`}>
                     <Link className="logo-link" to={'/'}>
                         OpenSeat
                         <img className="chair-icon" src={chair} alt="chair" />

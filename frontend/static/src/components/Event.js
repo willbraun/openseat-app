@@ -168,6 +168,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
         </>
         :
         <div className="event-content" data-testid="no-auth-content">
+            <h2 className="event-name">{state.name}</h2>
             <div className="event-image-box">
                 <img className="event-image" src={state.image} alt={state.name} />
             </div>

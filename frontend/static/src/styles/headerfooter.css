@@ -49,8 +49,8 @@
 .logo-link {
     display: flex;
     align-items: center;
-    min-width: 13rem;
-    width: 13rem;
+    min-width: 12rem;
+    width: 12rem;
     font-size: 2rem;
     font-weight: 600;
 }
@@ -129,14 +129,15 @@
 
     .header {
         justify-content: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .header.auth {
+        justify-content: space-between;
     }
 
     .logo-link-box {
-        text-align: center;
-    }
-
-    .logo-link-box.auth {
-        text-align: left;
+        flex-grow: 0;
     }
 
     .create-event-nav {
