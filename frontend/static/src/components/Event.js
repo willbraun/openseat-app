@@ -40,6 +40,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
         const data = await response.json();
         setState({...state, participants: data.participants});
+        return data.participants;
     }
 
     const giveUpSeat = async () => {
@@ -58,6 +59,7 @@ const Event = ({appState, event, editEventList, deleteEvent}) => {
 
         const data = await response.json();
         setState({...state, participants: data.participants});
+        return data.participants;
     }
 
     const now = new Date();
