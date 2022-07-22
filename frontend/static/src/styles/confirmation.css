@@ -153,5 +153,5 @@
 .confirmation-spinner {
     position: absolute;
     top: calc(50% - 0.5rem);
-    right: 1rem;
+    right: 0.6rem;
 }
