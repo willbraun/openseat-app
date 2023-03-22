@@ -4,7 +4,7 @@ OpenSeat is an app designed to help you meet people in your area that share your
 
 Video demo -
 
-[![OpenSeat App Demo](openseat-thumbnail.png)](https://www.loom.com/share/ec1cf09e45434ab29c6b323d3856634a 'OpenSeat App Demo')
+[![OpenSeat App Demo](/readme-files/openseat-thumbnail.png)](https://www.loom.com/share/ec1cf09e45434ab29c6b323d3856634a 'OpenSeat App Demo')
 
 The app was hosted here, before Heroku ended the free tier - https://openseat-app.herokuapp.com/
 
