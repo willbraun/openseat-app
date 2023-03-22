@@ -1,6 +1,6 @@
 # Overview
 
-OpenSeat is an app designed to help you meet people in your area that share your interests. You can create events to do any activity you'd like with a small group. You can also search for and sign up for events that others have posted.
+When I moved to Greenville, I was working remotely and it was tough to meet new people, so I was inspired to create a solution to connect people based on their unique interests. With OpenSeat, you can create events to do any activity you'd like with a small group. You can also search for and sign up for events that others have posted.
 
 Video demo -
 
